@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.Framework.DependencyInjection;
+using SimpleBet.Models;
+using Microsoft.Framework.ConfigurationModel;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Routing;
-using Microsoft.Framework.DependencyInjection;
+using Microsoft.AspNet.Builder;
+using Microsoft.Data.Entity;
 
 namespace SimpleBet
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; set; }
+
         public Startup(IHostingEnvironment env)
         {
+            // Setup configuration sources.
+            this.Configuration = new Configuration()
+                .AddJsonFile("Config.json")
+                .AddEnvironmentVariables();
         }
 
         // This method gets called by a runtime.
@@ -21,6 +24,15 @@ namespace SimpleBet
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            //setup database
+            var connectionString = this.Configuration.Get("Data:DefaultConnection:ConnectionString");
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<SimpleBetContext>(options =>
+                {
+                    options.UseSqlServer(this.Configuration.Get("Data:DefaultConnection:ConnectionString"));
+                });
             // Uncomment the following line to add Web API services which makes it easier to port Web API 2 controllers.
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
             // services.AddWebApiConventions();
