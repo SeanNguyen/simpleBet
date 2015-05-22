@@ -23,11 +23,6 @@ namespace SimpleBet.Controllers
         [HttpGet]
         public IEnumerable<ValueModel> Get()
         {
-            ValueModel model = new ValueModel();
-            model.Id = 5;
-            model.Value = "this is the value";
-            this.dbContext.Values.Add(model);
-            this.dbContext.SaveChanges();
             return this.dbContext.Values;
         }
 
