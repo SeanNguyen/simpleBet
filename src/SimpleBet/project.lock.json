@@ -3,13 +3,13 @@
   "version": -9998,
   "projectFileDependencyGroups": {
     "": [
+      "EntityFramework.Commands >= 7.0.0-beta4",
+      "EntityFramework.SqlServer >= 7.0.0-beta4",
       "Microsoft.AspNet.Mvc >= 6.0.0-beta4",
       "Microsoft.AspNet.Server.IIS >= 1.0.0-beta4",
       "Microsoft.AspNet.Server.WebListener >= 1.0.0-beta4",
       "Microsoft.AspNet.StaticFiles >= 1.0.0-beta4",
-      "Microsoft.Framework.ConfigurationModel.Json >= 1.0.0-beta4",
-      "EntityFramework.SqlServer >= 7.0.0-beta4",
-      "EntityFramework.Commands >= 7.0.0-beta4"
+      "Microsoft.Framework.ConfigurationModel.Json >= 1.0.0-beta4"
     ],
     "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []

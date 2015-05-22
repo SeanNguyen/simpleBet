@@ -3,24 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using SimpleBet.Models;
 
 namespace SimpleBet.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        //Attributes
+        private readonly SimpleBetContext dbContext;
+
+        //Constructors
+        public ValuesController (SimpleBetContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<ValueModel> Get()
         {
-            return new string[] { "value1", "value2" };
+            ValueModel model = new ValueModel();
+            model.Id = 5;
+            model.Value = "this is the value";
+            this.dbContext.Values.Add(model);
+            this.dbContext.SaveChanges();
+            return this.dbContext.Values;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            ValueModel value = this.dbContext.Values.FirstOrDefault(v => v.Id == id);
+            if (value == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            else
+            {
+                return new ObjectResult(value);
+            }
         }
 
         // POST api/values
