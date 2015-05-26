@@ -23,11 +23,17 @@ body {
 	font-family: 'PT Sans', sans-serif;
 }
 
+/*set img to be default horizontally center*/
 .img-responsive {
     margin: 0 auto;
 }
 
-.vCenter {
-    display: inline-block;
-    vertical-align: middle;
+/*center both dimension*/
+/*to apply to a img: set 1 size auto, and the other is a fix or relative size*/
+/*NOTE: in case of completely lost, plz learn this fundermental stuffs again:
+http://www.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/2/#Height*/
+.center {
+	position: absolute;
+    margin: auto;
+    top:0;bottom:0;left:0;right:0;
 }
