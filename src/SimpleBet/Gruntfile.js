@@ -27,11 +27,18 @@ module.exports = function (grunt) {
 					{expand: true, src: ['<%= pathConfig.bower %>/**'], dest: '<%= pathConfig.webRoot%>/'}
 				]
 			}
-		}
+		},
+        
+		wiredep: {
+		    app: {
+		        src: ['<%= pathConfig.app %>/index.html'],
+		        ignorePath: /\.\.\//
+		    }
+		},
 	});
 
 	// define tasks
 	// grunt.registerTask('default', ['copy:all', 'copy:bower']);
-	grunt.registerTask('all', ['copy:all']);
-	grunt.registerTask('code', ['copy:code']);
+	grunt.registerTask('all', ['copy:all', 'wiredep']);
+	grunt.registerTask('code', ['copy:code', 'wiredep']);
 };
