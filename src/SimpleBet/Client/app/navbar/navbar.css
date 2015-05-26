@@ -1,5 +1,4 @@
-/*#appNavbar {
-	padding: 20px;
+#appNavbar {
 	position: fixed;
 	top: 0px;
     left: 0px;
@@ -7,19 +6,14 @@
 	width: 100%;
 	background-color: #9999ff;
 }
-*/
-#appNavbar .navbar-fixed-top {
-	background-color: #9999ff;
+
+#appNavbar h3 {
+	color: #FCFCFC;
+	font-weight: bold;
 }
 
 #appNavbar img {
-	z-index: 1000;
+	height: 40%;
+	width: auto;
 	margin-left: 20px;
-}
-
-#appNavbar h3 {
-	text-align: center;
-	margin-top: 10px;
-	color: #FCFCFC;
-	font-weight: bold;
 }
