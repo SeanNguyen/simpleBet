@@ -1,28 +1,49 @@
-#betCreator #appBottomNavbar .nav li{
-	width: 13%;
-}
-
-#betCreator #appBottomNavbar{
+#betCreator #appBottomNavbar {
+	position: fixed;
+	bottom: 0; left: 0;
 	height: 50px;
+	width: 100%
 }
 
-#betCreator #appBottomNavbar nav-pills {
-	vertical-align: middle;
+#betCreator #appBottomNavbar img {
+	height: 40%;
+	width: auto;
 }
 
-#betCreator #questionView input {
-	border: none;
-	background: #FFF;
-	width: 300px;
+#betCreator #appBottomNavbar #tab1 {
+	margin-left: 7.5%;
+	transform: translateX(-50%);
 }
 
-#betCreator #questionView input:focus {
-	outline: none;
-	border: none;
+#betCreator #appBottomNavbar #tab2 {
+	margin-left: 21.5%;
+	transform: translateX(-50%);
+	height: 20%;
 }
 
-#betCreator .roundTextbox {
-	background:  url(../../assets/background_roundedTextbox.png) no-repeat left top;
-	padding: 8px;
+#betCreator #appBottomNavbar #tab3 {
+	margin-left: 35.5%;
+	transform: translateX(-50%);
+	height: 20%;
 }
 
+#betCreator #appBottomNavbar #tab4 {
+	height: 20%;
+}
+
+#betCreator #appBottomNavbar #tab5 {
+	margin-right: 35.5%;
+	transform: translateX(50%);
+	height: 20%;
+}
+
+#betCreator #appBottomNavbar #tab6 {
+	margin-right: 21.5%;
+	transform: translateX(50%);
+	height: 20%;
+}
+
+#betCreator #appBottomNavbar #tab7 {
+	margin-right: 7.5%;
+	transform: translateX(50%);
+}

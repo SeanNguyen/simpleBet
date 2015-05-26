@@ -3,5 +3,5 @@
 var app = angular.module('app');
 
 app.controller('BetCreatorController', function($scope) {
-	$scope.currentView = 0;
+	$scope.currentView = -1;
 });
