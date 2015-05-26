@@ -25,7 +25,7 @@ body {
 
 /*set img to be default horizontally center*/
 .img-responsive {
-    margin: 0 auto;
+	margin: 0 auto;
 }
 
 /*center both dimension*/
@@ -34,6 +34,6 @@ body {
 http://www.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/2/#Height*/
 .center {
 	position: absolute;
-    margin: auto;
-    top:0;bottom:0;left:0;right:0;
+	margin: auto;
+	top:0;bottom:0;left:0;right:0;
 }

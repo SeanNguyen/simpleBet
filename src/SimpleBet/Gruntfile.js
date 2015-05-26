@@ -28,33 +28,42 @@ module.exports = function (grunt) {
 				]
 			}
 		},
-        
-        //inject bower components automatically
+				
+				//inject bower components automatically
 		wiredep: {
-		    app: {
-		        src: ['<%= pathConfig.app %>/index.html'],
-		        ignorePath: /\.\.\//
-		    }
+				app: {
+						src: ['<%= pathConfig.app %>/index.html'],
+						ignorePath: /\.\.\//
+				}
 		},
 
-	    // Watches files for changes and runs tasks based on the changed files
+			// Watches files for changes and runs tasks based on the changed files
 		watch: {
-		    bower: {
-		        files: ['bower.json'],
-		        tasks: ['wiredep', 'copy:all']
-		    },
-		    code: {
-		        files: ['<%= pathConfig.app %>/*', '<%= pathConfig.app %>/app/**'],
-		        tasks: ['copy:code']
-		    },
-		    assets: {
-		        files: ['<%= pathConfig.app %>/assets/**'],
-		        tasks: ['copy:all']
-		    }
+				bower: {
+						files: ['bower.json'],
+						tasks: ['wiredep', 'copy:all']
+				},
+				code: {
+						files: ['<%= pathConfig.app %>/*', '<%= pathConfig.app %>/app/**'],
+						tasks: ['copy:code']
+				},
+				assets: {
+						files: ['<%= pathConfig.app %>/assets/**'],
+						tasks: ['copy:all']
+				}
 		},
+
+		injector: {
+				options: {},
+				local_dependencies: {
+					files: {
+						'index.html': ['**/*.js', '**/*.css'],
+					}
+				}
+			}
 	});
 
-    // define tasks
+		// define tasks
 	grunt.registerTask('all', ['wiredep', 'copy:all']);
 	grunt.registerTask('code', ['wiredep', 'copy:code']);
 	grunt.registerTask('default', ['wiredep', 'copy:all', 'watch']);
