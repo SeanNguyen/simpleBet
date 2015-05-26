@@ -9,6 +9,10 @@ app.config(['$routeProvider',
         templateUrl: 'app/home/home.html',
         controller: 'HomeController'
       }).
+      when('/create', {
+        templateUrl: 'app/betCreator/betCreator.html',
+        controller: 'BetCreatorController'
+      }).
       otherwise({
         redirectTo: '/'
       });
