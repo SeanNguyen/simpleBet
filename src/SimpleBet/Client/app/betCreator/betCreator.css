@@ -2,9 +2,14 @@
 	position: fixed;
 	bottom: 0; left: 0;
 	height: 50px;
-	width: 100%
+	width: 100%;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: #9999ff;
+	background-color: #FCFCFC;
 }
 
+/*Bottom navbar*/
 #betCreator #appBottomNavbar img {
 	height: 40%;
 	width: auto;
@@ -46,4 +51,65 @@
 #betCreator #appBottomNavbar #tab7 {
 	margin-right: 7.5%;
 	transform: translateX(50%);
+}
+
+/*Wager type view*/
+
+#wagerTypeView #title {
+	position: relative;
+	height: 50px;
+}
+
+#wagerTypeView #title h4{
+	color: #9999ff;
+	font-weight: bold;
+}
+
+#wagerTypeView #optionContainer {
+	position: relative;
+	height: 300px;
+}
+
+#wagerTypeView .col {
+	position: absolute;
+	width: 50%;
+	height: 100%;
+}
+
+#wagerTypeView #optionContainer .col {
+	height: 100%;
+}
+
+#wagerTypeView .col h1 {
+	color: #FCFCFC;
+	font-weight: bold;
+}
+
+#wagerTypeView #optionContainer #leftCol {
+	background-color: #57d1c2;
+}
+
+#wagerTypeView #optionContainer #rightCol {
+	background-color: #ff806f;
+	left: 50%;
+}
+
+#wagerTypeView #descriptionContainer #rightCol {
+	left: 50%;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #9999ff;
+}
+
+
+#wagerTypeView #descriptionContainer .col h5 {
+	max-width: 80%;
+	text-align: center;
+	margin: 10px auto;
+}
+
+
+#wagerTypeView #descriptionContainer .col .note {
+	color: #ff806f;
+	font-size: 90%;
 }
