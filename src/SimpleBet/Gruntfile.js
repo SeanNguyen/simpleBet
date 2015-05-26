@@ -9,6 +9,7 @@ module.exports = function (grunt) {
 
 	// configure plugins
 	grunt.initConfig({
+
 		pathConfig: {
 			app: 'Client',
 			webRoot: 'wwwroot',
@@ -29,7 +30,7 @@ module.exports = function (grunt) {
 			}
 		},
 				
-				//inject bower components automatically
+		//inject bower components automatically
 		wiredep: {
 				app: {
 						src: ['<%= pathConfig.app %>/index.html'],
@@ -37,19 +38,19 @@ module.exports = function (grunt) {
 				}
 		},
 
-			// Watches files for changes and runs tasks based on the changed files
+		// Watches files for changes and runs tasks based on the changed files
 		watch: {
 				bower: {
 						files: ['bower.json'],
-						tasks: ['wiredep', 'copy:all']
+						tasks: ['all']
 				},
 				code: {
 						files: ['<%= pathConfig.app %>/*', '<%= pathConfig.app %>/app/**'],
-						tasks: ['copy:code']
+						tasks: ['code']
 				},
 				assets: {
 						files: ['<%= pathConfig.app %>/assets/**'],
-						tasks: ['copy:all']
+						tasks: ['all']
 				}
 		},
 
@@ -81,19 +82,28 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+
 		connect: {
 			server: {
 				options: {
 					port: 9001,
-					base: 'wwwroot'
+					base: '<%= pathConfig.webRoot %>'
 				}
 			}
+		},
+
+		clean: {
+			all: ["<%= pathConfig.webRoot %>/*/**", 
+				"<%= pathConfig.webRoot %>/*",
+				"!<%= pathConfig.webRoot %>/web.config"],
+			code: ["<%= pathConfig.webRoot %>/**/*.js", 
+				"<%= pathConfig.webRoot %>/**/*.css"]
 		}
 	});
 
 		// define tasks
-	grunt.registerTask('all', ['wiredep', 'injector', 'copy:all']);
+	grunt.registerTask('all', ['wiredep', 'injector', 'clean', 'copy:all']);
 	grunt.registerTask('code', ['wiredep', 'injector', 'copy:code']);
-	grunt.registerTask('vs', ['wiredep', 'injector', 'copy:all', 'watch']);
-	grunt.registerTask('default', ['wiredep', 'injector', 'copy:all', 'connect', 'watch']);
+	grunt.registerTask('vs', ['all', 'watch']);
+	grunt.registerTask('default', ['all', 'connect', 'watch']);
 };
