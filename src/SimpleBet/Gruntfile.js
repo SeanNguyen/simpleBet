@@ -57,14 +57,14 @@ module.exports = function (grunt) {
 				options: {},
 				local_dependencies: {
 					files: {
-						'index.html': ['**/*.js', '**/*.css'],
+						'<%= pathConfig.app %>/index.html': ['<%= pathConfig.app %>/**/*.js', '<%= pathConfig.app %>/**/*.css'],
 					}
 				}
 			}
 	});
 
 		// define tasks
-	grunt.registerTask('all', ['wiredep', 'copy:all']);
-	grunt.registerTask('code', ['wiredep', 'copy:code']);
-	grunt.registerTask('default', ['wiredep', 'copy:all', 'watch']);
+	grunt.registerTask('all', ['wiredep', 'injector', 'copy:all']);
+	grunt.registerTask('code', ['wiredep', 'injector', 'copy:code']);
+	grunt.registerTask('default', ['wiredep', 'injector', 'copy:all', 'watch']);
 };
