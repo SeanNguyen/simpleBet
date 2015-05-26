@@ -1,0 +1,34 @@
+/*This is the golbal default setting for the whole webapp*/
+
+/*COFIGURATIONS*/
+/*primary color:  #9999ff  */
+/*secondary color:  #57d1c2  */
+/*accent color:  #ff806f  */
+
+/*default white text: #FCFCFC*/
+/*default black text: #666673*/
+/*default black text: #57d1c2*/
+
+.container-fluid {
+	padding: 0px;
+}
+
+.navbar {
+	margin-bottom: 0px;
+}
+
+body {
+	color: #666673;
+	margin-top: 50px;
+	font-family: 'PT Sans', sans-serif;
+}
+
+.img-responsive {
+    margin: 0 auto;
+}
+
+.vCenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}

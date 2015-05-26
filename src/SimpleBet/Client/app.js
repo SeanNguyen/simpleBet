@@ -1,13 +1,15 @@
-﻿(function () {
-    'use strict';
+﻿'use strict';
 
-    angular.module('app', [
-        // Angular modules 
-        'ngRoute'
+var app = angular.module('app', ['ngRoute']);
 
-        // Custom modules 
-
-        // 3rd Party Modules
-        
-    ]);
-})();
+app.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/', {
+        templateUrl: 'app/home/home.html',
+        controller: 'HomeController'
+      }).
+      otherwise({
+        redirectTo: '/'
+      });
+  }]);
