@@ -54,17 +54,45 @@ module.exports = function (grunt) {
 		},
 
 		injector: {
-				options: {},
-				local_dependencies: {
-					files: {
-						'<%= pathConfig.app %>/index.html': ['<%= pathConfig.app %>/**/*.js', '<%= pathConfig.app %>/**/*.css'],
+			options: {
+				
+			},
+			scripts: {
+				options: {
+					transform: function(filePath) {
+						filePath = filePath.replace('/Client/', '');
+						return '<script src="' + filePath + '"></script>';
+					},
+				},
+				files: {
+					'<%= pathConfig.app %>/index.html': ['<%= pathConfig.app %>/**/*.js']
+				}
+			},
+			// Inject component css into index.html
+			css: {
+				options: {
+					transform: function(filePath) {
+						filePath = filePath.replace('/Client/', '');
+						return '<link rel="stylesheet" href="' + filePath + '">';
 					}
+				},
+				files: {
+					'<%= pathConfig.app %>/index.html': ['<%= pathConfig.app %>/**/*.css']
 				}
 			}
+		},
+		connect: {
+			server: {
+				options: {
+					port: 9001,
+					base: 'wwwroot'
+				}
+			}
+		}
 	});
 
 		// define tasks
 	grunt.registerTask('all', ['wiredep', 'injector', 'copy:all']);
 	grunt.registerTask('code', ['wiredep', 'injector', 'copy:code']);
-	grunt.registerTask('default', ['wiredep', 'injector', 'copy:all', 'watch']);
+	grunt.registerTask('default', ['wiredep', 'injector', 'copy:all', 'connect', 'watch']);
 };
