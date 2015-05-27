@@ -22,7 +22,10 @@
 body {
 	color: #666673;
 	margin-top: 50px;
+    margin-bottom: 50px;
 	font-family: 'PT Sans', sans-serif;
+    min-height: 100%;
+    background-color: #9999ff;
 }
 
 /*set img to be default horizontally center*/

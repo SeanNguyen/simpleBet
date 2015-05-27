@@ -54,6 +54,9 @@
 }
 
 /*Wager type view*/
+#wagerTypeView {
+    background-color: #FCFCFC;
+}
 
 #wagerTypeView #title {
 	position: relative;
@@ -96,6 +99,11 @@
 	left: 50%;
 }
 
+#wagerTypeView #descriptionContainer {
+    position: relative;
+    min-height: 180px;
+}
+
 #wagerTypeView #descriptionContainer #rightCol {
 	left: 50%;
 	border-left-style: solid;
@@ -118,8 +126,9 @@
 
 /*QUESTION VIEW*/
 #questionView {
-    height: 800px;
+    background-color: #9999ff;
 }
+
 #questionView h3, h4 {
     margin-left: 35px;
     margin-right: 35px;
@@ -127,49 +136,56 @@
 
 #questionView .question {
     background-color: #A3C5EA;
-    height: 20%;
 }
 
 #questionView .question h4 {
     color: #FCFCFC;
     font-weight: bold;
-    margin-top: 5%;
+    margin-top: 23px;
+    margin-bottom: 12px;
+    font-size: 14pt;
 }
 
 #questionView .question input {
-    margin: 5%;
-    margin-top: 5px;
-    width: 90%;
-}
-
-#questionView #betSelect {
-    height: 80%;
+    font-size: 14pt;
+    margin-bottom: 40px;
+    margin-right: 20px;
 }
 
 #questionView #betSelect #typeOfBet {
-    height: 20%;
+    min-height: 60px;
     background-color: #666673;
 }
 
 #questionView #betSelect #typeOfBet h3 {
     color: #ff806f;
+    margin-top: 13px;
+    font-size: 18pt;
 }
 
 #questionView #betSelect #typeOfBet h4 {
     color: #FCFCFC;
+    font-size: 12pt;
 }
 
-#questionView #betSelect .container-fluid {
+#questionView #betSelect .choice {
     position: relative;
-    height: 40%;
+    min-height: 150px;
+    background-color: #FCFCFC;
 }
 
-#questionView #betSelect .container-fluid h3 {
+#questionView #betSelect .choice h3 {
     color: #9999ff;
+    margin-top: 19px;
+    margin-bottom: 10px;
+    font-size: 18pt;
 }
 
-#questionView #betSelect .container-fluid h4 {
+#questionView #betSelect .choice h4 {
     color: #666673;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: 12pt;
 }
 
 #questionView #betSelect .selected {
@@ -189,6 +205,7 @@
 /*OPTIONS*/
 #optionView .question{
     background-color: #bad7ec;
+    min-height: 135px;
 }
 
 #optionView h3, h4, h5 {
@@ -205,7 +222,7 @@
 
 #optionView .question h3 {
     margin-top: 15px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     font-size: 20pt;
 }
 
@@ -230,6 +247,7 @@
 #optionView .option {
     position: relative;
     height: 60px;
+    background-color: #FCFCFC;
     border-bottom-width: 2px;
     border-bottom-color: #9999ff;
     border-bottom-style: solid;
@@ -238,7 +256,7 @@
 #optionView .option h4 {
     font-size: 14pt;
     text-align: left;
-    max-width: 75%;
+    max-width: 70%;
     max-height: 2em;
     overflow: visible;
     display: table;
@@ -247,13 +265,13 @@
 #optionView .option .radio_button {
     height: 16px;
     width: auto;
-    left: 30px; right: auto;
+    left: 5%; right: auto;
 }
 
 #optionView .option .x_button {
     height: 12px;
     width: auto;
-    right: 25px; left: auto;
+    right: 5%; left: auto;
 }
 
 #optionView .option input {
@@ -268,6 +286,17 @@
 
 #optionView .option .submit_button {
     width: 15px;
-    height auto;
+    height: auto;
     left: auto; right:7%;
+}
+
+#optionView .option .add_button {
+    width: 20px;
+    height: auto;
+    left: 5%; right: auto;
+}
+
+#optionView #addOption h4 {
+    color: #9999ff;
+    font-size: 14pt;
 }
