@@ -95,7 +95,8 @@ module.exports = function (grunt) {
 		clean: {
 			all: ["<%= pathConfig.webRoot %>/*/**", 
 				"<%= pathConfig.webRoot %>/*",
-				"!<%= pathConfig.webRoot %>/web.config"],
+				"!<%= pathConfig.webRoot %>/web.config",
+			    "!<%= pathConfig.webRoot %>/bin/**", ],
 			code: ["<%= pathConfig.webRoot %>/**/*.js", 
 				"<%= pathConfig.webRoot %>/**/*.css"]
 		}
@@ -103,7 +104,7 @@ module.exports = function (grunt) {
 
 		// define tasks
 	grunt.registerTask('all', ['wiredep', 'injector', 'clean', 'copy:all']);
-	grunt.registerTask('code', ['wiredep', 'injector', 'copy:code']);
+	grunt.registerTask('code', ['wiredep', 'injector', 'clean', 'copy:code']);
 	grunt.registerTask('vs', ['all', 'watch']);
 	grunt.registerTask('default', ['all', 'connect', 'watch']);
 };
