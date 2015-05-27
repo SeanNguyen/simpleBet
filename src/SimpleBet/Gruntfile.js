@@ -99,13 +99,14 @@ module.exports = function (grunt) {
 				"!<%= pathConfig.webRoot %>/web.config",
 			    "!<%= pathConfig.webRoot %>/bin/**", ],
 			code: ["<%= pathConfig.webRoot %>/**/*.js", 
-				"<%= pathConfig.webRoot %>/**/*.css"]
+				"<%= pathConfig.webRoot %>/**/*.css",
+			    "!<%= pathConfig.webRoot %>/bower_components/**"]
 		}
 	});
 
 		// define tasks
-	grunt.registerTask('all', ['wiredep', 'injector', 'copy:all']);
-	grunt.registerTask('code', ['wiredep', 'injector', 'copy:code']);
+	grunt.registerTask('all', ['wiredep', 'injector', 'clean:all', 'copy:all']);
+	grunt.registerTask('code', ['wiredep', 'injector', 'clean:code', 'copy:code']);
 	grunt.registerTask('vs', ['all', 'watch']);
 	grunt.registerTask('default', ['all', 'connect', 'watch']);
 };

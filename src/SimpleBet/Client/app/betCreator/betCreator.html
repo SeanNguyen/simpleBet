@@ -1,6 +1,6 @@
 <div class="container-fluid" ng-controller="BetCreatorController" id="betCreator">
 	<div ng-include="'app/betCreator/questionView.html'" ng-show="0 === currentView"></div>
-	<div ng-include="'app/betCreator/optionView.html'" ng-show="1 === currentView"></div>
+	<div ng-include="'app/betCreator/option.html'" ng-show="1 === currentView"></div>
 	<div ng-include="'app/betCreator/wagerTypeView.html'" ng-show="2 === currentView"></div>
 	<!-- bottom nav bar -->
 	<div ng-include="'app/betCreator/bottomNavBar.html'"></div>

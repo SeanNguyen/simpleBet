@@ -1,0 +1,19 @@
+<div class="container-fluid" id="optionView">
+    <div class="container-fluid question">
+        <h4>I'd bet that...</h4>
+        <h3>{{question}}</h3>
+    </div>
+    <div class="container-fluid" id="description">
+        <h3>Pick-A-Side Conditions</h3>
+        <h5>Set the conditions for participants to bet on</h5>
+    </div>
+    <div class="container-fluid option" ng-repeat="option in options">
+        <img class="radio_button center" src="assets/radio_button.png"/>
+        <img class="x_button center" src="assets/x_button.png" />
+        <h4 class="center">{{option.content}}</h4>
+    </div>
+    <div class="container-fluid option">
+        <input class="center" type="text" />
+        <img class="submit_button center" src="assets/submit_button.png" />
+    </div>
+</div>
