@@ -115,3 +115,73 @@
 	color: #ff806f;
 	font-size: 90%;
 }
+
+/*QUESTION VIEW*/
+#questionView {
+    height: 800px;
+}
+#questionView h3, h4 {
+    margin-left: 35px;
+    margin-right: 35px;
+}
+
+#questionView .question {
+    background-color: #A3C5EA;
+    height: 20%;
+}
+
+#questionView .question h4 {
+    color: #FCFCFC;
+    font-weight: bold;
+    margin-top: 5%;
+}
+
+#questionView .question input {
+    margin: 5%;
+    margin-top: 5px;
+    width: 90%;
+}
+
+#questionView #betSelect {
+    height: 80%;
+}
+
+#questionView #betSelect #typeOfBet {
+    height: 20%;
+    background-color: #666673;
+}
+
+#questionView #betSelect #typeOfBet h3 {
+    color: #ff806f;
+}
+
+#questionView #betSelect #typeOfBet h4 {
+    color: #FCFCFC;
+}
+
+#questionView #betSelect .container-fluid {
+    position: relative;
+    height: 40%;
+}
+
+#questionView #betSelect .container-fluid h3 {
+    color: #9999ff;
+}
+
+#questionView #betSelect .container-fluid h4 {
+    color: #666673;
+}
+
+#questionView #betSelect .selected {
+    background-color: #ebebff;
+    border-bottom-style: solid;
+    border-bottom-width:2px;
+    border-bottom-color: #9999ff;
+}
+
+#questionView #betSelect .selectionSideBox {
+    height: 100px;
+    width: 20px;
+    background-color: #57d1c2;
+    left: 0; right: auto;
+}
