@@ -103,8 +103,8 @@ module.exports = function (grunt) {
 	});
 
 		// define tasks
-	grunt.registerTask('all', ['wiredep', 'injector', 'clean', 'copy:all']);
-	grunt.registerTask('code', ['wiredep', 'injector', 'clean', 'copy:code']);
+	grunt.registerTask('all', ['wiredep', 'injector', 'clean:all', 'copy:all']);
+	grunt.registerTask('code', ['wiredep', 'injector', 'clean:code', 'copy:code']);
 	grunt.registerTask('vs', ['all', 'watch']);
 	grunt.registerTask('default', ['all', 'connect', 'watch']);
 };
