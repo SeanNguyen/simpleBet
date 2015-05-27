@@ -76,13 +76,15 @@
 	height: 100%;
 }
 
-#wagerTypeView #optionContainer .col {
-	height: 100%;
+#wagerTypeView #optionContainer .col img {
+    height: 100px;
+	width: auto;
 }
 
 #wagerTypeView .col h1 {
 	color: #FCFCFC;
 	font-weight: bold;
+    text-align: center;
 }
 
 #wagerTypeView #optionContainer #leftCol {

@@ -1,4 +1,5 @@
-﻿'use-strict';
+﻿/// <binding BeforeBuild='wiredep, injector' AfterBuild='copy, watch' Clean='clean' ProjectOpened='connect' />
+'use-strict';
 
 module.exports = function (grunt) {
 	// Load grunt tasks automatically
@@ -103,8 +104,8 @@ module.exports = function (grunt) {
 	});
 
 		// define tasks
-	grunt.registerTask('all', ['wiredep', 'injector', 'clean:all', 'copy:all']);
-	grunt.registerTask('code', ['wiredep', 'injector', 'clean:code', 'copy:code']);
+	grunt.registerTask('all', ['wiredep', 'injector', 'copy:all']);
+	grunt.registerTask('code', ['wiredep', 'injector', 'copy:code']);
 	grunt.registerTask('vs', ['all', 'watch']);
 	grunt.registerTask('default', ['all', 'connect', 'watch']);
 };
