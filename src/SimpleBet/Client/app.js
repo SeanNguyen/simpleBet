@@ -17,3 +17,10 @@ app.config(['$routeProvider',
 				redirectTo: '/'
 			});
 	}]);
+
+app.controller('appController', function($scope, $location) {
+	$scope.isNavbarVisible = function() {
+		var currentPath = $location.url();
+		return currentPath !== "/";
+	}
+});
