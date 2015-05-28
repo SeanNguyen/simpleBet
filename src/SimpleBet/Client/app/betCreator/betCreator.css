@@ -176,10 +176,13 @@
     position: relative;
     min-height: 150px;
     background-color: #FCFCFC;
-    
-    border-width: 2px;
-    border-style: solid;
-    border-color: #FCFCFC;
+
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-top-color: #FCFCFC;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #FCFCFC;
 }
 
 #questionView #betSelect .choice h3 {
