@@ -1,0 +1,70 @@
+/*Wager type view*/
+#wagerTypeView {
+    background-color: #FCFCFC;
+}
+
+#wagerTypeView #title {
+	position: relative;
+	height: 50px;
+}
+
+#wagerTypeView #title h4{
+	color: #9999ff;
+	font-weight: bold;
+}
+
+#wagerTypeView #optionContainer {
+	position: relative;
+	height: 300px;
+}
+
+#wagerTypeView .col {
+	position: absolute;
+	width: 50%;
+	height: 100%;
+}
+
+#wagerTypeView #optionContainer .col img {
+    height: 100px;
+	width: auto;
+}
+
+#wagerTypeView .col h1 {
+	color: #FCFCFC;
+	font-weight: bold;
+    text-align: center;
+}
+
+#wagerTypeView #optionContainer #leftCol {
+	background-color: #57d1c2;
+}
+
+#wagerTypeView #optionContainer #rightCol {
+	background-color: #ff806f;
+	left: 50%;
+}
+
+#wagerTypeView #descriptionContainer {
+    position: relative;
+    min-height: 180px;
+}
+
+#wagerTypeView #descriptionContainer #rightCol {
+	left: 50%;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #9999ff;
+}
+
+
+#wagerTypeView #descriptionContainer .col h5 {
+	max-width: 80%;
+	text-align: center;
+	margin: 10px auto;
+}
+
+
+#wagerTypeView #descriptionContainer .col .note {
+	color: #ff806f;
+	font-size: 90%;
+}
