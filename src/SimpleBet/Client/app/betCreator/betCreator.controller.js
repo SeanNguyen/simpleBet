@@ -58,15 +58,6 @@ app.controller('betCreatorController', function($rootScope, $scope) {
     	}
     }
 
-    $scope.setWagerType = function(type) {
-    	if(type === 0) {
-    		$scope.betModel.setWagerType(0);
-    	} else if (type === 1) {
-    		$scope.betModel.setWagerType(1);
-    	}
-    }
-
-
     //Constructor
     $scope.currentTab = 0;
     $scope.input = {option:''};
