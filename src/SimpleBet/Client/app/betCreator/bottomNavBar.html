@@ -1,9 +1,9 @@
 <div class="container-fluid" id="appBottomNavbar">
-	<img id="tab1" class="img img-responsive center" src="assets/arrow_previous.png">
-	<img id="tab2" class="img img-responsive center" src="assets/icon_tab_undone.png">
-	<img id="tab3" class="img img-responsive center" src="assets/icon_tab_undone.png">
-	<img id="tab4" class="img img-responsive center" src="assets/icon_tab_undone.png">
-	<img id="tab5" class="img img-responsive center" src="assets/icon_tab_undone.png">
-	<img id="tab6" class="img img-responsive center" src="assets/icon_tab_undone.png">
-	<img id="tab7" class="img img-responsive center" src="assets/arrow_next.png">
+	<img id="tab1" class="img img-responsive center" src="assets/arrow_previous.png" ng-click="setTab(currentTab - 1)">
+	<img id="tab2" class="img img-responsive center" src="{{getTabStatusIcon(0)}}" ng-click="setTab(0)">
+	<img id="tab3" class="img img-responsive center" src="{{getTabStatusIcon(1)}}" ng-click="setTab(1)">
+	<img id="tab4" class="img img-responsive center" src="{{getTabStatusIcon(2)}}" ng-click="setTab(2)">
+	<img id="tab5" class="img img-responsive center" src="{{getTabStatusIcon(3)}}" ng-click="setTab(3)">
+	<img id="tab6" class="img img-responsive center" src="{{getTabStatusIcon(4)}}" ng-click="setTab(4)">
+	<img id="tab7" class="img img-responsive center" src="assets/arrow_next.png" ng-click="setTab(currentTab + 1)">
 </div>

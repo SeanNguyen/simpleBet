@@ -1,23 +1,23 @@
 <div class="container-fluid" id="optionView">
     <div class="container-fluid question">
         <h4>I'd bet that...</h4>
-        <h3>{{question}}</h3>
+        <h3>{{betModel.question}}</h3>
     </div>
     <div class="container-fluid" id="description">
         <h3>Pick-A-Side Conditions</h3>
         <h5>Set the conditions for participants to bet on</h5>
     </div>
-    <div class="container-fluid option" ng-repeat="option in options">
+    <div class="container-fluid option" ng-repeat="option in betModel.options track by $index">
         <img class="radio_button center" src="assets/radio_button.png"/>
-        <img class="x_button center" src="assets/x_button.png" />
-        <h4 class="center">{{option.content}}</h4>
+        <img class="x_button center" src="assets/x_button.png" ng-click="removeOption($index)"/>
+        <h4 class="center">{{option}}</h4>
     </div>
     <div class="container-fluid option">
-        <input class="center" type="text" />
-        <img class="submit_button center" src="assets/submit_button.png" />
+        <input class="center" type="text" ng-model="input.option"/>
+        <img class="submit_button center" src="assets/submit_button.png"/>
     </div>
-    <div class="container-fluid option" id="addOption">
+    <button id="addOption" ng-click="addOption()">
         <img class="add_button center" src="assets/add_button.png" />
         <h4 class="center-various">ADD OPTION</h4>
-    </div>
+    </button>
 </div>

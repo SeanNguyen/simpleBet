@@ -2,6 +2,6 @@
 
 var app = angular.module('app');
 
-app.controller('NavbarController', function($scope) {
-	$scope.title = 'The Bet'
+app.controller('NavbarController', function($rootScope) {
+	$rootScope.title = 'Fluttr'
 });

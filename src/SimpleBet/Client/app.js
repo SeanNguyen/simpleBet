@@ -6,19 +6,18 @@ app.config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider.
 			when('/', {
-				templateUrl: 'app/home/home.html',
-				controller: 'HomeController'
+				templateUrl: 'app/home/home.html'
 			}).
 			when('/create', {
 				templateUrl: 'app/betCreator/betCreator.html',
-				controller: 'BetCreatorController'
+				controller: 'betCreatorController'
 			}).
 			otherwise({
 				redirectTo: '/'
 			});
 	}]);
 
-app.controller('appController', function($scope, $location) {
+app.controller('appController', function($rootScope, $scope, $location) {
 	$scope.isNavbarVisible = function() {
 		var currentPath = $location.url();
 		return currentPath !== "/";
