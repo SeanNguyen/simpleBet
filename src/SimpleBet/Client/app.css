@@ -19,13 +19,19 @@
 	margin-bottom: 0px;
 }
 
+html {
+	height: 100%;
+}
+
+#appView {
+	height: 100%;
+}
+
 body {
+    height: 100%;
 	color: #666673;
-	margin-top: 50px;
-    margin-bottom: 50px;
-	font-family: 'PT Sans', sans-serif;
-    min-height: 100%;
     background-color: #9999ff;
+	font-family: 'PT Sans', sans-serif;
 }
 
 /*set img to be default horizontally center*/
