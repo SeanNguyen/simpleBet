@@ -12,7 +12,7 @@
 }
 
 #customBetContainer {
-	margin-top: 50px;
+	padding-top: 50px;
 }
 
 /*custom create navBar*/
@@ -46,4 +46,35 @@
 	height: 25px;
 	width: auto;
 	left: auto; right: 10%;
+}
+
+#nonmonetaryContainer .customNavbar .tableCell img {
+	position: absolute;
+	left: 2%; right: auto;
+}
+
+#nonmonetaryContainer #betButton {
+	width: 60%;
+	font-size: 1em;
+	font-weight: bold;
+	color: #FCFCFC;
+	text-align: center;
+	margin: 3em 20%;
+
+	background-color: #ff806f;
+	border-radius: 0;
+	border-width: 0;
+	padding: 0.25em;
+}
+
+#nonmonetaryContainer #customBetContainer .inputTitle {
+	margin-left: 10%;
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 3em;
+}
+
+#nonmonetaryContainer #customBetContainer input {
+	margin-left: 10%;
+	font-size: 1em;
 }

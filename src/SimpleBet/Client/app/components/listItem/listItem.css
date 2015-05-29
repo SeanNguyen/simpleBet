@@ -1,6 +1,6 @@
 .listItem {
 	position: relative;
-	height: 90px;
+	min-height: 90px;
 	border-bottom-style: solid;
 	border-bottom-color: #9999ff;
 	border-bottom-width: 0.1em;

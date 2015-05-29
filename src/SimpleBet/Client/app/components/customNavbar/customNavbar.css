@@ -1,0 +1,44 @@
+.customNavbar {
+	display: table;
+	height: 50px;
+	width: 100%;
+	background-color: #FCFCFC;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #9999ff;
+	position: fixed;
+	margin: 0;
+	top: 100px; bottom: auto;
+	z-index: 800;
+}
+
+.customNavbar .tableRow{
+	display:table-row;
+	width: 100%;
+}
+
+.customNavbar .tableCell {
+	position: relative;
+	display: table-cell;
+	height: 100%;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.customNavbar .tableCell h4 {
+	display: inline;
+	text-align: center;
+	vertical-align: middle;
+	margin: auto;
+	color: #9999ff;
+}
+
+.customNavbar .tableCell img {
+	height: 25px;
+	width: auto;
+	vertical-align: middle;
+	margin: auto;
+	margin: auto 2%;
+	color: #9999ff;
+}
+

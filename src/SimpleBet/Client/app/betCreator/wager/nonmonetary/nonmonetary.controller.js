@@ -1,8 +1,13 @@
 var app = angular.module('app');
 
 app.controller('nonmonetaryController', function($scope) {
-	$scope.tabs = [{title: 'Our Dares', imgage: ''}, {title: 'Custom Dares', image: ''}];	
+	var STATE = {select: 'select', create: 'create'};
+
+	$scope.input = {newDare: {title: '', description: '', avata: 'assets/x_button.png'}};
+	$scope.tabs = [{title: 'Our Dares', imgage: ''}, {title: 'Custom Dares', image: ''}];
 	$scope.currentTab = 0;
+	$scope.currentState = STATE.select;
+	$scope.thirdNavbar = {title: 'Your New Dare', image: 'assets/revertSubmit_button.png'}
 	$scope.ourItems = [{title: 'Catch‘em All', description: 'Put on your business suit and seal the nearest 3 kids you see into a ball. (They must wear a tie.)', avata: 'assets/icon_giftBox.png' },
 					{title: 'A Noble King', description: 'Donate all of your valubles in your wallet to a nearby beggar.)', avata: 'assets/icon_giftBox.png' },
 					{title: 'Static Shock ', description: 'Get eletricfied in a thunderstorm. Zap Zap pikachu I choose you.', avata: 'assets/icon_giftBox.png' },
@@ -30,5 +35,24 @@ app.controller('nonmonetaryController', function($scope) {
 
 	$scope.setTab = function (index) {
 		$scope.currentTab = index;
+	}
+
+	$scope.setState = function (state) {
+		if(state === STATE.select || state === STATE.create) {
+			$scope.currentState = state;
+		}
+	}
+
+	$scope.addDare = function (dare) {
+		if(dare) {
+			$scope.customItems.push($scope.input.newDare);
+			$scope.input.newDare = {title: '', description: '', avata: 'assets/x_button.png'};
+		}
+	}
+
+	$scope.removeCustomDare = function (index) {
+		if(index > -1 && index < $scope.customItems.length) {
+			$scope.customItems.splice(index, 1);
+		}
 	}
 });

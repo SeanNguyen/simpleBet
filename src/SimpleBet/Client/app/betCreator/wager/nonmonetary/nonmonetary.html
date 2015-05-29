@@ -1,23 +1,43 @@
 <div class="container-fluid" ng-controller="nonmonetaryController" id="nonmonetaryContainer">
 	<div ng-include="'app/components/secondaryNavbar/secondaryNavbar.html'"></div>
 	<div ng-show="0 === currentTab">
-		<div ng-repeat="item in ourItems">
+		<div ng-repeat="item in ourItems track by $index">
 			<div ng-include="'app/components/listItem/listItem.html'"></div>
 		</div>
 	</div>
 	<div ng-show="1 === currentTab" id="customBetContainer">
-		<div id="createNavbar">
-			<div class="row">
-				<div class="col-xs-4">
-					<img class="center" src="assets/icon_circlePlus.png">
+		<div ng-show="'select' === currentState">
+			<div id="createNavbar" ng-click="setState('create')">
+				<div class="row">
+					<div class="col-xs-4">
+						<img class="center" src="assets/icon_circlePlus.png">
+					</div>
+					<div class="col=xs-8">
+						<h4 class="center-various">Create New Dare</h4>
+					</div>
 				</div>
-				<div class="col=xs-8">
-					<h4 class="center-various">Create New Dare</h4>
+			</div>
+			<div ng-repeat="item in customItems track by $index">
+				<div class="listItem">
+					<img src="{{item.avata}}" class="center avata" ng-click="removeCustomDare($index)">
+					<div class="content">
+						<h3 class="title">{{item.title}}</h3>
+						<h4 class="description">{{item.description}}</h4>
+					</div>
+					<img src="assets/submit_button.png" class=" center actionImg">
 				</div>
 			</div>
 		</div>
-		<div ng-repeat="item in customItems">
-			<div ng-include="'app/components/listItem/listItem.html'"></div>
+
+		<div ng-show="'create' === currentState">
+			<div ng-include="'app/components/customNavbar/customNavbar.html'" ng-click="setState('select')"></div>
+
+			<h3 class="inputTitle">Name: </h3>
+			<input type="text" ng-model="input.newDare.title">
+
+			<h3 class="inputTitle">Description: </h3>
+			<input type="text" ng-model="input.newDare.description">
+			<div><a class="btn btn-default" href="/#/create" role="button" id="betButton" ng-click="addDare(input.newDare); setState('select');">Create Dare</a></div>
 		</div>
 	</div>
 </div>
