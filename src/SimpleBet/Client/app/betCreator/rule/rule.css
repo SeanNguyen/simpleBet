@@ -22,11 +22,14 @@
 }
 
 #rule #title h4 {
-	margin: 1em;
+	font-size: 1em;
+	margin: 2% 10%;
 }
 
 #rule #title h3 {
-	margin: 1em 1em 0em;
+	font-size: 1.5em;
+	margin: 1em 10% 0;
+	font-weight: bold;
 }
 
 #rule #counter h4 {
@@ -44,7 +47,7 @@
 	width: 50%;
 	top: 0; left: 0;
 	background: #FCFCFC;
-	padding-top: 5em;
+	padding-top: 2em;
 	padding-bottom: 5em;
 }
 
@@ -53,6 +56,6 @@
 	width: 50%;
 	top: 0; right: 0;
 	background: #FCFCFC;
-	padding-top: 5em;
+	padding-top: 2em;
 	padding-bottom: 5em;
 }
