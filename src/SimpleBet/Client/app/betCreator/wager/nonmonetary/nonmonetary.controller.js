@@ -46,9 +46,10 @@ app.controller('nonmonetaryController', function($scope) {
 	}
 
 	$scope.addDare = function (dare) {
-		if(dare) {
+		if(dare && dare.title.length > 0 && dare.title.length < 30 && dare.description.length > 0) {
 			$scope.customItems.push($scope.input.newDare);
 			$scope.input.newDare = {title: '', description: '', avata: 'assets/x_button.png'};
+			$scope.setState(STATE.select);
 		}
 	}
 

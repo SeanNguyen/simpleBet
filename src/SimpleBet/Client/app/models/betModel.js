@@ -15,7 +15,7 @@ function BetModel() {
 	}
 
 	this.removeOption = function(index) {
-		this.options.splice(index);
+		this.options.splice(index, 1);
 	}
 
 	this.getMaxTeamSize = function(team) {
