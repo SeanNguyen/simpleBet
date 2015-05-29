@@ -1,4 +1,23 @@
-<div class="container-fluid" ng-controller="nonmonetaryController">
+<div class="container-fluid" ng-controller="nonmonetaryController" id="nonmonetaryContainer">
 	<div ng-include="'app/components/secondaryNavbar/secondaryNavbar.html'"></div>
-	<div ng-repeat="item in items"></div>
+	<div ng-show="0 === currentTab">
+		<div ng-repeat="item in ourItems">
+			<div ng-include="'app/components/listItem/listItem.html'"></div>
+		</div>
+	</div>
+	<div ng-show="1 === currentTab" id="customBetContainer">
+		<div id="createNavbar">
+			<div class="row">
+				<div class="col-xs-4">
+					<img class="center" src="assets/icon_circlePlus.png">
+				</div>
+				<div class="col=xs-8">
+					<h4 class="center-various">Create New Dare</h4>
+				</div>
+			</div>
+		</div>
+		<div ng-repeat="item in customItems">
+			<div ng-include="'app/components/listItem/listItem.html'"></div>
+		</div>
+	</div>
 </div>

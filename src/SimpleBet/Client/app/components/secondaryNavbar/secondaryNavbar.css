@@ -3,9 +3,13 @@
 	height: 50px;
 	width: 100%;
 	background-color: #9999ff;
-	border-top-style: solid;
+	/*border-top-style: solid;
 	border-top-width: 1px;
-	border-top-color: #FCFCFC;
+	border-top-color: #FCFCFC;*/
+	position: fixed;
+	margin: 0;
+	top: 50px; bottom: auto;
+	z-index: 900;
 }
 
 .tableContainer .tableRow{
@@ -28,9 +32,13 @@
 }
 
 .tableContainer .selected .selectionBox {
-	background-color: #57d1c2;
+	background-color: #ff806f;
 	height: 10px;
 	width: 60%;
 	top: auto;
 	bottom: 0;
+}
+
+.tableContainer .selected h4 {
+	font-weight: bold;
 }

@@ -1,0 +1,43 @@
+.listItem {
+	position: relative;
+	height: 90px;
+	border-bottom-style: solid;
+	border-bottom-color: #9999ff;
+	border-bottom-width: 0.1em;
+}
+
+.listItem .avata {
+	position: absolute;
+	height: 6em;
+	width: auto;
+	left: 0; right: auto;
+	padding: 1em;
+}
+
+.listItem .actionImg {
+	position: absolute;
+	width: 3em;
+	height: auto;
+	left: auto; right: 0;
+	top: 0; bottom: 0;
+	padding: 1em;
+}
+
+.listItem .content {
+	padding-left: 6em;
+	padding-right: 3em;
+}
+
+.listItem .content h3 {
+	margin: 0;
+	font-size: 1.2em;
+	font-weight: bold;
+	padding-top: 1em;
+}
+
+.listItem .content h4 {
+	margin: 0;
+	font-size: 0.8em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
