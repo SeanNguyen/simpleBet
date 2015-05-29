@@ -21,19 +21,38 @@
 	color: #57d1c2;
 }
 
+#rule #title h4 {
+	margin: 1em;
+}
+
+#rule #title h3 {
+	margin: 1em 1em 0em;
+}
+
 #rule #counter h4 {
 	text-align: center;
 	font-size: 2em;
+}
+
+#rule #counter img {
+	width: 2em;
+	height: auto;
 }
 
 #rule #counter #day {
 	position: absolute;
 	width: 50%;
 	top: 0; left: 0;
+	background: #FCFCFC;
+	padding-top: 5em;
+	padding-bottom: 5em;
 }
 
 #rule #counter #hour {
 	position: absolute;
 	width: 50%;
 	top: 0; right: 0;
+	background: #FCFCFC;
+	padding-top: 5em;
+	padding-bottom: 5em;
 }
