@@ -1,0 +1,39 @@
+#rule {
+	padding-top: 50px;
+	background-color: #FCFCFC;
+}
+
+#rule .customNavbar h4 {
+	font-weight: bold;
+}
+
+#rule .customNavbar {
+	top: 50px;
+}
+
+#rule #counter {
+	position: relative;
+}
+
+#rule #counter h3 {
+	text-align: center;
+	font-size: 5em;
+	color: #57d1c2;
+}
+
+#rule #counter h4 {
+	text-align: center;
+	font-size: 2em;
+}
+
+#rule #counter #day {
+	position: absolute;
+	width: 50%;
+	top: 0; left: 0;
+}
+
+#rule #counter #hour {
+	position: absolute;
+	width: 50%;
+	top: 0; right: 0;
+}
