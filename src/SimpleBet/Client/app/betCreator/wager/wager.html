@@ -1,20 +1,17 @@
-<div id="wagerTypeView" ng-controller='wagerController'>
-
-	<div ng-include="'app/betCreator/wager/nonmonetary.html'" ng-show="state === 'nonmonetary'"></div>
-	<div ng-include="'app/betCreator/wager/monetary.html'" ng-show="state == 'monetary'"></div>
-
-	<div ng-show="state === 'none'">
+<div id="wagerTypeView">
+	<div ng-include="'app/betCreator/wager/nonmonetary/nonmonetary.html'"></div>
+	<div class="ng-hide">
 		<div id="title">
 			<h4 class="center-various">Select a Wager Type</h4>
 		</div>
 		<div id="optionContainer">
-			<div class="col" id="leftCol" ng-click="setWagerType(1)">
+			<div class="col" id="leftCol">
 	            <div class="center-various">
 	                <img class="img img-responsive" src="assets/icon_giftBox.png"/>
 	                <h1>LOOT</h1>
 	            </div>
 			</div>
-			<div class="col" id="rightCol" ng-click="setWagerType(1)">
+			<div class="col" id="rightCol">
 	            <div class="center-various">
 	                <img class="img img-responsive" src="assets/icon_slap.png" />
 	                <h1>DARES</h1>
@@ -27,7 +24,7 @@
 				<h5>The loser(s) pays for the wager and it will be mailed to the winner(s)!</h5>
 				<h5 class="note">For monetary bets, all participants must be logged in.</h5>
 			</div>
-			<div class="col" id="rightCol">
+			<div class="col" id="rightCol" ng-click="setWagerType(1)">
 				<h5>Select from many different penalties for the losers of the bet to perform!</h5>
 				<h5>From hilarious to embarassing, inject even more spice into your bet!</h5>
 				<h5>You may also create your own forfeits for your bet</h5>

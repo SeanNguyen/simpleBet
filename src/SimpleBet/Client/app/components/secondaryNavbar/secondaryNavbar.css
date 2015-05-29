@@ -1,0 +1,36 @@
+.tableContainer {
+	display: table;
+	height: 50px;
+	width: 100%;
+	background-color: #9999ff;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: #FCFCFC;
+}
+
+.tableContainer .tableRow{
+	display:table-row;
+	width: 100%;
+}
+
+.tableContainer .tableCell {
+	position: relative;
+	display: table-cell;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.tableContainer .tableCell h4 {
+	display: table;
+	text-align: center;
+	margin: auto;
+	color: #FCFCFC;
+}
+
+.tableContainer .selected .selectionBox {
+	background-color: #57d1c2;
+	height: 10px;
+	width: 60%;
+	top: auto;
+	bottom: 0;
+}
