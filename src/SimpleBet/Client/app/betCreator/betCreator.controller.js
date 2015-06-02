@@ -2,7 +2,7 @@
 
 var app = angular.module('app');
 
-app.controller('betCreatorController', function($rootScope, $scope, $state) {
+app.controller('betCreatorController', function($rootScope, $scope, $state, $window) {
 
 	//some static constants
 	var PATH_TAB_DONE = 'assets/icon_tab_done.png';
@@ -27,6 +27,7 @@ app.controller('betCreatorController', function($rootScope, $scope, $state) {
     		$scope.currentTab = tabIndex;
     		$rootScope.title = TAB_NAMES[$scope.currentTab];
             $state.go('create.' + TAB_STATES[tabIndex]);
+            $window.scrollTo(0,0); 
     	}
     }
 
