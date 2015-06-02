@@ -2,14 +2,15 @@
 
 var app = angular.module('app');
 
-app.controller('betCreatorController', function($rootScope, $scope) {
+app.controller('betCreatorController', function($rootScope, $scope, $state) {
 
 	//some static constants
 	var PATH_TAB_DONE = 'assets/icon_tab_done.png';
 	var PATH_TAB_UNDONE = 'assets/icon_tab_undone.png';
 	var PATH_TAB_CURRENT = 'assets/icon_tab_current.png';
 	var TAB_SIZE = 5;
-	var TAB_NAMES = ['The Bet', 'The Bet', 'The Wager', 'The Rule', 'The Challengers']
+	var TAB_NAMES = ['The Bet', 'The Bet', 'The Wager', 'The Rule', 'The Challengers'];
+    var TAB_STATES = ['question', 'option', 'wager', 'rule', 'challenger'];
 
     $scope.getTabStatusIcon = function(tabIndex) {
     	if (tabIndex < $scope.currentTab) {
@@ -25,6 +26,7 @@ app.controller('betCreatorController', function($rootScope, $scope) {
     	if (tabIndex < TAB_SIZE && tabIndex > -1) {
     		$scope.currentTab = tabIndex;
     		$rootScope.title = TAB_NAMES[$scope.currentTab];
+            $state.go('create.' + TAB_STATES[tabIndex]);
     	}
     }
 

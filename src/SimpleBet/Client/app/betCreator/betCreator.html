@@ -1,9 +1,11 @@
 <div class="container-fluid" ng-controller="betCreatorController" id="betCreator">
-	<div ng-include="'app/betCreator/question/question.html'" ng-show="0 === currentTab"></div>
+	<!-- <div ng-include="'app/betCreator/question/question.html'" ng-show="0 === currentTab"></div>
 	<div ng-include="'app/betCreator/option/option.html'" ng-show="1 === currentTab"></div>
 	<div ng-include="'app/betCreator/wager/wager.html'" ng-show="2 === currentTab"></div>
 	<div ng-include="'app/betCreator/rule/rule.html'" ng-show="3 === currentTab"></div>
-	<div ng-include="'app/betCreator/challenger/challenger.html'" ng-show="4 === currentTab"></div>
+	<div ng-include="'app/betCreator/challenger/challenger.html'" ng-show="4 === currentTab"></div> -->
+
+	<div ui-view></div>
 	<!-- bottom nav bar -->
 	<div ng-include="'app/betCreator/bottomNavBar.html'"></div>
 </div>

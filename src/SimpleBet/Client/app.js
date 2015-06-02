@@ -1,28 +1,16 @@
 ﻿'use-strict';
 
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['ui.router']);
 
-app.config(['$routeProvider',
-	function($routeProvider) {
-		$routeProvider.
-			when('/', {
-				templateUrl: 'app/home/home.html'
-			}).
-			when('/create', {
-				templateUrl: 'app/betCreator/betCreator.html',
-				controller: 'betCreatorController'
-			}).
-			otherwise({
-				redirectTo: '/'
-			});
-	}]);
+app.config(function($stateProvider, $urlRouterProvider) {
+	$urlRouterProvider.otherwise("/");
+	});
 
 app.controller('appController', function($rootScope, $scope, $location) {
 	$scope.isNavbarVisible = function() {
 		var currentPath = $location.url();
 		return currentPath !== "/";
 	}
-
 
 	// FACEBOOK
 	//FACEBOOK SDK

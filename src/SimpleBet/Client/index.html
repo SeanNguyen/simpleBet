@@ -36,7 +36,7 @@
 
 	<div ng-show="isNavbarVisible()" ng-include="'app/navbar/navbar.html'"></div>
 	
-	<div ng-view="" id="appView"></div>
+	<div ui-view></div>
 
 	<!-- bower:js -->
 	<script src="bower_components/jquery/dist/jquery.js"></script>
@@ -48,18 +48,26 @@
 	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 	<script src="bower_components/angular-touch/angular-touch.js"></script>
 	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<!-- endbower -->
 
 
 	<!-- injector:js -->
 	<script src="app.js"></script>
 	<script src="app/betCreator/betCreator.controller.js"></script>
+	<script src="app/betCreator/betCreator.js"></script>
 	<script src="app/betCreator/challenger/challenger.controller.js"></script>
+	<script src="app/betCreator/challenger/challenger.js"></script>
+	<script src="app/betCreator/option/option.js"></script>
+	<script src="app/betCreator/question/question.js"></script>
 	<script src="app/betCreator/rule/rule.controller.js"></script>
+	<script src="app/betCreator/rule/rule.js"></script>
 	<script src="app/betCreator/wager/nonmonetary/nonmonetary.controller.js"></script>
 	<script src="app/betCreator/wager/wager.controller.js"></script>
+	<script src="app/betCreator/wager/wager.js"></script>
 	<script src="app/facebook/facebook.service.js"></script>
 	<script src="app/home/home.controller.js"></script>
+	<script src="app/home/home.js"></script>
 	<script src="app/models/betModel.js"></script>
 	<script src="app/navbar/navbar.controller.js"></script>
 	<!-- endinjector -->
