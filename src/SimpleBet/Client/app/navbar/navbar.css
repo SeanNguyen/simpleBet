@@ -6,14 +6,14 @@
 	width: 100%;
 	background-color: #9999ff;
 	z-index: 1000;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
 #appNavbar h3 {
 	color: #FCFCFC;
 	font-weight: bold;
-	font-size: 30px;
+	font-size: 20px;
 	margin: auto;
 	text-align: center;
 }
