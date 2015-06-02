@@ -57,3 +57,7 @@ http://www.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centerin
 	margin: auto;
 	white-space: nowrap;
 }
+
+.shadow {
+	box-shadow: 0px 0px 7px 0px;
+}
