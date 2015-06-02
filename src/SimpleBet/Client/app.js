@@ -45,35 +45,44 @@ app.controller('appController', function($rootScope, $scope, $location) {
 					$rootScope.facebook.accessToken = response.authResponse.accessToken;
 				}
 
-
-				FB.api('/me', function(response) {
-			    	console.log(JSON.stringify(response));
-
-					FB.api('/me/friendlists', function(response) {
-						console.log('All friend lists');
-						console.log(response);
-	
-						FB.api('/' + response.data[2].id, function(response) {
-							console.log('A friend list');
-					    	console.log(JSON.stringify(response));
-						});
-
-						FB.api('/' + response.data[2].id + '/members', function(response) {
-							console.log('Members');
-					    	console.log(response);
-						});
-					})
-
-					FB.api('/me/invitable_friends?limit=1000', function(response) {
-						console.log('invitable_friends');
-						console.log(response);
-
-						FB.api(response.paging.next, function(response) {
-						console.log('invitable_friends');
-						console.log(response);
-						});
-					});
+				FB.api('/me/invitable_friends?limit=1000', function(response) {
+					$rootScope.facebook.friends = [];
+					for(var i = 0; i < response.data.length; i++) {
+						var friendData = response.data[i];
+						var friend = {id: friendData.id, name: friendData.name, avata: friendData.picture.data.url};
+						$rootScope.facebook.friends.push(friend);
+					}
+					$rootScope.$apply();
 				});
+
+				// FB.api('/me', function(response) {
+			 //    	console.log(JSON.stringify(response));
+
+				// 	FB.api('/me/friendlists', function(response) {
+				// 		console.log('All friend lists');
+				// 		console.log(response);
+	
+				// 		FB.api('/' + response.data[2].id, function(response) {
+				// 			console.log('A friend list');
+				// 	    	console.log(JSON.stringify(response));
+				// 		});
+
+				// 		FB.api('/' + response.data[2].id + '/members', function(response) {
+				// 			console.log('Members');
+				// 	    	console.log(response);
+				// 		});
+				// 	})
+
+				// 	FB.api('/me/invitable_friends?limit=1000', function(response) {
+				// 		console.log('invitable_friends');
+				// 		console.log(response);
+
+				// 		FB.api(response.paging.next, function(response) {
+				// 		console.log('invitable_friends');
+				// 		console.log(response);
+				// 		});
+				// 	});
+				// });
 			});
 		};
 
