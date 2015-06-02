@@ -1,6 +1,5 @@
 <div id="wagerTypeView">
-	<div ng-include="'app/betCreator/wager/nonmonetary/nonmonetary.html'"></div>
-	<div class="ng-hide">
+	<div ui-view>
 		<div id="title">
 			<h4 class="center-various">Select a Wager Type</h4>
 		</div>
@@ -11,7 +10,7 @@
 	                <h1>LOOT</h1>
 	            </div>
 			</div>
-			<div class="col" id="rightCol">
+			<div class="col" id="rightCol" ui-sref="create.wager.nonmonetary">
 	            <div class="center-various">
 	                <img class="img img-responsive" src="assets/icon_slap.png" />
 	                <h1>DARES</h1>

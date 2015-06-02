@@ -2,7 +2,7 @@
 
 var app = angular.module('app');
 
-app.controller('nonmonetaryController', function($scope) {
+app.controller('nonmonetaryController', function($scope, $window) {
 	var STATE = {select: 'select', create: 'create'};
 
 	$scope.input = {newDare: {title: '', description: '', avata: 'assets/x_button.png'}};
@@ -37,11 +37,13 @@ app.controller('nonmonetaryController', function($scope) {
 
 	$scope.setTab = function (index) {
 		$scope.currentTab = index;
+		$window.scrollTo(0,0);
 	}
 
 	$scope.setState = function (state) {
 		if(state === STATE.select || state === STATE.create) {
 			$scope.currentState = state;
+			$window.scrollTo(0,0); 
 		}
 	}
 
