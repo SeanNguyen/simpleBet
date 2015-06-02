@@ -67,5 +67,6 @@ app.controller('betCreatorController', function($rootScope, $scope, $state, $win
     $rootScope.title = TAB_NAMES[$scope.currentTab];
     $scope.betModel = new BetModel();
     $scope.setBetType(0);
+    $scope.setTab(0);
 
 });
