@@ -11,6 +11,8 @@
 
 #questionView .question {
     background-color: #A3C5EA;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 #questionView .question h4 {
@@ -22,9 +24,14 @@
 }
 
 #questionView .question input {
-    font-size: 14pt;
+    font-size: 20px;
     margin-bottom: 40px;
     margin-right: 20px;
+    border-radius: 25px;
+    border-color: #9999ff;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 60px;
 }
 
 #questionView #betSelect #typeOfBet {
