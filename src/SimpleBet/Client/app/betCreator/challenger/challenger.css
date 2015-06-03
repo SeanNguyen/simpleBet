@@ -1,3 +1,114 @@
 #challenger {
 	background-color: #FCFCFC;
+	margin-top: 100px;
+}
+
+#challenger .customNavbar {
+	display: table;
+	height: 50px;
+	width: 100%;
+	background-color: #FCFCFC;
+	border-bottom-style: solid;
+	border-bottom-width: 1pt;
+	border-bottom-color: #9999ff;
+	position: fixed;
+	margin: 0;
+	top: 100px; bottom: auto;
+	z-index: 800;
+	padding-left: 30px;
+}
+
+#challenger .customNavbar .col-xs-3 {
+	margin: auto;
+	height: 50px;
+	padding-top: 17px;
+	padding-bottom: 17px;
+	vertical-align: middle;
+}
+
+#challenger .customNavbar .selected{
+	border-bottom-style: solid;
+	border-bottom-width: 3pt;
+	border-bottom-color: #9999ff;
+}
+
+#challenger .customNavbar h4{
+	color: #9999ff;
+	text-align: center;
+	font-size: 16px;
+	margin: auto;
+}
+
+#challenger .secondaryNavbar {
+	position: relative;
+	background-color: #9999ff;
+	position: fixed;
+	margin: 0;
+	top: 50px; bottom: auto;
+	z-index: 900;
+	width: 100%;
+	height: 50px;
+}
+
+#challenger .secondaryNavbar img {
+	position: absolute;
+	margin: auto;
+	top: 10px; bottom: auto;
+	left: 85%; right: auto;
+	height: 20px;
+}
+
+#challenger .secondaryNavbar #to {
+	color: #FCFCFC;
+	width: 20%;
+	height: 50px;
+	position: absolute;
+	margin: auto;
+	top:0; bottom: 0;
+	left: 0; right: auto;
+}
+
+#challenger .secondaryNavbar h5 {
+	font-size: 15px;
+	margin-top: 13px;
+	margin-bottom: 0px;
+}
+
+#challenger .secondaryNavbar input {
+	color: #FCFCFC;
+	width: 60%;
+	position: absolute;
+	margin: auto;
+	top:0; bottom: auto;
+	left: 20%; right: auto;
+	background-color: #9999ff;
+	border: 0;
+	outline: none;
+	font-size: 15px;
+	margin-top: 10px;
+	padding: 0;
+}
+
+#challenger .secondaryNavbar .input:focus {
+	border: 0;
+	outline: none;
+}
+
+#challenger .listItem.selected {
+	background-color: #9999ff;
+}
+
+#challenger #inviteButton {
+	position: fixed;
+	margin: 0;
+	top: auto; bottom: 0;
+	height: 50px;
+	width: 100%;
+	background-color: #ff806f;
+	z-index: 1000;
+	border: 0;
+
+	color: #FCFCFC;
+	font-size: 20px;
+	font-weight: bold;
 }
