@@ -29,48 +29,37 @@ app.controller('appController', function($rootScope, $scope, $location) {
 				$rootScope.facebook.loginStatus = response.status;
 				$rootScope.$apply();
 				if (response.status === 'connected') {
-					console.log(response.authResponse.accessToken);
 					$rootScope.facebook.accessToken = response.authResponse.accessToken;
 				}
 
-				FB.api('/me/taggable_friends?limit=2000', function(response) {
+				FB.api('/me/taggable_friends?limit=5000', function(response) {
 					$rootScope.facebook.friends = [];
-					var tagId;
 					for(var i = 0; i < response.data.length; i++) {
 						var friendData = response.data[i];
-						var friend = {id: friendData.id, name: friendData.name, avata: friendData.picture.data.url};
+						var friend = {id: friendData.id, name: friendData.name, avata: friendData.picture.data.url, selected: false};
 						$rootScope.facebook.friends.push(friend);
-
-						if(friendData.name === "Charlie Amicgbgdefgi Lauson") {
-							console.log(friendData.name);
-							tagId = friendData.id;
-						}
 					}
 					$rootScope.$apply();
 
-					FB.api(
-					"/me/feed",
-					"POST",
-					{
-						message: "This is a test message",
-						place: "1424132167909654",
-						tags: tagId,
-						privacy: {
-							value: "SELF"
-						},
-						// actions: [{
-						// 	name: "Accept Bet",
-						// 	link: "http://arcadier.com/"
-						// }],
-						link: "http://arcadier.com/"
-					},
-					function (response) {
-						console.log(response);
-						if (response && !response.error) {
-						/* handle the result */
-						}
-					}
-				);
+					// FB.api(
+					// 	"/me/feed",
+					// 	"POST",
+					// 	{
+					// 		message: "This is a test message",
+					// 		place: "1424132167909654",
+					// 		tags: tagId,
+					// 		privacy: {
+					// 			value: "SELF"
+					// 		},
+					// 		link: "http://arcadier.com/"
+					// 	},
+					// 	function (response) {
+					// 		console.log(response);
+					// 		if (response && !response.error) {
+					// 			/* handle the result */
+					// 		}
+					// 	}
+					// );
 				});
 			});
 		};

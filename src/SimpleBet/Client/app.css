@@ -10,6 +10,7 @@
 /*default cyan text: #57d1c2*/
 
 /*selection color: #ebebff 20% primary color*/
+/*disable color: #ACA9BF*/
 
 .container-fluid {
 	padding: 0px;
@@ -28,7 +29,6 @@ html {
 }
 
 body {
-    height: 100%;
 	color: #666673;
     background-color: #9999ff;
 	font-family: 'PT Sans', sans-serif;
