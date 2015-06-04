@@ -19,5 +19,15 @@ namespace SimpleBet.Models
         public string Name { get; set; }
 
         public ICollection<Bet> Bets { get; set; }
+
+        public override Model stringlify()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Model parse(string json)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

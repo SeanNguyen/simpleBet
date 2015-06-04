@@ -12,9 +12,19 @@ namespace SimpleBet.Models
             this.Options = new List<Option>();
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Question { get; set; }
 
         public ICollection<Option> Options { get; set; }
+
+        public override Model stringlify()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Model parse(string json)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

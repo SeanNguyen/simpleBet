@@ -19,9 +19,10 @@ namespace SimpleBet.Migrations
                 
                 builder.Entity("SimpleBet.Models.Bet", b =>
                     {
-                        b.Property<string>("Id")
+                        b.Property<int>("Id")
                             .GenerateValueOnAdd()
-                            .Annotation("OriginalValueIndex", 0);
+                            .Annotation("OriginalValueIndex", 0)
+                            .Annotation("SqlServer:ValueGeneration", "Default");
                         b.Property<string>("Question")
                             .Annotation("OriginalValueIndex", 1);
                         b.Property<int?>("UserId")
@@ -32,7 +33,7 @@ namespace SimpleBet.Migrations
                 
                 builder.Entity("SimpleBet.Models.Option", b =>
                     {
-                        b.Property<string>("BetId")
+                        b.Property<int?>("BetId")
                             .Annotation("OriginalValueIndex", 0)
                             .Annotation("ShadowIndex", 0);
                         b.Property<string>("Content")

@@ -40,7 +40,7 @@ namespace SimpleBet.Migrations
                 name: "Bet",
                 columns: table => new
                 {
-                    Id = table.Column(type: "nvarchar(450)", nullable: true),
+                    Id = table.Column(type: "int", nullable: false),
                     Question = table.Column(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column(type: "int", nullable: true)
                 },
@@ -57,7 +57,7 @@ namespace SimpleBet.Migrations
                 name: "Option",
                 columns: table => new
                 {
-                    BetId = table.Column(type: "nvarchar(450)", nullable: true),
+                    BetId = table.Column(type: "int", nullable: true),
                     Content = table.Column(type: "nvarchar(max)", nullable: true),
                     Id = table.Column(type: "int", nullable: false)
                 },

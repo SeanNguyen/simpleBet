@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace SimpleBet.Models
 {
-    public class Model
+    public abstract class Model
     {
+        public abstract Model stringlify();
+        public abstract Model parse(String json);
     }
 }
