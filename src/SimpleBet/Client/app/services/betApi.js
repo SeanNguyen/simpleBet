@@ -14,6 +14,12 @@ app.factory('betApi', ['$http', function($http) {
 		// 		// or server returns response with an error status.
 		// 		return null;
 		// 	});
+		var bet = new BetModel();
+		bet.question = "This is a question";
+		bet.creatorId = 1;
+		bet.createdTime = "10";
+		bet.activeDuration = "5";
+		return bet;
 	}
 
 	var getAll = function() {

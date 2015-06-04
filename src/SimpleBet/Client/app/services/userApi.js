@@ -14,6 +14,11 @@ app.factory('userApi', ['$http', function($http) {
 		// 		// or server returns response with an error status.
 		// 		return null;
 		// 	});
+		var user = new UserModel();
+		user.id = 1;
+		user.name = "Sean Nguyen";
+		user.avataUrl = "http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png";
+		return user;
 	}
 
 	var getAll = function() {

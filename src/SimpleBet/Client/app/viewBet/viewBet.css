@@ -73,3 +73,10 @@
 	float: left;
 	text-align: center;
 }
+
+#viewBet .footerButton .loginButton {
+	background-color: #9999ff;
+	border-top-color: #FCFCFC;
+	border-top-style: solid;
+	border-top-width: 1pt;
+}

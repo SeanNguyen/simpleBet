@@ -11,7 +11,7 @@
 				<div class="expire">
 					<img src="assets/icon_sandClock.png">
 					<h5>Expires in: </h5>
-					<h5>{{bet.duration}}</h5>
+					<h5>{{bet.activeDuration}}</h5>
 				</div>
 			</div>
 		</div>
@@ -20,7 +20,12 @@
 		</div>
 	</div>
 	<div class="footerButton">
-		<div id="decline"><h4>Decline</h4></div>
-		<div id="accept"><h4>Accept</h4></div>
+		<div ng-show="loginStatus">
+			<div id="decline"><h4>Decline</h4></div>
+			<div id="accept"><h4>Accept</h4></div>
+		</div>
+		<div class="loginButton" ng-show="!loginStatus">
+			<div><h4>Facebook Log In</h4></div>
+		</div>
 	</div>
 </div>
