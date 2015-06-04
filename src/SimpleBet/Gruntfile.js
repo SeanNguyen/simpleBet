@@ -1,4 +1,4 @@
-﻿/// <binding BeforeBuild='wiredep, injector' AfterBuild='copy, watch' Clean='clean' ProjectOpened='connect' />
+/// <binding />
 'use-strict';
 
 module.exports = function (grunt) {
