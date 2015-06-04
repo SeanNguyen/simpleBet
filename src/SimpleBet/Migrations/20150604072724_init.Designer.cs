@@ -8,9 +8,19 @@ using SimpleBet.Models;
 namespace SimpleBet.Migrations
 {
     [ContextType(typeof(SimpleBetContext))]
-    partial class SimpleBetContextModelSnapshot : ModelSnapshot
+    partial class init
     {
-        public override IModel Model
+        public override string Id
+        {
+            get { return "20150604072724_init"; }
+        }
+        
+        public override string ProductVersion
+        {
+            get { return "7.0.0-beta4-12943"; }
+        }
+        
+        public override IModel Target
         {
             get
             {

@@ -13,5 +13,7 @@ namespace SimpleBet.Models
         }
 
         public DbSet<ValueModel> Values { get; set; }
+        public DbSet<Bet> Bets { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }   

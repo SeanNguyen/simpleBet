@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace SimpleBet.Models
 {
-    public class ValueModel
+    public class Model
     {
-        public int Id { get; set; }
     }
 }
