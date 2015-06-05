@@ -25,7 +25,7 @@ namespace SimpleBet.Models
             throw new NotImplementedException();
         }
 
-        public override Model parse(string json)
+        public override Model parse(dynamic data)
         {
             throw new NotImplementedException();
         }

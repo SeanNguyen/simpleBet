@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace SimpleBet.Models
 {
-    public abstract class Model
+    public class MockDb
     {
-        public abstract Model stringlify();
-        public abstract Model parse(dynamic data);
+        public static List<Bet> Bets = new List<Bet>();
+        public static List<User> Users = new List<User>();
     }
 }

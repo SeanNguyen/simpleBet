@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleBet.Controllers
 {
+    [Route("api/[controller]")]
     public class BetController
     {
         //Attributes
@@ -29,25 +30,32 @@ namespace SimpleBet.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            Bet bet = this.dbContext.Bets.FirstOrDefault(v => v.Id == id);
-            if (bet == null)
+            foreach(Bet bet in MockDb.Bets)
             {
-                return new HttpNotFoundResult();
+                if(bet.Id == id)
+                {
+                    return new ObjectResult(bet);
+                }
             }
-            else
-            {
-                return new ObjectResult(bet);
-            }
+            return new HttpNotFoundResult();
+            //if (bet == null)
+            //{
+            //    return new HttpNotFoundResult();
+            //}
+            //else
+            //{
+            //    return new ObjectResult(bet);
+            //}
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public string Post([FromBody]dynamic data)
         {
             Bet newBet = new Bet();
-            newBet.parse(value);
-            this.dbContext.Bets.Add(newBet);
-            this.dbContext.SaveChanges();
+            newBet.parse(data);
+            MockDb.Bets.Add(newBet);
+            return newBet.Id.ToString();
         }
 
         // PUT api/values/5
