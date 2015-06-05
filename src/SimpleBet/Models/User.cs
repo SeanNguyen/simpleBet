@@ -14,7 +14,7 @@ namespace SimpleBet.Models
         }
 
         public int Id { get; set; }
-        public Nullable<int> FacebookId { get; set; }
+        public string FacebookId { get; set; }
 
         public string Name { get; set; }
 
@@ -27,7 +27,16 @@ namespace SimpleBet.Models
 
         public override Model parse(dynamic data)
         {
-            throw new NotImplementedException();
+            if (data.name.Value != null)
+            {
+                this.Name = data.name.Value;
+            }
+            if (data.facebookId.Value != null)
+            {
+                this.FacebookId = data.facebookId.Value;
+            }
+            this.Id = MockDb.Users.Count;
+            return this;
         }
     }
 }

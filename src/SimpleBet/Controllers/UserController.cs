@@ -30,25 +30,33 @@ namespace SimpleBet.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            User user = this.dbContext.Users.FirstOrDefault(v => v.Id == id);
-            if (user == null)
+            foreach (User user in MockDb.Users)
             {
-                return new HttpNotFoundResult();
+                if (user.Id == id)
+                {
+                    return new ObjectResult(user);
+                }
             }
-            else
-            {
-                return new ObjectResult(user);
-            }
+            return new HttpNotFoundResult();
+            //User user = this.dbContext.Users.FirstOrDefault(v => v.Id == id);
+            //if (user == null)
+            //{
+            //    return new HttpNotFoundResult();
+            //}
+            //else
+            //{
+            //    return new ObjectResult(user);
+            //}
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public string Post([FromBody]dynamic data)
         {
-            User newUser = new User();
-            newUser.parse(value);
-            this.dbContext.Users.Add(newUser);
-            this.dbContext.SaveChanges();
+            User user = new User();
+            user.parse(data);
+            MockDb.Users.Add(user);
+            return user.Id.ToString();
         }
 
         // PUT api/values/5
