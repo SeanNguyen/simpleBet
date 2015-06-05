@@ -79,7 +79,17 @@
 	font-size: 1em;
 	border-radius: 25px;
     border-color: #9999ff;
+    outline: none;
     padding-left: 25px;
     padding-right: 25px;
     height: 60px;
+    width: 80%;
+}
+
+#nonmonetaryContainer #customBetContainer input:focus {
+    outline: none;
+}
+
+#nonmonetaryContainer .selectedItem {
+    background-color: #ebebff;
 }

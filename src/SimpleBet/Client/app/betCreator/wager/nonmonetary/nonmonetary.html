@@ -1,7 +1,7 @@
 <div class="container-fluid" ng-controller="nonmonetaryController" id="nonmonetaryContainer">
 	<div ng-include="'app/components/secondaryNavbar/secondaryNavbar.html'"></div>
 	<div ng-show="0 === currentTab">
-		<div ng-repeat="item in ourItems track by $index">
+		<div ng-repeat="item in ourItems track by $index" ng-click="selectDare(item)" ng-class="{selectedItem: item === selectedDare}">
 			<div ng-include="'app/components/listItem/listItem.html'"></div>
 		</div>
 	</div>
@@ -17,7 +17,7 @@
 					</div>
 				</div>
 			</div>
-			<div ng-repeat="item in customItems track by $index">
+			<div ng-repeat="item in customItems track by $index" ng-click="selectDare(item)" ng-class="{selectedItem: item === selectedDare}">
 				<div class="listItem">
 					<img src="{{item.avata}}" class="center avata" ng-click="removeCustomDare($index)">
 					<div class="content">
@@ -32,12 +32,12 @@
 		<div ng-show="'create' === currentState">
 			<div ng-include="'app/components/customNavbar/customNavbar.html'" ng-click="setState('select')"></div>
 
-			<h3 class="inputTitle">Name: </h3>
+			<h3 class="inputTitle" id="name">Name: </h3>
 			<input type="text" ng-model="input.newDare.title">
 
-			<h3 class="inputTitle">Description: </h3>
+			<h3 class="inputTitle" id="description">Description: </h3>
 			<input type="text" ng-model="input.newDare.description">
-			<div><a class="btn btn-default" href="/#/create" role="button" id="betButton" ng-click="addDare(input.newDare);">Create Dare</a></div>
+			<div><a class="btn btn-default" role="button" id="betButton" ng-click="addDare(input.newDare)">Create Dare</a></div>
 		</div>
 	</div>
 </div>

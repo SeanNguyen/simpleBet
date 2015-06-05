@@ -2,15 +2,16 @@
 
 var app = angular.module('app');
 
-app.controller('nonmonetaryController', function($scope, $window) {
+app.controller('nonmonetaryController', function($scope, $window, $state) {
 	var STATE = {select: 'select', create: 'create'};
 
 	$scope.input = {newDare: {title: '', description: '', avata: 'assets/x_button.png'}};
 	$scope.tabs = [{title: 'Our Dares', imgage: ''}, {title: 'Custom Dares', image: ''}];
 	$scope.currentTab = 0;
 	$scope.currentState = STATE.select;
+	$scope.selectedDare;
 	$scope.thirdNavbar = {title: 'Your New Dare', image: 'assets/revertSubmit_button.png'}
-	$scope.ourItems = [{title: 'Catch‘em All', description: 'Put on your business suit and seal the nearest 3 kids you see into a ball. (They must wear a tie.)', avata: 'assets/icon_giftBox.png' },
+	$scope.ourItems = [{title: 'Catch‘em All', description: 'Put on your business suit and seal the nearest 3 kids you see into a ball. (They must wear a tie.)', avata: 'assets/icon_giftBox.png', id: "1"},
 					{title: 'A Noble King', description: 'Donate all of your valubles in your wallet to a nearby beggar.)', avata: 'assets/icon_giftBox.png' },
 					{title: 'Static Shock ', description: 'Get eletricfied in a thunderstorm. Zap Zap pikachu I choose you.', avata: 'assets/icon_giftBox.png' },
 					{title: 'Catch‘em All', description: 'Put on your business suit and seal the nearest 3 kids you see into a ball. (They must wear a tie.)', avata: 'assets/icon_giftBox.png' },
@@ -59,5 +60,9 @@ app.controller('nonmonetaryController', function($scope, $window) {
 		if(index > -1 && index < $scope.customItems.length) {
 			$scope.customItems.splice(index, 1);
 		}
+	}
+
+	$scope.selectDare = function (dare) {
+	    $scope.selectedDare = dare;
 	}
 });

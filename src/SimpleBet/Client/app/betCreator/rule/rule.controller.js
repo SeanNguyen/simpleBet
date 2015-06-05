@@ -23,7 +23,7 @@ app.controller('ruleController', function($scope) {
 
 	$scope.decreaseDay = function() {
 		if($scope.time > 24) {
-			$scope.time--;
+			$scope.time-=24;
 		} else {
 			$scope.time = 0;
 		}

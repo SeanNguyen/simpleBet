@@ -2,7 +2,7 @@
 var app = angular.module('app');
 
 app.factory('userApi', ['$http', function($http) {
-	var get = function(id) {
+	var get = function(id, callback) {
 		// $http.get('/api/bet/' + id).
 		// 	success(function(data, status, headers, config) {
 		// 		// this callback will be called asynchronously
@@ -14,11 +14,17 @@ app.factory('userApi', ['$http', function($http) {
 		// 		// or server returns response with an error status.
 		// 		return null;
 		// 	});
-		var user = new UserModel();
-		user.id = 1;
-		user.name = "Sean Nguyen";
-		user.avataUrl = "http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png";
-		return user;
+	    $http.get('/api/user/' + id).
+	    success(function (data, status, headers, config) {
+	        // this callback will be called asynchronously
+	        // when the response is available
+	        callback(data);
+	    }).
+	    error(function (data, status, headers, config) {
+	        // called asynchronously if an error occurs
+	        // or server returns response with an error status.
+	        //console.log(data);
+	    });
 	}
 
 	var getAll = function() {
