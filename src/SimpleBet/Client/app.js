@@ -32,6 +32,12 @@ app.controller('appController', function($rootScope, $scope, $location) {
 					$rootScope.facebook.accessToken = response.authResponse.accessToken;
 				}
 
+				FB.api('/me', function (response) {
+				    $rootScope.userModel = new UserModel();
+				    $rootScope.userModel.id = response.id;
+				    $rootScope.userModel.name = response.name;
+				});
+
 				FB.api('/me/taggable_friends?limit=5000', function(response) {
 					$rootScope.facebook.friends = [];
 					for(var i = 0; i < response.data.length; i++) {
