@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,7 +13,6 @@ namespace SimpleBet.Models
         {
         }
 
-        public DbSet<ValueModel> Values { get; set; }
         public DbSet<Bet> Bets { get; set; }
         public DbSet<User> Users { get; set; }
     }

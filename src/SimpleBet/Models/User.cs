@@ -14,12 +14,13 @@ namespace SimpleBet.Models
         }
 
         public int Id { get; set; }
-        public string FacebookId { get; set; }
-
+        public long FacebookId { get; set; }
+        public string avataUrl { get; set; }
         public string Name { get; set; }
 
         public ICollection<Bet> Bets { get; set; }
-
+        
+        //public methods
         public override Model stringlify()
         {
             throw new NotImplementedException();
