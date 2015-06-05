@@ -6,7 +6,9 @@ function BetModel() {
 	this.question;
 	this.team = [{sizeMax: 10, sizeMin: 0}, {sizeMax: 10, sizemin: 0}];
 	this.options = [];
-	this.wagerType = 
+	this.creatorId;
+	this.createdTime;
+	this.activeDuration;
 
 	//public methods
 

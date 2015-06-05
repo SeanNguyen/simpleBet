@@ -5,7 +5,7 @@ app.config(function($stateProvider) {
   // Now set up the states
   $stateProvider
     .state('bet', {
-      url: "/bet",
+      url: "/bet/:id",
       templateUrl: "app/viewBet/viewBet.html",
       controller: 'viewBetController'
     })
