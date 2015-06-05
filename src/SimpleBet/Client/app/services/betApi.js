@@ -1,33 +1,38 @@
 'use-strict';
 var app = angular.module('app');
 
-app.factory('betApi', ['$http', function($http) {
-	var get = function(id) {
-		// $http.get('/api/bet/' + id).
-		// 	success(function(data, status, headers, config) {
-		// 		// this callback will be called asynchronously
-		// 		// when the response is available
-		// 		return data;
-		// 	}).
-		// 	error(function(data, status, headers, config) {
-		// 		// called asynchronously if an error occurs
-		// 		// or server returns response with an error status.
-		// 		return null;
-		// 	});
-		var bet = new BetModel();
-		bet.question = "This is a question";
-		bet.creatorId = 1;
-		bet.createdTime = "10";
-		bet.activeDuration = "5";
-		return bet;
+app.factory('betApi', ['$http', '$rootScope', function($http, $rootScope) {
+	var get = function(id, callback) {
+	    $http.get('/api/bet/' + id).
+	    success(function(data, status, headers, config) {
+		    // this callback will be called asynchronously
+	        // when the response is available
+	        callback(data);
+	    }).
+	    error(function(data, status, headers, config) {
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+	        console.log(data);
+	    });
 	}
 
 	var getAll = function() {
 
 	}
 
-	var add = function (model) {
-
+	var add = function (model, callback) {
+	    model.creatorId = $rootScope.userModel.id;
+	    $http.post('/api/bet', model).
+            success(function (data, status, headers, config) {
+                // this callback will be called asynchronously
+                // when the response is available
+                callback(data);
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                console.log(data);
+            });
 	}
 
 	var update = function (model) {

@@ -9,6 +9,7 @@ function BetModel() {
 	this.creatorId;
 	this.createdTime;
 	this.activeDuration;
+	this.participants = [];
 
 	//public methods
 

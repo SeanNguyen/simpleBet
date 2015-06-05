@@ -61,6 +61,37 @@ app.controller('betCreatorController', function($rootScope, $scope, $state, $win
 		}
 	}
 
+
+	$scope.submitBet = function () {
+	    var ids = [];
+	    for (var i = $scope.betModel.participants.length - 1; i >= 0; i--) {
+	        ids.push($scope.betModel.participants[i].id);
+	    };
+	    var tagIds = ids.join(",");
+
+	    betApi.add($scope.betModel, function (betId) {
+	        FB.api(
+		     "/me/feed",
+		     "POST",
+		     {
+		         message: "This is a test message which going to be change: " + $scope.betModel.question,
+		         place: "1424132167909654", //this is our page id TODO: move this to config
+		         tags: tagIds,
+		         privacy: {
+		             value: "SELF"
+		         },
+		         link: "http://192.168.0.113:9000/#/bet/" + betId
+		     },
+		     function (response) {
+		         console.log(response);
+		         if (response && !response.error) {
+		             /* handle the result */
+		         }
+		     }
+		    );
+	    });
+	}
+
 	//Constructor
 	$scope.currentTab = 0;
 	$scope.input = {option:''};
