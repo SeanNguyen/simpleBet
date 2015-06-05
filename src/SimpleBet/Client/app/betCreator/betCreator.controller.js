@@ -2,7 +2,7 @@
 
 var app = angular.module('app');
 
-app.controller('betCreatorController', function($rootScope, $scope, $state, $window, betApi) {
+app.controller('betCreatorController', function($rootScope, $scope, $state, $window, betApi, $location) {
 
 	//some static constants
 	var PATH_TAB_DONE = 'assets/icon_tab_done.png';
@@ -71,25 +71,26 @@ app.controller('betCreatorController', function($rootScope, $scope, $state, $win
 
 	    betApi.add($scope.betModel, function (betId) {
 	        FB.api(
-		     "/me/feed",
-		     "POST",
-		     {
-		         message: "This is a test message which going to be change: " + $scope.betModel.question,
-		         place: "1424132167909654", //this is our page id TODO: move this to config
-		         tags: tagIds,
-		         privacy: {
-		             value: "SELF"
-		         },
-		         link: "http://192.168.0.113:9000/#/bet/" + betId
-		     },
-		     function (response) {
-		         console.log(response);
-		         if (response && !response.error) {
-		             /* handle the result */
-		         }
-		     }
-		    );
+		        "/me/feed",
+		        "POST",
+		        {
+		            message: "This is a test message which going to be change: " + $scope.betModel.question,
+		            place: "1424132167909654", //this is our page id TODO: move this to config
+		            tags: tagIds,
+		            privacy: {
+		                value: "SELF"
+		            },
+		            link: "http://192.168.0.113:9000/#/bet/" + betId
+		        },
+		        function (response) {
+		            console.log(response);
+		            if (response && !response.error) {
+		                /* handle the result */
+		            }
+		        });
+	        $location.path('bet/' + betId);
 	    });
+	    
 	}
 
 	//Constructor
