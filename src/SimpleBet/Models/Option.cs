@@ -7,8 +7,8 @@ namespace SimpleBet.Models
 {
     public class Option : Model
     {
-        public int Id { get; set; }
         public string Content { get; set; }
+        public Bet Bet { get; set; }
 
         public override Model stringlify()
         {

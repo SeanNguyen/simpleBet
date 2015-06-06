@@ -1,19 +1,18 @@
-﻿using Microsoft.Data.Entity;
-using System;
-using System.Collections.Generic;
+﻿#if DNX451
+using SimpleBet.Models;
 using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace SimpleBet.Models
+namespace SimpleBet.Data
 {
     public class SimpleBetContext : DbContext
     {
-        public SimpleBetContext()
+        public SimpleBetContext() : base("SimpleBeContext")
         {
         }
 
         public DbSet<Bet> Bets { get; set; }
         public DbSet<User> Users { get; set; }
     }
-}   
+}
+
+#endif

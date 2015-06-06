@@ -13,13 +13,18 @@ namespace SimpleBet.Models
             this.Bets = new List<Bet>();
         }
 
+        //id
         public int Id { get; set; }
         public long FacebookId { get; set; }
-        public string avataUrl { get; set; }
-        public string Name { get; set; }
 
+        //presentation
+        public string Name { get; set; }
+        public string AvataUrl { get; set; }
+
+        //bets
         public ICollection<Bet> Bets { get; set; }
         
+        /*************************************************************/
         //public methods
         public override Model stringlify()
         {
@@ -36,7 +41,6 @@ namespace SimpleBet.Models
             {
                 this.FacebookId = data.facebookId.Value;
             }
-            this.Id = MockDb.Users.Count;
             return this;
         }
     }

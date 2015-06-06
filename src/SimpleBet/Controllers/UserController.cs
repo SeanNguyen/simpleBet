@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿#if DNX451
+
+using Microsoft.AspNet.Mvc;
+using SimpleBet.Data;
 using SimpleBet.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SimpleBet.Controllers
 {
@@ -30,13 +30,6 @@ namespace SimpleBet.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            foreach (User user in MockDb.Users)
-            {
-                if (user.Id == id)
-                {
-                    return new ObjectResult(user);
-                }
-            }
             return new HttpNotFoundResult();
             //User user = this.dbContext.Users.FirstOrDefault(v => v.Id == id);
             //if (user == null)
@@ -53,10 +46,7 @@ namespace SimpleBet.Controllers
         [HttpPost]
         public string Post([FromBody]dynamic data)
         {
-            User user = new User();
-            user.parse(data);
-            MockDb.Users.Add(user);
-            return user.Id.ToString();
+            return null;
         }
 
         // PUT api/values/5
@@ -72,3 +62,5 @@ namespace SimpleBet.Controllers
         }
     }
 }
+
+#endif

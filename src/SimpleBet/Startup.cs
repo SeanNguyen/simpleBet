@@ -3,7 +3,6 @@ using SimpleBet.Models;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Builder;
-using Microsoft.Data.Entity;
 
 namespace SimpleBet
 {
@@ -26,13 +25,13 @@ namespace SimpleBet
             services.AddMvc();
 
             //setup database
-            var connectionString = this.Configuration.Get("Data:DefaultConnection:ConnectionString");
-            services.AddEntityFramework()
-                .AddSqlServer()
-                .AddDbContext<SimpleBetContext>(options =>
-                {
-                    options.UseSqlServer(connectionString);
-                });
+            //var connectionString = this.Configuration.Get("Data:DefaultConnection:ConnectionString");
+            //services.AddEntityFramework()
+            //    .AddSqlServer()
+            //    .AddDbContext<SimpleBetContext>(options =>
+            //    {
+            //        options.UseSqlServer(connectionString);
+            //    });
             // Uncomment the following line to add Web API services which makes it easier to port Web API 2 controllers.
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
             // services.AddWebApiConventions();

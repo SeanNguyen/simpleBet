@@ -14,13 +14,22 @@ namespace SimpleBet.Models
             this.Participants = new List<User>();
         }
 
+        //id
         public int Id { get; set; }
-        public string Question { get; set; }
-        public string CreatorId { get; set; }
 
-        public virtual ICollection<User> Participants { get; set; }
+        //basic info
+        public string Question { get; set; }
         public virtual ICollection<Option> Options { get; set; }
-        
+
+        //time
+        public DateTime CreationDate { get; set; }
+        public int Duration { get; set; } //this is in minute
+
+        //user
+        public string CreatorId { get; set; }
+        public virtual ICollection<User> Participants { get; set; }
+
+        /*************************************************************/
         //public methods
         public override Model stringlify()
         {

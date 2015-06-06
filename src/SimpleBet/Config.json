@@ -5,7 +5,7 @@
         }
     },
     "EntityFramework": {
-        "MoviesAppContext": {
+        "SimpleBetContext": {
             "ConnectionStringKey": "Data:DefaultConnection:ConnectionString"
         }
     }
