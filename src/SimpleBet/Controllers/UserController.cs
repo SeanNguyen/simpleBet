@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Mvc;
+using Newtonsoft.Json;
 using SimpleBet.Data;
 using SimpleBet.Models;
 using System.Collections.Generic;
@@ -12,39 +13,41 @@ namespace SimpleBet.Controllers
         private readonly SimpleBetContext dbContext;
 
         //Constructors
-        public UserController(SimpleBetContext dbContext)
+        public UserController()
         {
-            this.dbContext = dbContext;
+            this.dbContext = new SimpleBetContext();
         }
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<User> Get()
+        public string Get()
         {
-            return this.dbContext.Users;
+            return JsonConvert.SerializeObject(this.dbContext.Bets);
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return new HttpNotFoundResult();
-            //User user = this.dbContext.Users.FirstOrDefault(v => v.Id == id);
-            //if (user == null)
-            //{
-            //    return new HttpNotFoundResult();
-            //}
-            //else
-            //{
-            //    return new ObjectResult(user);
-            //}
+            User user = this.dbContext.Users.Find(id);
+            if (user == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            else
+            {
+                string userJson = JsonConvert.SerializeObject(user);
+                return new ObjectResult(userJson);
+            }
         }
 
         // POST api/values
         [HttpPost]
-        public string Post([FromBody]dynamic data)
+        public int Post([FromBody]User user)
         {
-            return null;
+            this.dbContext.Users.Add(user);
+            this.dbContext.SaveChanges();
+            return user.Id;
         }
 
         // PUT api/values/5

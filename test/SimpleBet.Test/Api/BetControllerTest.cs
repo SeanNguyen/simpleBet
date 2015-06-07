@@ -18,7 +18,15 @@ namespace SimpleBet.Test.Api
             bet.Question = "This is a question";
             bet.CreationDate = DateTime.Now;
             bet.Duration = 60;
-            int it = betController.Post(bet);
+            bet.CreatorId = 1;
+            int id = betController.Post(bet);
+
+            UserController userController = new UserController();
+            User user = new User();
+            user.Name = "Sean";
+            user.Bets.Add(bet);
+            int userId = userController.Post(user);
+
         }
     }
 }

@@ -2,8 +2,7 @@
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Builder;
-using System.Data.Entity;
-using SimpleBet.Data;
+using Newtonsoft.Json;
 
 namespace SimpleBet
 {
@@ -17,6 +16,7 @@ namespace SimpleBet
             this.Configuration = new Configuration()
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
+            
         }
 
         // This method gets called by a runtime.
@@ -50,6 +50,12 @@ namespace SimpleBet
 
             // Add the following route for porting Web API 2 controllers.
             // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");
+
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
         }
     }
 }

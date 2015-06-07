@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Mvc;
+using Newtonsoft.Json;
 using SimpleBet.Data;
 using SimpleBet.Models;
+using System;
 using System.Collections.Generic;
 
 namespace SimpleBet.Controllers
@@ -19,9 +21,9 @@ namespace SimpleBet.Controllers
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<Bet> Get()
+        public string Get()
         {
-            return this.dbContext.Bets;
+            return JsonConvert.SerializeObject(this.dbContext.Bets);
         }
 
         // GET api/values/5
@@ -35,7 +37,8 @@ namespace SimpleBet.Controllers
             }
             else
             {
-                return new ObjectResult(bet);
+                string betJson = JsonConvert.SerializeObject(bet);
+                return new ObjectResult(betJson);
             }
         }
 
@@ -43,6 +46,7 @@ namespace SimpleBet.Controllers
         [HttpPost]
         public int Post([FromBody]Bet bet)
         {
+            bet.CreationDate = DateTime.Now;
             this.dbContext.Bets.Add(bet);
             this.dbContext.SaveChanges();
             return bet.Id;
