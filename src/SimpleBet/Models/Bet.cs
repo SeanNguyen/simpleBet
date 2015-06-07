@@ -22,19 +22,17 @@ namespace SimpleBet.Models
         //basic info
         [Required, MaxLength(100)]
         public string Question { get; set; }
-        [Required]
         public virtual ICollection<Option> Options { get; set; }
 
         //time
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Required]
         public DateTime CreationDate { get; set; }
         [Required]
         public int Duration { get; set; } //this is in minute
 
         //user
         [Required]
-        public User Creator { get; set; }
-        [Required, MaxLength(10)]
+        public int CreatorId { get; set; }
         public virtual ICollection<User> Participants { get; set; }
 
         /*************************************************************/

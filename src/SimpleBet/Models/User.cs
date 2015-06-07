@@ -23,7 +23,7 @@ namespace SimpleBet.Models
         public string AvataUrl { get; set; }
 
         //bets
-        public ICollection<Bet> Bets { get; set; }
+        public virtual ICollection<Bet> Bets { get; set; }
         
         /*************************************************************/
         //public methods
