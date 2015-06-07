@@ -9,7 +9,7 @@ namespace SimpleBet.Models
         [Key, Column(Order = 0)]
         public int BetId { get; set; }
         public Bet Bet { get; set; }
-        [Key, Column(Order = 1)]
+        [Key, Column(Order = 1), MaxLength(30)]
         public string Content { get; set; }
 
         public override Model stringlify()

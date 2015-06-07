@@ -28,22 +28,24 @@ namespace SimpleBet.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return new HttpNotFoundResult();
-            //if (bet == null)
-            //{
-            //    return new HttpNotFoundResult();
-            //}
-            //else
-            //{
-            //    return new ObjectResult(bet);
-            //}
+            Bet bet = this.dbContext.Bets.Find(id);
+            if (bet == null)
+            {
+                return new HttpNotFoundResult();
+            }
+            else
+            {
+                return new ObjectResult(bet);
+            }
         }
 
         // POST api/values
         [HttpPost]
-        public string Post([FromBody]dynamic data)
+        public int Post([FromBody]Bet bet)
         {
-            return null;
+            this.dbContext.Bets.Add(bet);
+            this.dbContext.SaveChanges();
+            return bet.Id;
         }
 
         // PUT api/values/5
