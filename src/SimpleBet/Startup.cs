@@ -1,8 +1,9 @@
 ﻿using Microsoft.Framework.DependencyInjection;
-using SimpleBet.Models;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Builder;
+using System.Data.Entity;
+using SimpleBet.Data;
 
 namespace SimpleBet
 {
@@ -24,7 +25,7 @@ namespace SimpleBet
         {
             services.AddMvc();
 
-            //setup database
+            //EF7: setup database
             //var connectionString = this.Configuration.Get("Data:DefaultConnection:ConnectionString");
             //services.AddEntityFramework()
             //    .AddSqlServer()
@@ -32,6 +33,7 @@ namespace SimpleBet
             //    {
             //        options.UseSqlServer(connectionString);
             //    });
+
             // Uncomment the following line to add Web API services which makes it easier to port Web API 2 controllers.
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
             // services.AddWebApiConventions();
@@ -45,6 +47,7 @@ namespace SimpleBet
 
             // Add MVC to the request pipeline.
             app.UseMvc();
+
             // Add the following route for porting Web API 2 controllers.
             // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");
         }

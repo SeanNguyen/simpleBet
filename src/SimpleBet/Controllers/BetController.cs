@@ -1,6 +1,4 @@
-﻿#if DNX451
-
-using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNet.Mvc;
 using SimpleBet.Data;
 using SimpleBet.Models;
 using System.Collections.Generic;
@@ -14,9 +12,9 @@ namespace SimpleBet.Controllers
         private readonly SimpleBetContext dbContext;
 
         //Constructors
-        public BetController(SimpleBetContext dbContext)
+        public BetController()
         {
-            this.dbContext = dbContext;
+            this.dbContext = new SimpleBetContext();
         }
 
         // GET: api/values
@@ -62,5 +60,3 @@ namespace SimpleBet.Controllers
 
     }
 }
-
-#endif

@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimpleBet.Models
 {
     public class Option : Model
     {
-        public string Content { get; set; }
+        [Key, Column(Order = 0)]
+        public int BetId { get; set; }
         public Bet Bet { get; set; }
+        [Key, Column(Order = 1)]
+        public string Content { get; set; }
 
         public override Model stringlify()
         {

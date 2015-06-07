@@ -2,11 +2,10 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "/",
       "environmentVariables": {
         "ASPNET_ENV": "Development"
-      }
+      },
+      "sdkVersion": "dnx-clr-win-x86.1.0.0-beta4"
     }
   }
 }

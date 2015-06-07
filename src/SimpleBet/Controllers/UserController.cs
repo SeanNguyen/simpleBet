@@ -1,6 +1,4 @@
-﻿#if DNX451
-
-using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNet.Mvc;
 using SimpleBet.Data;
 using SimpleBet.Models;
 using System.Collections.Generic;
@@ -62,5 +60,3 @@ namespace SimpleBet.Controllers
         }
     }
 }
-
-#endif
