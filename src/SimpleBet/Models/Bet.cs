@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,15 +20,21 @@ namespace SimpleBet.Models
         public int Id { get; set; }
 
         //basic info
+        [Required, MaxLength(100)]
         public string Question { get; set; }
+        [Required]
         public virtual ICollection<Option> Options { get; set; }
 
         //time
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreationDate { get; set; }
+        [Required]
         public int Duration { get; set; } //this is in minute
 
         //user
-        public string CreatorId { get; set; }
+        [Required]
+        public User Creator { get; set; }
+        [Required, MaxLength(10)]
         public virtual ICollection<User> Participants { get; set; }
 
         /*************************************************************/

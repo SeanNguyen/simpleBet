@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SimpleBet.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimpleBet.Models
 {
@@ -15,7 +16,7 @@ namespace SimpleBet.Models
 
         //id
         public int Id { get; set; }
-        public long FacebookId { get; set; }
+        public string FacebookId { get; set; }
 
         //presentation
         public string Name { get; set; }
