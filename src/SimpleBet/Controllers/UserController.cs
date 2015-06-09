@@ -22,7 +22,7 @@ namespace SimpleBet.Controllers
         [HttpGet]
         public string Get()
         {
-            return JsonConvert.SerializeObject(this.dbContext.Bets);
+            return JsonConvert.SerializeObject(this.dbContext.Users);
         }
 
         // GET api/values/5
