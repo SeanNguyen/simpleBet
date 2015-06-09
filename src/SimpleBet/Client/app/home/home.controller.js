@@ -2,5 +2,8 @@
 
 var app = angular.module('app');
 
-app.controller('homeController', function($rootScope, $scope) {
+app.controller('homeController', function ($rootScope, $scope) {
+    $scope.logIn = function () {
+
+    }
 });

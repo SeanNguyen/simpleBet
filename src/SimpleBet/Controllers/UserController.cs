@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using SimpleBet.Data;
 using SimpleBet.Models;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace SimpleBet.Controllers
 {
@@ -26,7 +26,7 @@ namespace SimpleBet.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
             User user = this.dbContext.Users.Find(id);
@@ -35,6 +35,21 @@ namespace SimpleBet.Controllers
                 return new HttpNotFoundResult();
             }
             else
+            {
+                string userJson = JsonConvert.SerializeObject(user);
+                return new ObjectResult(userJson);
+            }
+        }
+
+        //this will be hitted when querry by facebookID
+        [HttpGet("{id:long}")]
+        public IActionResult Get(long id)
+        {
+            User user = this.dbContext.Users.FirstOrDefault(u => u.FacebookId == id);
+            if (user == null)
+            {
+                return new HttpNotFoundResult();
+            } else
             {
                 string userJson = JsonConvert.SerializeObject(user);
                 return new ObjectResult(userJson);

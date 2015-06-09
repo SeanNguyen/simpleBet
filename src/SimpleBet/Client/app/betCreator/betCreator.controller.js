@@ -2,8 +2,10 @@
 
 var app = angular.module('app');
 
-app.controller('betCreatorController', function($rootScope, $scope, $state, $window, betApi, $location) {
-
+app.controller('betCreatorController', function($rootScope, $scope, $state, $window, $location) {
+    var user = $rootScope.user;
+    var id = $rootScope.user.Id;
+    var name = $rootScope.user.Name;
 	//some static constants
 	var PATH_TAB_DONE = 'assets/icon_tab_done.png';
 	var PATH_TAB_UNDONE = 'assets/icon_tab_undone.png';

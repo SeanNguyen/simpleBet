@@ -39,13 +39,15 @@
 	
 	<div ui-view></div>
 
+    <div id="fb-root"></div>
+
 	<!-- bower:js -->
 	<script src="bower_components/jquery/dist/jquery.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.js"></script>
 	<!-- endbower -->
-
 
 	<!-- injector:js -->
 	<script src="app.js"></script>
@@ -61,14 +63,12 @@
 	<script src="app/betCreator/wager/nonmonetary/nonmonetary.js"></script>
 	<script src="app/betCreator/wager/wager.controller.js"></script>
 	<script src="app/betCreator/wager/wager.js"></script>
-	<script src="app/facebook/facebook.service.js"></script>
+	<script src="app/config/config.js"></script>
 	<script src="app/home/home.controller.js"></script>
 	<script src="app/home/home.js"></script>
-	<script src="app/models/betModel.js"></script>
-	<script src="app/models/userModel.js"></script>
 	<script src="app/navbar/navbar.controller.js"></script>
-	<script src="app/services/betApi.js"></script>
-	<script src="app/services/userApi.js"></script>
+	<script src="app/services/facebook.js"></script>
+	<script src="app/services/model.js"></script>
 	<script src="app/viewBet/viewBet.controller.js"></script>
 	<script src="app/viewBet/viewBet.js"></script>
 	<!-- endinjector -->

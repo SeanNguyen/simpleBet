@@ -16,7 +16,7 @@ namespace SimpleBet.Models
 
         //id
         public int Id { get; set; }
-        public string FacebookId { get; set; }
+        public long FacebookId { get; set; }
 
         //presentation
         public string Name { get; set; }
