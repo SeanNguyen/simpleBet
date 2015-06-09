@@ -7,9 +7,9 @@ namespace SimpleBet.Data
     public class SimpleBetContext : DbContext
     {
         public SimpleBetContext() : base(@"Data Source=(localdb)\mssqllocaldb;
-                                          Initial Catalog=SimpleBet;
-                                          Integrated Security=True; Pooling=false;
-                                            MultipleActiveResultSets=true;")
+                                        Initial Catalog=SimpleBet;
+                                        Integrated Security=True; Pooling=false;
+                                        MultipleActiveResultSets=true;")
         {
             Database.SetInitializer<SimpleBetContext>(new Initializer());
         }
