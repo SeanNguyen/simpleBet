@@ -80,3 +80,28 @@
 	border-top-style: solid;
 	border-top-width: 1pt;
 }
+
+#viewBet .navbarContainer {
+    position: relative;
+    width: 100%;
+    height: 30px;
+}
+
+#viewBet .navbarContainer h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 10%;
+    padding-top: 5px;
+}
+
+#viewBet .navbarContainer #leftArrow {
+    position: absolute;
+    left: 10px; top: 5px;
+    height: 20px;
+}
+
+#viewBet .navbarContainer #rightArrow {
+    position: absolute;
+    right: 10px; top: 5px;
+    height: 20px;
+}

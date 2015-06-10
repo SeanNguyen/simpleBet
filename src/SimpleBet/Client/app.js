@@ -56,7 +56,7 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
             }
 
             //get facebook friends
-            FB.api('/me/taggable_friends?limit=5000', function (response) {
+            FB.api('/me/taggable_friends?limit=10', function (response) {
                 $rootScope.taggableFriends = [];
                 for (var i = 0; i < response.data.length; i++) {
                     var friendData = response.data[i];

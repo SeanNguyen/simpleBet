@@ -1,6 +1,6 @@
 <div class="container-fluid" id="viewBet" ng-controller="viewBetController">
 	<div class="header">
-		<div>
+		<!--<div>
 			<div class="avata">
 				<img src="{{creator.AvataUrl}}">
 			</div>
@@ -17,14 +17,29 @@
 		</div>
 		<div>
 			<h3 class="question">{{bet.Question}}</h3>
-		</div>
+		</div>-->
+
+        <!-- Detail navbar -->
+        <div class="navbarContainer">
+            <img id="leftArrow" src="assets/arrow_left_white.png" ng-click="lastTab()"/>
+            <img id="rightArrow" src="assets/arrow_right_white.png" ng-click="nextTab()"/>
+            <h4>{{tabs[currentTab].name}}</h4>
+
+        </div>
 	</div>
+
+    <div>
+        <div ng-show="currentTab === 0">1</div>
+        <div ng-show="currentTab === 1">2</div>
+        <div ng-show="currentTab === 2">3</div>
+    </div>
+
 	<div class="footerButton">
-		<div ng-show="loginStatus">
+		<div ng-show="user.Id">
 			<div id="decline"><h4>Decline</h4></div>
 			<div id="accept"><h4>Accept</h4></div>
 		</div>
-		<div class="loginButton" ng-show="!loginStatus">
+		<div class="loginButton" ng-show="!user.Id">
 			<div><h4>Facebook Log In</h4></div>
 		</div>
 	</div>
