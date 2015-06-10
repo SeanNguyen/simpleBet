@@ -9,6 +9,8 @@ var PATH_TAB_CURRENT = 'assets/icon_tab_current.png';
 var TAB_SIZE = 5;
 var TAB_NAMES = ['The Bet', 'The Bet', 'The Wager', 'The Rule', 'The Challengers'];
 var TAB_STATES = ['question', 'option', 'wager', 'rule', 'challenger'];
+var BET_TYPE = { MVW: 'MVW', PAS: 'PAS' };
+var WAGER_TYPE = { MONETARY: 'MONETARY', NONMONETARY: 'NONMONETARY' };
 
 app.controller('betCreatorController', function ($rootScope, $scope, $state, $window, $location, Bet) {
     //navigations
@@ -18,12 +20,21 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     //bet model
     $scope.betModel = new Bet({ Options: [] });
 
+    //input
+    $scope.input = {option:''}
+
     //functions
     $scope.getTabStatusIcon = getTabStatusIcon;
     $scope.setTab = setTab;
+
     $scope.addOption = addOption;
     $scope.removeOption = removeOption;
+
     $scope.isTypeSelected = isTypeSelected;
+    $scope.setBetType = setBetType;
+
+    $scope.setWagerType = setWagerType;
+
     $scope.submitBet = submitBet;
 
     //DETAIL
@@ -48,7 +59,8 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	}
 
 	function addOption() {
-		if(!$scope.input.option || $scope.input.option.lenght <= 0) {
+	    if (!$scope.input.option || $scope.input.option.lenght <= 0) {
+	        console.log("Warning: option input invalid");
 			return;
 		}
 		$scope.betModel.Options.push($scope.input.option);
@@ -59,18 +71,31 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 		$scope.betModel.Options.splice(index, 1);
 	}
 
-	function isTypeSelected(optionIndex) {
-		//var maxTeamSizeForFirstTeam = $scope.betModel.getMaxTeamSize(0);
-		//if (optionIndex === 0 && maxTeamSizeForFirstTeam === 1) {
-		//	return true;
-		//} else if (optionIndex === 1 && maxTeamSizeForFirstTeam > 1) {
-		//	return true;
-		//}
-		//return false;
+	function isTypeSelected(type) {
+	    if (type === $scope.betModel.Type) {
+	        return true;
+	    }
+	    return false;
 	}
     
+	function setBetType(type) {
+	    if (type === BET_TYPE.MVW || type === BET_TYPE.PAS) {
+	        $scope.betModel.Type = type;
+	    } else {
+	        console.log("ERROR: type input not valid");
+	    }
+	}
+
+	function setWagerType(type) {
+	    if (type === WAGER_TYPE.MONETARY || type === WAGER_TYPE.NONMONETARY) {
+	        $scope.betModel.WagerType = type;
+	    } else {
+	        console.log("ERROR: type input not valid");
+	    }
+	}
+
 	function submitBet() {
-	    $scope.betModel.$save().then(function() {
+	    $scope.betModel.$save().then(function () {
 	        var ids = [];
 	        for (var i = $scope.betModel.Participants.length - 1; i >= 0; i--) {
 	            ids.push($scope.betModel.Participants[i].Id);

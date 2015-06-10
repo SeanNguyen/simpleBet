@@ -10,12 +10,12 @@
             <h3>Type of Bet</h3>
             <h4>Select the type of bet you want</h4>
         </div>
-        <div class="container-fluid choice" ng-class="{selected: isTypeSelected(0)}" ng-click="setBetType(0)">
+        <div class="container-fluid choice" ng-class="{selected: isTypeSelected('PAS')}" ng-click="setBetType('PAS')">
             <div class="center selectionSideBox" ng-show="isTypeSelected(0)"></div>
             <h3>Pick-A-Side</h3>
             <h4>You set different conditions for your bet above. Your friends participating can select which one they would like to bet on.  More than 1 person can bet on any single condition.</h4>
         </div>
-        <div class="container-fluid choice" ng-class="{selected: isTypeSelected(1)}" ng-click="setBetType(1)">
+        <div class="container-fluid choice" ng-class="{selected: isTypeSelected('MVW')}" ng-click="setBetType('MVW')">
             <div class="center selectionSideBox" ng-show="isTypeSelected(1)"></div>
             <h3>Me-Against-The-World</h3>
             <h4>All of your friends who participate in this bet are going against your bet set above. It's either you win against all the participants or lose to all of them. Your friends can only accept or decline the bet as it is with no options to select.</h4>
