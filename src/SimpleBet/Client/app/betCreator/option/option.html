@@ -10,7 +10,7 @@
     <div class="container-fluid option" ng-repeat="option in betModel.Options track by $index">
         <img class="radio_button center" src="assets/radio_button.png"/>
         <img class="x_button center" src="assets/x_button.png" ng-click="removeOption($index)"/>
-        <h4 class="center">{{option}}</h4>
+        <h4 class="center">{{option.Content}}</h4>
     </div>
     <div class="container-fluid option">
         <input class="center" type="text" ng-model="input.option"/>
