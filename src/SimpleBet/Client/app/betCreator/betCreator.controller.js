@@ -97,8 +97,9 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	    if (!$scope.input.option || $scope.input.option.lenght <= 0) {
 	        console.log("Warning: option input invalid");
 			return;
-		}
-		$scope.betModel.Options.push($scope.input.option);
+	    }
+	    var option = { Content: $scope.input.option };
+		$scope.betModel.Options.push(option);
 		$scope.input.option = '';
 	}
 
