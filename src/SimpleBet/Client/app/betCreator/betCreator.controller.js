@@ -16,9 +16,14 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     //navigations
     $scope.currentTab = 0;
     $rootScope.title = TAB_NAMES[$scope.currentTab];
+    $scope.Math = Math;
+    $scope.thirdNavbar = { title: 'Set Up', image: '' };
 
     //bet model
-    $scope.betModel = new Bet({ Options: [] });
+    $scope.betModel = new Bet({ 
+        Options: [], 
+        Duration: 2 /*in hour, TODO: change to minutes*/
+    });
 
     //input
     $scope.input = {option:''}
@@ -37,7 +42,37 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 
     $scope.submitBet = submitBet;
 
+    //TODO: minify this to just 1 single method
+    $scope.increaseHour = increaseHour;
+    $scope.decreaseHour = decreaseHour;
+    $scope.increaseDay = increaseDay;
+    $scope.decreaseDay = decreaseDay;
+
+
+
     //DETAIL
+
+    function increaseHour() {
+        $scope.betModel.Duration ++;
+    };
+
+    function decreaseHour() {
+        if ($scope.betModel.Duration > 0) {
+            $scope.betModel.Duration--;
+        }
+    };
+
+    function increaseDay() {
+        $scope.betModel.Duration += 24
+    }
+
+    function decreaseDay() {
+        if ($scope.betModel.Duration > 24) {
+            $scope.betModel.Duration -= 24;
+        } else {
+            $scope.betModel.Duration = 0;
+        }
+    }
 
 	function getTabStatusIcon(tabIndex) {
 		if (tabIndex < $scope.currentTab) {
