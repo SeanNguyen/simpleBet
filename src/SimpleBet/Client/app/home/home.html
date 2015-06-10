@@ -3,7 +3,7 @@
 	<h4 id="version">version 0.0.1</h4>
 	<h4 id="description">Making a wager with your mates? Why not make that a tangible call and get the ball rolling with Fluttr!</h4>
 	<div><a class="btn btn-default" ui-sref="create" role="button" id="betButton">I’d bet...</a></div>
-	<div ng-show="user" ng-click="logIn()"><a class="btn btn-default" href="" role="button" id="facebookButton">Sign In With <img src="assets/logo_facebook.png" id="fbLogo"></a></div>
+	<div ng-hide="user.Id" ng-click="logIn()"><a class="btn btn-default" href="" role="button" id="facebookButton">Sign In With <img src="assets/logo_facebook.png" id="fbLogo"></a></div>
 	<div
 	  class="fb-like"
 	  data-share="true"
