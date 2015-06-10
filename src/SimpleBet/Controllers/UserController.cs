@@ -58,11 +58,11 @@ namespace SimpleBet.Controllers
 
         // POST api/values
         [HttpPost]
-        public int Post([FromBody]User user)
+        public User Post([FromBody]User user)
         {
             this.dbContext.Users.Add(user);
             this.dbContext.SaveChanges();
-            return user.Id;
+            return user;
         }
 
         // PUT api/values/5
