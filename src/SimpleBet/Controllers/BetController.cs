@@ -44,12 +44,13 @@ namespace SimpleBet.Controllers
 
         // POST api/values
         [HttpPost]
-        public Bet Post([FromBody]Bet bet)
+        public IActionResult Post([FromBody]Bet bet)
         {
             bet.CreationDate = DateTime.Now;
             this.dbContext.Bets.Add(bet);
             this.dbContext.SaveChanges();
-            return bet;
+            string betJson = JsonConvert.SerializeObject(bet);
+            return new ObjectResult(betJson);
         }
 
         // PUT api/values/5

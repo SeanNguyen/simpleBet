@@ -11,18 +11,6 @@ app.controller('appController', function ($rootScope, $scope, $location) {
         var currentPath = $location.url();
         return currentPath !== "/";
     }
-
-    //            FB.api('/me/taggable_friends?limit=5000', function (response) {
-    //                $rootScope.facebook.friends = [];
-    //                for (var i = 0; i < response.data.length; i++) {
-    //                    var friendData = response.data[i];
-    //                    var friend = { id: friendData.id, name: friendData.name, avata: friendData.picture.data.url, selected: false };
-    //                    $rootScope.facebook.friends.push(friend);
-    //                }
-    //                $rootScope.$apply();
-    //            });
-    //        });
-    //    };
 });
 
 app.run(['$rootScope', '$window', 'facebook', 'User',
@@ -66,5 +54,16 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
                 //haven't connect, let show the login button
                 $rootScope.user = {};
             }
-        });
+
+            //get facebook friends
+            FB.api('/me/taggable_friends?limit=5000', function (response) {
+                $rootScope.taggableFriends = [];
+                for (var i = 0; i < response.data.length; i++) {
+                    var friendData = response.data[i];
+                    var friend = { id: friendData.id, name: friendData.name, avata: friendData.picture.data.url, selected: false };
+                    $rootScope.taggableFriends.push(friend);
+                }
+                $rootScope.$apply();
+            });
+        })
     }]);

@@ -11,5 +11,9 @@ app.factory('User', ['$resource', '$q', function ($resource, $q) {
 }]);
 
 app.factory('Bet', ['$resource', '$q', function ($resource, $q) {
-    return $resource('/api/bet/:id');
+    return $resource('/api/bet/:id', { id: '@Id' }, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
 }]);

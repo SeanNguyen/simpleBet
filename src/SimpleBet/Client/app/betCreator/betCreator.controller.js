@@ -2,7 +2,7 @@
 
 var app = angular.module('app');
 
-app.controller('betCreatorController', function($rootScope, $scope, $state, $window, $location) {
+app.controller('betCreatorController', function ($rootScope, $scope, $state, $window, $location, Bet) {
     var user = $rootScope.user;
     var id = $rootScope.user.Id;
     var name = $rootScope.user.Name;
@@ -37,69 +37,67 @@ app.controller('betCreatorController', function($rootScope, $scope, $state, $win
 		if(!$scope.input.option || $scope.input.option.lenght <= 0) {
 			return;
 		}
-		$scope.betModel.addOption($scope.input.option);
+		$scope.betModel.Options.push($scope.input.option);
 		$scope.input.option = '';
 	}
 
 	$scope.removeOption = function(index) {
-		$scope.betModel.removeOption(index);
+		$scope.betModel.Options.splice(index, 1);
 	}
 
 	$scope.isTypeSelected = function(optionIndex) {
-		var maxTeamSizeForFirstTeam = $scope.betModel.getMaxTeamSize(0);
-		if (optionIndex === 0 && maxTeamSizeForFirstTeam === 1) {
-			return true;
-		} else if (optionIndex === 1 && maxTeamSizeForFirstTeam > 1) {
-			return true;
-		}
-		return false;
+		//var maxTeamSizeForFirstTeam = $scope.betModel.getMaxTeamSize(0);
+		//if (optionIndex === 0 && maxTeamSizeForFirstTeam === 1) {
+		//	return true;
+		//} else if (optionIndex === 1 && maxTeamSizeForFirstTeam > 1) {
+		//	return true;
+		//}
+		//return false;
 	}
 
 	$scope.setBetType = function(type) {
-		if (type === 0) {
-			$scope.betModel.setMaxTeamSize(0, 1);
-		} else {
-			$scope.betModel.setMaxTeamSize(0, 10);
-		}
+		//if (type === 0) {
+		//	$scope.betModel.setMaxTeamSize(0, 1);
+		//} else {
+		//	$scope.betModel.setMaxTeamSize(0, 10);
+		//}
 	}
-
 
 	$scope.submitBet = function () {
-	    var ids = [];
-	    for (var i = $scope.betModel.participants.length - 1; i >= 0; i--) {
-	        ids.push($scope.betModel.participants[i].id);
-	    };
-	    var tagIds = ids.join(",");
+	    $scope.betModel.$save().then(function() {
+	        var ids = [];
+	        for (var i = $scope.betModel.Participants.length - 1; i >= 0; i--) {
+	            ids.push($scope.betModel.Participants[i].id);
+	        };
+	        var tagIds = ids.join(",");
 
-	    betApi.add($scope.betModel, function (betId) {
 	        FB.api(
-		        "/me/feed",
-		        "POST",
-		        {
-		            message: "This is a test message which going to be change: " + $scope.betModel.question,
-		            place: "1424132167909654", //this is our page id TODO: move this to config
-		            tags: tagIds,
-		            privacy: {
-		                value: "SELF"
-		            },
-		            link: "http://192.168.0.113:9000/#/bet/" + betId
-		        },
-		        function (response) {
-		            console.log(response);
-		            if (response && !response.error) {
-		                /* handle the result */
-		            }
-		        });
-	        $location.path('bet/' + betId);
+                "/me/feed",
+                "POST",
+                {
+                    message: "This is a test message which going to be change: " + $scope.betModel.Question,
+                    place: "1424132167909654", //this is our page id TODO: move this to config
+                    tags: tagIds,
+                    privacy: {
+                        value: "SELF"
+                    },
+                    link: "http://192.168.0.113:9000/#/bet/" + $scope.betModel.Id
+                },
+                function (response) {
+                    console.log(response);
+                    if (response && !response.error) {
+                        /* handle the result */
+                    }
+                });
+	        $location.path('bet/' + $scope.betModel.Id);
 	    });
-	    
 	}
-
+    
 	//Constructor
 	$scope.currentTab = 0;
 	$scope.input = {option:''};
 	$rootScope.title = TAB_NAMES[$scope.currentTab];
-	$scope.betModel = new BetModel();
+	$scope.betModel = new Bet({ Options: [] });
 	$scope.setBetType(0);
 	$scope.setTab(0);
 

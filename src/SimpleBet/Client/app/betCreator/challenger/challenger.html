@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<div ng-show="currentTab === 0">
-	    <div class="listItem" ng-repeat="item in facebook.friends" ng-click="onFriendSelect(item)" ng-class="{selected: item.selected}" ng-show="isInSearch(item.name)">
+	    <div class="listItem" ng-repeat="item in taggableFriends" ng-click="onFriendSelect(item)" ng-class="{selected: item.selected}" ng-show="isInSearch(item.name)">
 			<img src="{{item.avata}}" class="center avata">
 			<div class="content">
 				<h3 class="title">{{item.name}}</h3>
