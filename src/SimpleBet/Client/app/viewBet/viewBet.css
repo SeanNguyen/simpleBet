@@ -80,6 +80,7 @@
 	border-top-color: #FCFCFC;
 	border-top-style: solid;
 	border-top-width: 1pt;
+    height: 70px;
 }
 
 #viewBet .navbarContainer {
@@ -152,4 +153,71 @@
     padding-top: 25px;
     padding-bottom: 25px;
     font-size: 20px;
+}
+
+#viewBet #wager row {
+    height: 300px;
+}
+
+#viewBet #wager #smallCol {
+    background-color: #808080;
+    height: 300px;
+    text-align: center;
+    padding-right: 0;
+}
+
+#viewBet #wager h2 {
+    background-color: #ff806f;
+    color: #FCFCFC;
+    text-align: center;
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 25px;
+    height: 60px;
+    font-weight: bold;
+}
+
+#viewBet #wager #smallCol h1 {
+    color: #808080;
+    background-color: #FCFCFC;
+    border-radius: 30px;
+    height:60px;
+    width: 60px;
+    text-align: center;
+    font-size: 40px;
+    padding-top: 8px;
+    padding-bottom: 10px;
+    font: bold;
+    overflow: visible;
+    top: 50px; bottom: auto;
+    margin-top: 50px;
+}
+
+#viewBet #wager #smallCol h3 {
+    margin-top: 30px;
+    color: #FCFCFC;
+    font-size: 16px;
+    text-align: center;
+}
+
+#viewBet #wager #bigCol {
+    height: 100%;
+}
+
+#viewBet #wager #bigCol img {
+    height: 100px;
+    width: auto;
+    margin-top: 50px;
+}
+
+#viewBet #wager #bigCol h3 {
+    text-align: center;
+}
+
+#viewBet #wager #bigCol h4 {
+    padding: 0;
+    margin-left: 0;
+    margin-right: 20px;
+    font-size: 15px;
 }
