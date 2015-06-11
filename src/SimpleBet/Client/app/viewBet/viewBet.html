@@ -35,11 +35,11 @@
     </div>
 
 	<div class="footerButton">
-		<div ng-show="user.Id">
-			<div id="decline"><h4>Decline</h4></div>
-			<div id="accept"><h4>Accept</h4></div>
+		<div ng-show="isLoggedIn() && !isCreator()">
+			<div id="decline" ng-click="decline()"><h4>Decline</h4></div>
+			<div id="accept" ng-click="accept()"><h4>Accept</h4></div>
 		</div>
-		<div class="loginButton" ng-show="!user.Id">
+		<div class="loginButton" ng-show="!isLoggedIn()">
 			<div><h4>Facebook Log In</h4></div>
 		</div>
 	</div>

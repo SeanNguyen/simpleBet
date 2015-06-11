@@ -14,11 +14,10 @@ var WAGER_TYPE = { MONETARY: 'MONETARY', NONMONETARY: 'NONMONETARY' };
 var PARTICIPATION_STATE = {
     NONE: 0,
     PENDING: 1,
-    CONFIRMED: 2,
-    CREATOR: 3
+    CONFIRMED: 2
 };
 
-app.controller('betCreatorController', function ($rootScope, $scope, $state, $window, $location, Bet) {
+app.controller('betCreatorController', function ($rootScope, $scope, $state, $window, $location, Bet, User, BetUser, facebook) {
     //navigations
     $scope.currentTab = 0;
     $rootScope.title = TAB_NAMES[$scope.currentTab];
@@ -28,11 +27,19 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     //bet model
     $scope.betModel = new Bet({ 
         Options: [], 
-        Duration: 2 /*in hour, TODO: change to minutes*/
+        Duration: 2, /*in hour, TODO: change to minutes*/
+        Participations: [], //this field will actually be on the server database, dont be confuse with the field above
+
+        //TODO: #367 add  function to load data before controller or app so that this user will be alr loaded here
+        //CreatorId: $rootScope.user.Id 
     });
 
     //input
-    $scope.input = {option:''}
+    $scope.input = {
+        friendList: '',
+        option: '',
+        Participants: []
+    }
 
     //functions
     $scope.getTabStatusIcon = getTabStatusIcon;
@@ -136,47 +143,81 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	    }
 	}
 
+    //TODO: this function make me look fat, break it down
 	function submitBet() {
-	    //TODO: remove the participants from bet, replace by Partticipations
-	    $scope.betModel.Participations = [];
-	    //$scope.betModel.Participations.push({
-	    //    UserId: $rootScope.user.Id,
-	    //    State: PARTICIPATION_STATE.CREATOR
-	    //})
-        $scope.betModel.CreatorId = $rootScope.user.Id
-	    for (var i = $scope.betModel.Participants.length - 1; i >= 0; i--) {
-	        $scope.betModel.Participations.push({
-	            User: $scope.betModel.Participants[i],
-	            State: PARTICIPATION_STATE.PENDING
-	        });
-	    }
-        
-	    $scope.betModel.$save().then(function () {
-	        var ids = [];
-	        for (var i = $scope.betModel.Participations.length - 1; i >= 0; i--) {
-	            ids.push($scope.betModel.Participations[i].User.TagId);
-	        };
-	        var tagIds = ids.join(",");
 
-	        FB.api(
-                "/me/feed",
-                "POST",
-                {
-                    message: "This is a test message which going to be change: " + $scope.betModel.Question,
-                    place: "1424132167909654", //this is our page id TODO: move this to config
-                    tags: tagIds,
-                    privacy: {
-                        value: "SELF"
-                    },
-                    link: "http://192.168.0.113:9000/#/bet/" + $scope.betModel.Id
-                },
-                function (response) {
-                    console.log(response);
-                    if (response && !response.error) {
-                        /* handle the result */
-                    }
-                });
-	        $location.path('bet/' + $scope.betModel.Id);
+        //TODO: remove this line when the #367 solved
+	    $scope.betModel.CreatorId = $rootScope.user.Id;
+
+        //save bet without any edges to user just to get the ID first
+	    $scope.betModel.$save().then(function () {
+	        var link = "192.168.0.113:9000/" //TODO: move this link into the config file
+
+	        var message = "JOIN THE BET NOW !!! \n" + $scope.betModel.Question;
+	        
+	        var tagIds = [];
+	        for (var i = $scope.input.Participants.length - 1; i >= 0; i--) {
+	            tagIds.push($scope.input.Participants[i].tagId);
+	        };
+	        tagIds = tagIds.join(",");
+
+	        var promise = facebook.post(message, link, tagIds);
+	        return promise;
+	    })
+	    .then(function (response) {
+            //after post successfully onto facebook, get tagged friends ID and add to our awesome system
+	        if (response && !response.error) {
+	            FB.api(response.id, function (response) {
+	                if (response && !response.error) {
+	                    //register all friend tagged with the database
+	                    var taggedFriends = response.with_tags.data;
+	                    var friendSaveCount = 0;
+	                    for (var i = taggedFriends.length - 1; i >= 0; i--) {
+	                        //create new user
+	                        var friend = new User({
+	                            FacebookId: taggedFriends[i].id,
+	                            AvatarUrl: $scope.input.Participants[i].AvatarUrl,
+	                            Name: taggedFriends[i].name,
+	                        });
+	                        friend.$save(function () {
+	                            //added edges to the betModel
+	                            $scope.betModel.Participations.push({
+	                                UserId: friend.Id,
+	                                BetId: $scope.betModel.Id,
+	                                State: PARTICIPATION_STATE.PENDING
+	                            });
+
+                                //TODO: improve this hack around (at first this is to wait until all the new users saved)
+	                            friendSaveCount++;
+                                if (friendSaveCount === taggedFriends.length) {
+                                    //have to add creator to the connection edge as well
+                                    $scope.betModel.Participations.push({
+                                        UserId: $scope.betModel.CreatorId,
+                                        BetId: $scope.betModel.Id,
+                                        State: PARTICIPATION_STATE.CONFIRMED
+                                    });
+
+                                    //TODO: add loading screen for this and the friend saving above instead of jump directly to the bet pagex
+                                    //yay now we can save the betModel
+                                    $scope.betModel.$update();
+
+                                    //after settle down everything, relocate to the bet view
+                                    $location.path('bet/' + $scope.betModel.Id);
+	                            }
+
+	                        }, function () {
+	                            console.log("ERROR: cannot save new user");
+	                        });
+	                    }
+	                } else {
+	                    console.log("ERROR: get post from facebook");
+	                    console.log(response.error);
+	                }
+	            })
+	        } else {
+	            console.log("ERROR: post to facebook");
+	            console.log(response.error);
+	        }
 	    });
 	}
 

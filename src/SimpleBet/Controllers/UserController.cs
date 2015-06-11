@@ -60,9 +60,15 @@ namespace SimpleBet.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]User user)
         {
-            this.dbContext.Users.Add(user);
-            this.dbContext.SaveChanges();
-            string json = JsonConvert.SerializeObject(user);
+            //check if exists, then add
+            User existingUser = this.dbContext.Users.Where(u => u.FacebookId == user.FacebookId).FirstOrDefault();
+            if (existingUser == null)
+            {
+                this.dbContext.Users.Add(user);
+                this.dbContext.SaveChanges();
+                existingUser = user;
+            }
+            string json = JsonConvert.SerializeObject(existingUser);
             return new ObjectResult(json);
         }
 

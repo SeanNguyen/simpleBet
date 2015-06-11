@@ -2,9 +2,7 @@
 var app = angular.module('app');
 
 app.controller('challengerController', function($rootScope, $scope) {
-	$scope.input = {friendList: ''}
 	$scope.currentTab = 0;
-	$scope.$parent.betModel.Participants = [];
 
     //functions
 	$scope.setTab = setTab;
@@ -20,19 +18,19 @@ app.controller('challengerController', function($rootScope, $scope) {
 	    if (!friend.selected) {
 	        resetSearchField();
 	        $scope.input.friendList += friend.name + ",";
-	        $scope.$parent.betModel.Participants.push(friend);
+	        $scope.input.Participants.push(friend);
 	    } else {
 	        $scope.input.friendList = $scope.input.friendList.replace(friend.name + ",", '');
 	        var friendIndex = getChoosenFriendIndexById(friend.id);
-	        $scope.$parent.betModel.Participants.splice(friendIndex, 1);
+	        $scope.input.Participants.splice(friendIndex, 1);
 	    }
 	    friend.selected = !friend.selected;
 	}
 
 	function isInSearch(name) {
 	    var keyword = $scope.input.friendList;
-	    for (var i = $scope.$parent.betModel.Participants.length - 1; i >= 0; i--) {
-	        keyword = keyword.replace($scope.$parent.betModel.Participants[i].name + ",", '');
+	    for (var i = $scope.input.Participants.length - 1; i >= 0; i--) {
+	        keyword = keyword.replace($scope.input.Participants[i].name + ",", '');
 	    };
 
 	    //until here we have the real keyword
@@ -43,8 +41,8 @@ app.controller('challengerController', function($rootScope, $scope) {
 	}
 
 	function getChoosenFriendIndexById(tagId) {
-	    for (var i = $scope.$parent.betModel.Participants.length - 1; i >= 0; i--) {
-	        if ($scope.$parent.betModel.Participants[i].id === tagId) {
+	    for (var i = $scope.input.Participants.length - 1; i >= 0; i--) {
+	        if ($scope.input.Participants[i].id === tagId) {
 	            return i;
 	        }
 	    };
@@ -52,8 +50,8 @@ app.controller('challengerController', function($rootScope, $scope) {
 
 	function resetSearchField() {
 	    $scope.input.friendList = '';
-	    for (var i = $scope.$parent.betModel.Participants.length - 1; i >= 0; i--) {
-	        $scope.input.friendList += $scope.$parent.betModel.Participants[i].name + ","
+	    for (var i = $scope.input.Participants.length - 1; i >= 0; i--) {
+	        $scope.input.friendList += $scope.input.Participants[i].name + ","
 	    };
 	}
 });

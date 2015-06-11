@@ -18,10 +18,8 @@ namespace SimpleBet.Models
 
         //id
         public int Id { get; set; }
-        //[Index("FacebookId", 1, IsUnique = true)]
+        [Index("FacebookId", 1, IsUnique = true)]
         public long FacebookId { get; set; }
-        //[Index("TagId", 1, IsUnique = true)]
-        public string TagId { get; set; }
 
         //presentation
         public string Name { get; set; }
