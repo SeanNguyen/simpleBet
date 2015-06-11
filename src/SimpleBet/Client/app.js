@@ -29,7 +29,7 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
                         .then(function (facebookUser) {
                             $rootScope.user = new User();
                             $rootScope.user.FacebookId = facebookId;
-                            $rootScope.user.Name = facebookUser.first_name + " " + facebookUser.last_name;
+                            $rootScope.user.Name = facebookUser.name;
                             $rootScope.user.$save();
                         });
                     }
