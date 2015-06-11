@@ -119,11 +119,37 @@
 
     border-bottom-style: solid;
     border-bottom-color: #9999ff;
-    border-bottom-width: 2px;
+    border-bottom-width: 1px;
 }
 
 #viewBet .optionItem h4 {
     margin-top: 15px;
     margin-bottom: 15px;
+    font-size: 20px;
+}
+
+#viewBet #challenger {
+    margin-top: 10px;
+}
+
+#viewBet #challenger .challengerItem{
+    position: relative;
+    height: 70px;
+
+    border-bottom-style: solid;
+    border-bottom-color: #9999ff;
+    border-bottom-width: 1px;
+}
+
+#viewBet #challenger .challengerItem img {
+    position: absolute;
+    height: 50px;
+    top: 10px; left: 20px;
+}
+
+#viewBet #challenger .challengerItem h4 {
+    margin-left: 100px;
+    padding-top: 25px;
+    padding-bottom: 25px;
     font-size: 20px;
 }

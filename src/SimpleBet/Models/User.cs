@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SimpleBet.Models;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimpleBet.Models
 {
@@ -11,20 +12,24 @@ namespace SimpleBet.Models
     {
         public User()
         {
-            this.Bets = new List<Bet>();
+            //this.Bets = new List<Bet>();
+            this.Participations = new List<BetUser>();
         }
 
         //id
         public int Id { get; set; }
+        //[Index("FacebookId", 1, IsUnique = true)]
         public long FacebookId { get; set; }
+        //[Index("TagId", 1, IsUnique = true)]
         public string TagId { get; set; }
 
         //presentation
         public string Name { get; set; }
-        public string AvataUrl { get; set; }
+        public string AvatarUrl { get; set; }
 
         //bets
-        public virtual ICollection<Bet> Bets { get; set; }
+        //public virtual ICollection<Bet> Bets { get; set; }
+        public virtual ICollection<BetUser> Participations { get; set; }
         
         /*************************************************************/
         //public methods

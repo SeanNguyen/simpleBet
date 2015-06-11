@@ -13,7 +13,8 @@ namespace SimpleBet.Models
         public Bet()
         {
             this.Options = new List<Option>();
-            this.Participants = new List<User>();
+            this.Participations = new List<BetUser>();
+            //this.Participants = new List<User>();
         }
 
         //id
@@ -33,7 +34,8 @@ namespace SimpleBet.Models
         //user
         [Required]
         public int CreatorId { get; set; }
-        public virtual ICollection<User> Participants { get; set; }
+        //public virtual ICollection<User> Participants { get; set; }
+        public virtual ICollection<BetUser> Participations { get; set; }
 
         /*************************************************************/
         //public methods

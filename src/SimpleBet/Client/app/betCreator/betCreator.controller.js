@@ -11,6 +11,12 @@ var TAB_NAMES = ['The Bet', 'The Bet', 'The Wager', 'The Rule', 'The Challengers
 var TAB_STATES = ['question', 'option', 'wager', 'rule', 'challenger'];
 var BET_TYPE = { MVW: 'MVW', PAS: 'PAS' };
 var WAGER_TYPE = { MONETARY: 'MONETARY', NONMONETARY: 'NONMONETARY' };
+var PARTICIPATION_STATE = {
+    NONE: 0,
+    PENDING: 1,
+    CONFIRMED: 2,
+    CREATOR: 3
+};
 
 app.controller('betCreatorController', function ($rootScope, $scope, $state, $window, $location, Bet) {
     //navigations
@@ -48,7 +54,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     $scope.increaseDay = increaseDay;
     $scope.decreaseDay = decreaseDay;
 
-
+    active();
 
     //DETAIL
 
@@ -131,10 +137,24 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	}
 
 	function submitBet() {
+	    //TODO: remove the participants from bet, replace by Partticipations
+	    $scope.betModel.Participations = [];
+	    //$scope.betModel.Participations.push({
+	    //    UserId: $rootScope.user.Id,
+	    //    State: PARTICIPATION_STATE.CREATOR
+	    //})
+        $scope.betModel.CreatorId = $rootScope.user.Id
+	    for (var i = $scope.betModel.Participants.length - 1; i >= 0; i--) {
+	        $scope.betModel.Participations.push({
+	            User: $scope.betModel.Participants[i],
+	            State: PARTICIPATION_STATE.PENDING
+	        });
+	    }
+        
 	    $scope.betModel.$save().then(function () {
 	        var ids = [];
-	        for (var i = $scope.betModel.Participants.length - 1; i >= 0; i--) {
-	            ids.push($scope.betModel.Participants[i].Id);
+	        for (var i = $scope.betModel.Participations.length - 1; i >= 0; i--) {
+	            ids.push($scope.betModel.Participations[i].User.TagId);
 	        };
 	        var tagIds = ids.join(",");
 
@@ -158,5 +178,9 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
                 });
 	        $location.path('bet/' + $scope.betModel.Id);
 	    });
+	}
+
+	function active() {
+	    setTab(0);
 	}
 });

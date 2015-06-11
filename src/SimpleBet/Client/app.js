@@ -60,7 +60,7 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
                 $rootScope.taggableFriends = [];
                 for (var i = 0; i < response.data.length; i++) {
                     var friendData = response.data[i];
-                    var friend = { tagId: friendData.id, name: friendData.name, avata: friendData.picture.data.url, selected: false };
+                    var friend = { tagId: friendData.id, name: friendData.name, AvatarUrl: friendData.picture.data.url, selected: false };
                     $rootScope.taggableFriends.push(friend);
                 }
                 $rootScope.$apply();

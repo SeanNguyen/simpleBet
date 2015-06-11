@@ -9,7 +9,7 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
             { name: 'Challengers Invited' }]
 
         $rootScope.title = "Bet";
-        $scope.currentTab = 0
+        $scope.currentTab = 0;
         $scope.creator = {};
         $scope.bet = {};
 

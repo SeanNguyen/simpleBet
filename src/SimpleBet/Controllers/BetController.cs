@@ -4,6 +4,8 @@ using SimpleBet.Data;
 using SimpleBet.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace SimpleBet.Controllers
 {
@@ -30,13 +32,21 @@ namespace SimpleBet.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            Bet bet = this.dbContext.Bets.Find(id);
+            Bet bet = this.dbContext.Bets.Where(b => b.Id == id)
+                                        .Include(b => b.Participations.Select(p => p.User))
+                                        .FirstOrDefault();
+            //Bet bet = this.dbContext.Bets.Find(id);
             if (bet == null)
             {
                 return new HttpNotFoundResult();
             }
             else
             {
+                //TODO: later change this to Eager Loading
+                foreach (BetUser betUser in bet.Participations)
+                {
+                    User mock = betUser.User;
+                }
                 string betJson = JsonConvert.SerializeObject(bet);
                 return new ObjectResult(betJson);
             }
@@ -47,6 +57,20 @@ namespace SimpleBet.Controllers
         public IActionResult Post([FromBody]Bet bet)
         {
             bet.CreationDate = DateTime.Now;
+            //Check if user alr in db or not then place it with the one in db
+            //foreach (User user in this.dbContext.Users)
+            //{
+            //    foreach (BetUser betUser in bet.Participations)
+            //    {
+            //        //check Id, tagId, facebook id
+            //        if ((betUser.User.Id != -1 && user.Id == betUser.User.Id)
+            //            || (betUser.User.TagId != null && user.TagId == betUser.User.TagId) 
+            //            || (betUser.User.FacebookId != -1 && user.FacebookId == betUser.User.FacebookId))
+            //        {
+            //            betUser.User = user;
+            //        }
+            //    }
+            //}
             this.dbContext.Bets.Add(bet);
             this.dbContext.SaveChanges();
             string betJson = JsonConvert.SerializeObject(bet);
