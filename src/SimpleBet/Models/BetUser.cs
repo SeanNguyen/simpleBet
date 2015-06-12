@@ -12,7 +12,7 @@ namespace SimpleBet.Models
         NONE,
         PENDING,
         CONFIRMED,
-        CREATOR
+        VOTED
     };
     
     public class BetUser : Model
@@ -29,6 +29,7 @@ namespace SimpleBet.Models
         public Bet Bet { get; set; }
 
         public BetUserState State { get; set; }
+        public string Option { get; set; }
 
         //Public Methods
         public override Model parse(dynamic data)
