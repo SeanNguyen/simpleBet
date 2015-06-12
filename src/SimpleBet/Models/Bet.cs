@@ -8,6 +8,14 @@ using System.Threading.Tasks;
 
 namespace SimpleBet.Models
 {
+    public enum BET_STATE
+    {
+        NONE,
+        PENDING,
+        CONFIRM,
+        CANCELLING
+    }
+
     public class Bet : Model
     {
         public Bet()
@@ -36,6 +44,9 @@ namespace SimpleBet.Models
         public int CreatorId { get; set; }
         //public virtual ICollection<User> Participants { get; set; }
         public virtual ICollection<BetUser> Participations { get; set; }
+
+        //state
+        public BET_STATE State { get; set; }
 
         /*************************************************************/
         //public methods
