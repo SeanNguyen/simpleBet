@@ -45,7 +45,7 @@
         <!-- WHEN HAVENT PICK AN OPTION -->
         <!-- cancel button -->
         <div class="controlButton" ng-show="isLoggedIn() && getState() > 1 && isParticipant() && !input.option">
-            <div><h4>Vote to Cancel</h4></div>
+            <div ng-click="cancelBet()"><h4>Vote to Cancel</h4></div>
             <div id="finallize"><h4 class="disable">Finalize!</h4></div>
         </div>
 

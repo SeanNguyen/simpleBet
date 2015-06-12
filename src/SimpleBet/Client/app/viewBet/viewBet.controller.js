@@ -46,6 +46,7 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         $scope.selectOption = selectOption;
         $scope.confirmSelectOption = confirmSelectOption;
         $scope.getParticipantByOption = getParticipantByOption;
+        $scope.cancelBet = cancelBet;
 
         $scope.accept = accept;
         $scope.decline = decline;
@@ -67,7 +68,7 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
                     $scope.bet = updatedBet;
                     intervalUpdateBet();
                 })
-            }, 10000);
+            }, 5000);
         }
 
         function nextTab() {
@@ -179,30 +180,21 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
             $scope.bet.State = BET_STATE.CANCELLING;
             $scope.bet.$update();
 
-            var participation = getParticipation($rootScope);
+            var participation = getParticipationByUserId($rootScope.user.Id);
             if (participation) {
-
+                var participationModel = new BetUser(participation);
+                participationModel.VoteCancelBetState = VOTE_CANCEL_BET_STATE.CREATOR;
+                participationModel.$update();
             }
         }
 
         //private helper methods
-        function getParticipation(userId) {
+        function getParticipationByUserId(userId) {
             for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
                 var participation = $scope.bet.Participations[i];
                 if (userId === participation.UserId) {
                     return participation;
                 }
             }
-        }
-
-        function createParticipationResourceModel(participation) {
-            var participationResource = new BetUser({
-                BetId: participation.BetId,
-                UserId: participation.UserId,
-                Option: participation.Option,
-                State: participation.State,
-                VoteCancelBetState: participation.VoteCancelBetState
-            });
-            return participationResource;
         }
     }]);
