@@ -33,7 +33,7 @@
 
 	<div class="footerButton">
         <!-- accept button -->
-		<div ng-show="isLoggedIn() && !isCreator() && !isConfirmed() && isParticipant()">
+		<div ng-show="isLoggedIn() && !isCreator() && getState() === 1 && isParticipant()">
 			<div id="decline" ng-click="decline()"><h4>Decline</h4></div>
 			<div id="accept" ng-click="accept()"><h4>Accept</h4></div>
 		</div>
@@ -44,13 +44,13 @@
 
         <!-- WHEN HAVENT PICK AN OPTION -->
         <!-- cancel button -->
-        <div class="controlButton" ng-show="isLoggedIn() && isConfirmed() && isParticipant() && !input.option">
+        <div class="controlButton" ng-show="isLoggedIn() && getState() > 1 && isParticipant() && !input.option">
             <div><h4>Vote to Cancel</h4></div>
             <div id="finallize"><h4 class="disable">Finalize!</h4></div>
         </div>
 
         <!-- WHEN PICKED AN OPTION -->
-        <div id="selectOptionButton" ng-show="isLoggedIn() && isConfirmed() && isParticipant() && input.option"
+        <div id="selectOptionButton" ng-show="isLoggedIn() && isParticipant() && input.option && getState() === 2"
              ng-click="confirmSelectOption()">
             <div><h4>Bet on it!</h4></div>
         </div>

@@ -120,16 +120,36 @@
     height: 20px;
 }
 
+/*CONDITION*/
+
 #viewBet #conditions {
     margin-top: 10px;
 }
 
 #viewBet .optionItem {
+    position: relative;
     height: 50px;
     border-bottom-style: solid;
     border-bottom-color: #9999ff;
     border-bottom-width: 1px;
 }
+
+#viewBet #conditions #avatarContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0; left:0;
+    text-align:right;
+}
+
+#viewBet #conditions #avatarContainer img{
+    height: 40px;
+    margin-top: 5px;
+    margin-right: 5px;
+    width: auto;
+    border-radius: 50%;
+}
+
 
 #viewBet .optionItem h4 {
     margin: 0 20px;

@@ -2,6 +2,10 @@
     <div ng-repeat="option in bet.Options" class="optionItem" ng-click="selectOption(option)"
          ng-class="{selected : option === input.option}">
         <h4>{{option.Content}}</h4>
-        <div ng-repeat=""></div>
+        <div id="avatarContainer">
+            <div ng-repeat="participant in getParticipantByOption(option)">
+                <img src="{{participant.User.AvatarUrl}}" />
+            </div>
+        </div>
     </div>
 </div>
