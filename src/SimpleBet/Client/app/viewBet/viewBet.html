@@ -1,6 +1,6 @@
 <div class="container-fluid" id="viewBet" ng-controller="viewBetController">
 	<div class="header">
-		<div class="row">
+		<div class="container-fluid">
 			<div class="avata">
 				<img src="{{creator.AvatarUrl}}">
 			</div>
@@ -14,10 +14,7 @@
 					<h5>{{bet.Duration}} hours</h5>
 				</div>
 			</div>
-		</div>
-
-		<div class="row">
-			<h3 class="question">{{bet.Question}}</h3>
+            <h3 class="question">{{bet.Question}}</h3>
 		</div>
 	</div>
     <!-- Detail navbar -->
@@ -53,7 +50,8 @@
         </div>
 
         <!-- WHEN PICKED AN OPTION -->
-        <div id="selectOptionButton" ng-show="isLoggedIn() && isConfirmed() && isParticipant() && input.option">
+        <div id="selectOptionButton" ng-show="isLoggedIn() && isConfirmed() && isParticipant() && input.option"
+             ng-click="confirmSelectOption()">
             <div><h4>Bet on it!</h4></div>
         </div>
 	</div>

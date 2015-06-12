@@ -32,6 +32,7 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         $scope.isConfirmed = isConfirmed;
         $scope.isParticipant = isParticipant;
         $scope.selectOption = selectOption;
+        $scope.confirmSelectOption = confirmSelectOption;
 
         $scope.accept = accept;
         $scope.decline = decline;
@@ -117,6 +118,16 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
                 $scope.input.option = null;
             } else {
                 $scope.input.option = option;
+            }
+        }
+
+        function confirmSelectOption() {
+            //TODO: update to database
+            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.Participations[i];
+                if ($rootScope.user.Id === participation.UserId) {
+                    $scope.bet.Participations.Option = $scope.input.option.Content;
+                }
             }
         }
     }]);

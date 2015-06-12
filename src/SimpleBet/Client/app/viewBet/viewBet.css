@@ -40,6 +40,12 @@
     background-color: #0094ff;
 }
 
+#viewBet .header .col-xs-12{
+	color: #FCFCFC;
+    padding-right: 0;
+}
+
+
 #viewBet .avata {
 	width: 30%;
 	float: left;
@@ -123,17 +129,13 @@
     border-bottom-style: solid;
     border-bottom-color: #9999ff;
     border-bottom-width: 1px;
-
-    border-top-style: solid;
-    border-top-color: #9999ff;
-    border-top-width: 1px;
 }
 
 #viewBet .optionItem h4 {
     margin: 0 20px;
     padding-top: 15px;
     padding-bottom: 15px;
-    font-size: 20px;
+    font-size: 14px;
 }
 
 #viewBet #challenger {
