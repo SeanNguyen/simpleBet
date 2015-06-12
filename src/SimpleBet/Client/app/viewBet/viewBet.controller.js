@@ -8,6 +8,18 @@ var PARTICIPATION_STATE = {
     CONFIRMED: 2,
     VOTED: 3
 };
+var BET_STATE = {
+    NONE: 0,
+    PENDING: 1,
+    CONFIRMED: 2,
+    CANCELLING: 3
+};
+var VOTE_CANCEL_BET_STATE = {
+    NONE: 0,
+    CREATOR: 1,
+    DISAGREE: 2,
+    AGREE: 3,
+}
 
 app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Bet', 'User', 'BetUser', '$timeout',
     function ($rootScope, $scope, $stateParams, Bet, User, BetUser, $timeout) {
@@ -41,7 +53,7 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         //start the controller
         active();
         
-        //private helper methods
+        //public method implementations
         function active() {
             $scope.bet = Bet.get({ id: $stateParams.id }, function () {
                 $scope.creator = User.get({ id: $scope.bet.CreatorId });
@@ -137,12 +149,7 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
                     participation.State = PARTICIPATION_STATE.VOTED;
                     $scope.input.option = null;
                     //save to server
-                    var participationResource = new BetUser({
-                        BetId: participation.BetId,
-                        UserId: participation.UserId,
-                        Option: participation.Option,
-                        State: participation.State
-                    });
+                    var participationResource = createParticipationResourceModel(participation);
                     participationResource.$update();
                 }
             }
@@ -166,5 +173,35 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
                     return participation.State;
                 }
             }
+        }
+
+        function cancelBet() {
+            $scope.bet.State = BET_STATE.CANCELLING;
+            $scope.bet.$update();
+
+            var participation = getParticipation($rootScope);
+            if (participation) {
+
+            }
+        }
+
+        //private helper methods
+        function getParticipation(userId) {
+            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.Participations[i];
+                if (userId === participation.UserId) {
+                    return participation;
+                }
+            }
+        }
+
+        function createParticipationResourceModel(participation) {
+            var participationResource = new BetUser({
+                BetId: participation.BetId,
+                UserId: participation.UserId,
+                Option: participation.Option,
+                State: participation.State,
+                VoteCancelBetState: participation.VoteCancelBetState
+            });
         }
     }]);

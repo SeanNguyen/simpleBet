@@ -12,12 +12,21 @@ namespace SimpleBet.Models
         NONE,
         PENDING,
         CONFIRMED,
-        VOTED
+        VOTED,
     };
-    
+
+    public enum VoteCancelBetState
+    {
+        NONE,
+        CREATOR,
+        DISAGREE,
+        AGREE,
+    };
+
     public class BetUser : Model
     {
         //Attributes
+        //Keys
         [Key, Column(Order = 0)]
         public int UserId { get; set; }
         [ForeignKey("UserId")]
@@ -28,8 +37,13 @@ namespace SimpleBet.Models
         [ForeignKey("BetId")]
         public Bet Bet { get; set; }
 
+        
         public BetUserState State { get; set; }
         public string Option { get; set; }
+
+
+        //Cancelling action
+        public VoteCancelBetState VoteCancelBetState { get; set; }
 
         //Public Methods
         public override Model parse(dynamic data)
