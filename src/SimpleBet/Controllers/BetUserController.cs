@@ -3,14 +3,16 @@ using Newtonsoft.Json;
 using SimpleBet.Data;
 using SimpleBet.Models;
 using System;
-using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace SimpleBet.Controllers
 {
-    [Route("api/[controller]")]
-    public class BetUserController : Controller
+    //[Route("api/[controller]")]
+    public class BetUserController : ApiController
     {
         //Attributes
         private readonly SimpleBetContext dbContext;
@@ -25,7 +27,7 @@ namespace SimpleBet.Controllers
         [HttpGet]
         public string Get()
         {
-            return JsonConvert.SerializeObject(this.dbContext.Users);
+            return JsonConvert.SerializeObject(this.dbContext.BetUsers);
         }
 
         //currently cannot get by Id will add later if required
@@ -56,20 +58,66 @@ namespace SimpleBet.Controllers
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]BetUser betUser)
+        [Route("api/[controller]/{betId}/{userId}")]
+        [HttpPut]
+        public async Task<IActionResult> Put(int betId, int userId, [FromBody]BetUser betUser)
         {
-            BetUser betUserSource = this.dbContext.BetUsers
-                                            .Where(bu => bu.UserId == betUser.UserId)              
-                                            .FirstOrDefault();
-            betUserSource.State = betUser.State;
-            this.dbContext.SaveChanges();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (betId != betUser.BetId || userId != betUser.UserId)
+            {
+                return BadRequest();
+            }
+
+            this.dbContext.Entry(betUser).State = EntityState.Modified;
+
+            try
+            {
+                await this.dbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!isExist(betId, userId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            //seriallize the object
+            string json = JsonConvert.SerializeObject(betUser);
+            return Ok(json);
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [Route("api/[controller]/{betId}/{userId}")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int userId, int betId)
         {
+            BetUser betUser = this.dbContext.BetUsers
+                                .Where(bu => bu.BetId == betId && bu.UserId == userId)
+                                .FirstOrDefault();
+            if (betUser == null)
+            {
+                return NotFound();
+            }
+
+            this.dbContext.BetUsers.Remove(betUser);
+            await this.dbContext.SaveChangesAsync();
+
+            string json = JsonConvert.SerializeObject(betUser);
+            return Ok(json);
+        }
+
+        //private helper methods
+        private bool isExist(int betId, int userId)
+        {
+            return this.dbContext.BetUsers.Count(b => b.BetId == betId && b.UserId == userId) > 0;
         }
     }
 }

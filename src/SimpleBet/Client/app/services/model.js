@@ -19,7 +19,7 @@ app.factory('Bet', ['$resource', '$q', function ($resource, $q) {
 }]);
 
 app.factory('BetUser', ['$resource', '$q', function ($resource, $q) {
-    return $resource('/api/betUser/:id', { id: '@Id' }, {
+    return $resource('/api/betUser/:betId/:userId', { betId: '@BetId', userId: '@UserId' }, {
         update: {
             method: 'PUT' // this method issues a PUT request
         }
