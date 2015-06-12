@@ -9,8 +9,8 @@ var PARTICIPATION_STATE = {
     VOTED: 3
 };
 
-app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Bet', 'User', 'BetUser',
-    function ($rootScope, $scope, $stateParams, Bet, User, BetUser) {
+app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Bet', 'User', 'BetUser', '$timeout',
+    function ($rootScope, $scope, $stateParams, Bet, User, BetUser, $timeout) {
         $scope.tabs = [
             { name: 'Bet Conditions' },
             { name: 'Bet Wager' },
@@ -46,6 +46,16 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
             $scope.bet = Bet.get({ id: $stateParams.id }, function () {
                 $scope.creator = User.get({ id: $scope.bet.CreatorId });
             });
+            intervalUpdateBet();
+        }
+
+        function intervalUpdateBet() {
+            $timeout(function () {
+                var updatedBet = Bet.get({ id: $scope.bet.Id }, function () {
+                    $scope.bet = updatedBet;
+                    intervalUpdateBet();
+                })
+            }, 1000);
         }
 
         function nextTab() {
