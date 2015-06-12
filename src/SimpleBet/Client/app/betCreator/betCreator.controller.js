@@ -16,7 +16,12 @@ var PARTICIPATION_STATE = {
     PENDING: 1,
     CONFIRMED: 2
 };
-
+var BET_STATE = {
+    NONE: 0,
+    PENDING: 1,
+    CONFIRMED: 2,
+    CANCELLING: 3
+}
 app.controller('betCreatorController', function ($rootScope, $scope, $state, $window, $location, Bet, User, BetUser, facebook) {
     //navigations
     $scope.currentTab = 0;
@@ -29,7 +34,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
         Options: [], 
         Duration: 2, /*in hour, TODO: change to minutes*/
         Participations: [], //this field will actually be on the server database, dont be confuse with the field above
-
+        State:BET_STATE.NONE
         //TODO: #367 add  function to load data before controller or app so that this user will be alr loaded here
         //CreatorId: $rootScope.user.Id 
     });
@@ -198,6 +203,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
                                         BetId: $scope.betModel.Id,
                                         State: PARTICIPATION_STATE.CONFIRMED
                                     });
+                                    $scope.betModel.State = BET_STATE.PENDING;
 
                                     //TODO: add loading screen for this and the friend saving above instead of jump directly to the bet pagex
                                     //yay now we can save the betModel
