@@ -67,7 +67,7 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
                     $scope.bet = updatedBet;
                     intervalUpdateBet();
                 })
-            }, 1000);
+            }, 10000);
         }
 
         function nextTab() {
@@ -203,5 +203,6 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
                 State: participation.State,
                 VoteCancelBetState: participation.VoteCancelBetState
             });
+            return participationResource;
         }
     }]);
