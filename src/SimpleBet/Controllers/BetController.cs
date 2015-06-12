@@ -3,14 +3,16 @@ using Newtonsoft.Json;
 using SimpleBet.Data;
 using SimpleBet.Models;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace SimpleBet.Controllers
 {
     [Route("api/[controller]")]
-    public class BetController
+    public class BetController : ApiController
     {
         //Attributes
         private readonly SimpleBetContext dbContext;
@@ -56,21 +58,9 @@ namespace SimpleBet.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]Bet bet)
         {
+            //manually create datetime here, TODO: maybe move this creation to client
             bet.CreationDate = DateTime.Now;
-            //Check if user alr in db or not then place it with the one in db
-            //foreach (User user in this.dbContext.Users)
-            //{
-            //    foreach (BetUser betUser in bet.Participations)
-            //    {
-            //        //check Id, tagId, facebook id
-            //        if ((betUser.User.Id != -1 && user.Id == betUser.User.Id)
-            //            || (betUser.User.TagId != null && user.TagId == betUser.User.TagId) 
-            //            || (betUser.User.FacebookId != -1 && user.FacebookId == betUser.User.FacebookId))
-            //        {
-            //            betUser.User = user;
-            //        }
-            //    }
-            //}
+
             this.dbContext.Bets.Add(bet);
             this.dbContext.SaveChanges();
             string betJson = JsonConvert.SerializeObject(bet);
@@ -79,19 +69,62 @@ namespace SimpleBet.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]Bet bet)
+        public async Task<IActionResult> Put(int id, [FromBody]Bet bet)
         {
-            Bet existingBet = this.dbContext.Bets.Where(b => b.Id == id).FirstOrDefault();
-            if(existingBet != null)
+            if(!ModelState.IsValid)
             {
-                this.dbContext.
+                return BadRequest(ModelState);
             }
+            if (id != bet.Id)
+            {
+                return BadRequest();
+            }
+
+            this.dbContext.Entry(bet).State = EntityState.Modified;
+            //added all participations as well
+            this.dbContext.BetUsers.AddRange(bet.Participations);
+
+            try
+            {
+                await this.dbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!isExist(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            //seriallize the object
+            string json = JsonConvert.SerializeObject(bet);
+            return Ok(json);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            Bet bet = await this.dbContext.Bets.FindAsync(id);
+            if (bet == null)
+            {
+                return NotFound();
+            }
+
+            this.dbContext.Bets.Remove(bet);
+            await this.dbContext.SaveChangesAsync();
+
+            return Ok(bet);
+        }
+
+        //private helper methods
+        private bool isExist(int id)
+        {
+            return this.dbContext.Bets.Count(b => b.Id == id) > 0;
         }
 
     }

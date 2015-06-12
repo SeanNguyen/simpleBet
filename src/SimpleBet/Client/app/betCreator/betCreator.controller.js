@@ -187,7 +187,8 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	                                State: PARTICIPATION_STATE.PENDING
 	                            });
 
-                                //TODO: improve this hack around (at first this is to wait until all the new users saved)
+	                            //TODO: improve this hack around (at first this is to wait until all the new users saved)
+                                //TODO: to use promise instead of this piramid of callback >"<
 	                            friendSaveCount++;
                                 if (friendSaveCount === taggedFriends.length) {
                                     //have to add creator to the connection edge as well
@@ -199,10 +200,10 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 
                                     //TODO: add loading screen for this and the friend saving above instead of jump directly to the bet pagex
                                     //yay now we can save the betModel
-                                    $scope.betModel.$update();
-
-                                    //after settle down everything, relocate to the bet view
-                                    $location.path('bet/' + $scope.betModel.Id);
+                                    $scope.betModel.$update(function () {
+                                        //after settle down everything, relocate to the bet view
+                                        $location.path('bet/' + $scope.betModel.Id);
+                                    });
 	                            }
 
 	                        }, function () {
