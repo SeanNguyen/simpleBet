@@ -43,10 +43,13 @@
 #viewBet .avata {
 	width: 30%;
 	float: left;
+    padding-left: 20px;
+    padding-top: 20px;
 }
 
 #viewBet .avata img {
 	width: 100%;
+    max-width: 200px;
 }
 
 #viewBet .creator {
@@ -117,15 +120,19 @@
 
 #viewBet .optionItem {
     height: 50px;
-
     border-bottom-style: solid;
     border-bottom-color: #9999ff;
     border-bottom-width: 1px;
+
+    border-top-style: solid;
+    border-top-color: #9999ff;
+    border-top-width: 1px;
 }
 
 #viewBet .optionItem h4 {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin: 0 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     font-size: 20px;
 }
 
@@ -150,9 +157,9 @@
 
 #viewBet #challenger .challengerItem h4 {
     margin-left: 100px;
-    padding-top: 25px;
+    padding-top: 20px;
     padding-bottom: 25px;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 #viewBet #wager row {
@@ -161,9 +168,8 @@
 
 #viewBet #wager #smallCol {
     background-color: #808080;
-    height: 300px;
     text-align: center;
-    padding-right: 0;
+    padding: 20px;
 }
 
 #viewBet #wager h2 {
@@ -191,7 +197,6 @@
     font: bold;
     overflow: visible;
     top: 50px; bottom: auto;
-    margin-top: 50px;
 }
 
 #viewBet #wager #smallCol h3 {
@@ -216,8 +221,54 @@
 }
 
 #viewBet #wager #bigCol h4 {
-    padding: 0;
-    margin-left: 0;
-    margin-right: 20px;
+    padding: 20px;
     font-size: 15px;
+}
+
+#viewBet .controlButton {
+    height: 80px;
+    background-color: #808080;
+    box-shadow: 0px 0px 5px #000;
+}
+
+#viewBet .controlButton h4 {
+    float: left;
+    margin: 0;
+    width: 50%;
+    font-size: 20px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+#viewBet .controlButton #finallize h4{
+    background-color: #ff806f;
+}
+
+#viewBet .controlButton #finallize .disable {
+    background-color: #808080;
+    color: #C0C0C0;
+}
+
+#viewBet #conditions .selected {
+    background-color: #ebebff;
+}
+
+#viewBet #selectOptionButton {
+    height: 80px;
+    background-color: #ff806f;
+    box-shadow: 0px 0px 5px #000;
+}
+
+#viewBet #selectOptionButton h4 {
+    height: 80px;
+    margin: 0;
+    font-size: 20px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+#viewBet .tab {
+    margin: 30px 10px;
+    box-shadow: 0px 0px 5px #000;
 }

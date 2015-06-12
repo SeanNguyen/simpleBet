@@ -21,11 +21,18 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         $scope.creator = {};
         $scope.bet = {};
 
+        //input model
+        $scope.input = { option: null };
+
         //function
         $scope.nextTab = nextTab;
         $scope.lastTab = lastTab;
         $scope.isCreator = isCreator;
         $scope.isLoggedIn = isLoggedIn;
+        $scope.isConfirmed = isConfirmed;
+        $scope.isParticipant = isParticipant;
+        $scope.selectOption = selectOption;
+
         $scope.accept = accept;
         $scope.decline = decline;
 
@@ -65,28 +72,51 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
             return false;
         }
 
-        function accept() {
-            var participation = getParticipationFromBet($rootScope.user.Id);
-            if (participation) {
-                var participationModel = BetUser({
-                    BetId: participation.BetId,
-                    UserId: participation.UserId,
-                    State: PARTICIPATION_STATE.CONFIRMED
-                });
-                participationModel.update();
+        function isConfirmed() {
+            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.Participations[i];
+                if ($rootScope.user.Id === participation.UserId) {
+                    return participation.State === PARTICIPATION_STATE.CONFIRMED;
+                }
             }
+            return false;
+        }
+
+        function isParticipant() {
+            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.Participations[i];
+                if ($rootScope.user.Id === participation.UserId) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function accept() {
+            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.Participations[i];
+                if ($rootScope.user.Id === participation.UserId) {
+                    participation.State = PARTICIPATION_STATE.CONFIRMED;
+                }
+            }
+            $scope.bet.$update();
         }
 
         function decline() {
-
+            //TODO: update to database
+            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.Participations[i];
+                if ($rootScope.user.Id === participation.UserId) {
+                    $scope.bet.Participations.splice(i, 1);
+                }
+            }
         }
 
-        function getParticipationFromBet(id) {
-            $scope.bet.Participations.forEach(function (element, index, array) {
-                if (id === element.UserId) {
-                    return element;
-                }
-            });
-            return null;
+        function selectOption(option) {
+            if ($scope.input.option === option) {
+                $scope.input.option = null;
+            } else {
+                $scope.input.option = option;
+            }
         }
     }]);

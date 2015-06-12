@@ -2,7 +2,7 @@
 	<div class="header">
 		<div class="row">
 			<div class="avata">
-				<img src="http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png">
+				<img src="{{creator.AvatarUrl}}">
 			</div>
 			
 			<div class="creator">
@@ -21,7 +21,7 @@
 		</div>
 	</div>
     <!-- Detail navbar -->
-    <div class="navbarContainer">
+    <div class="navbarContainer" ng-hide="true">
         <img id="leftArrow" src="assets/arrow_left_white.png" ng-click="lastTab()" />
         <img id="rightArrow" src="assets/arrow_right_white.png" ng-click="nextTab()" />
         <h4>{{tabs[currentTab].name}}</h4>
@@ -29,18 +29,32 @@
     </div>
 
     <div>
-        <div ng-show="currentTab === 0" ng-include="'app/viewBet/conditions.html'"></div>
-        <div ng-show="currentTab === 1" ng-include="'app/viewBet/wager.html'"></div>
-        <div ng-show="currentTab === 2" ng-include="'app/viewBet/challengers.html'"></div>
+        <div ng-include="'app/viewBet/conditions.html'" class="tab"></div>
+        <div ng-include="'app/viewBet/wager.html'" class="tab"></div>
+        <div ng-include="'app/viewBet/challengers.html'" class="tab"></div>
     </div>
 
 	<div class="footerButton">
-		<div ng-show="isLoggedIn() && !isCreator()">
+        <!-- accept button -->
+		<div ng-show="isLoggedIn() && !isCreator() && !isConfirmed() && isParticipant()">
 			<div id="decline" ng-click="decline()"><h4>Decline</h4></div>
 			<div id="accept" ng-click="accept()"><h4>Accept</h4></div>
 		</div>
+        <!-- login button -->
 		<div class="loginButton" ng-show="!isLoggedIn()">
 			<div><h4>Facebook Log In</h4></div>
 		</div>
+
+        <!-- WHEN HAVENT PICK AN OPTION -->
+        <!-- cancel button -->
+        <div class="controlButton" ng-show="isLoggedIn() && isConfirmed() && isParticipant() && !input.option">
+            <div><h4>Vote to Cancel</h4></div>
+            <div id="finallize"><h4 class="disable">Finalize!</h4></div>
+        </div>
+
+        <!-- WHEN PICKED AN OPTION -->
+        <div id="selectOptionButton" ng-show="isLoggedIn() && isConfirmed() && isParticipant() && input.option">
+            <div><h4>Bet on it!</h4></div>
+        </div>
 	</div>
 </div>

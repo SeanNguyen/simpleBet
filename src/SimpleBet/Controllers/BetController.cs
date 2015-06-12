@@ -82,7 +82,19 @@ namespace SimpleBet.Controllers
 
             this.dbContext.Entry(bet).State = EntityState.Modified;
             //added all participations as well
-            this.dbContext.BetUsers.AddRange(bet.Participations);
+            foreach(BetUser betUser in bet.Participations)
+            {
+                if (this.dbContext.BetUsers
+                    .Where(bu => bu.BetId == betUser.BetId && bu.UserId == betUser.UserId)
+                    .FirstOrDefault() != null)
+                {
+                    this.dbContext.Entry(betUser).State = EntityState.Modified;
+                }
+                else
+                {
+                    this.dbContext.BetUsers.Add(betUser);
+                }
+            }
 
             try
             {

@@ -31,6 +31,8 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
                             $rootScope.user.FacebookId = facebookId;
                             $rootScope.user.Name = facebookUser.name;
                             $rootScope.user.$save();
+                            //TODO: querry correct avatar
+                            $rootScope.user.AvatarUrl = "http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png"
                         });
                     }
                 });

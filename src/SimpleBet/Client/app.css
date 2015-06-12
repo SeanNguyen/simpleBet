@@ -6,6 +6,7 @@
 /*accent color:  #ff806f  */
 
 /*default white text: #FCFCFC*/
+/*default grey text: #C0C0C0*/
 /*default black text: #666673*/
 /*default cyan text: #57d1c2*/
 
@@ -32,6 +33,11 @@ body {
 	color: #666673;
     background-color: #FCFCFC;
 	font-family: 'PT Sans', sans-serif;
+}
+
+body > .container {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 /*set img to be default horizontally center*/

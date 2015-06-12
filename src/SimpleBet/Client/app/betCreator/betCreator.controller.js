@@ -150,8 +150,9 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	    $scope.betModel.CreatorId = $rootScope.user.Id;
 
         //save bet without any edges to user just to get the ID first
-	    $scope.betModel.$save().then(function () {
-	        var link = "192.168.0.113:9000/" //TODO: move this link into the config file
+	    $scope.betModel.$save()
+        .then(function () {
+	        var link = "192.168.0.113:9000/#/bet/" + $scope.betModel.Id //TODO: move this link into the config file
 
 	        var message = "JOIN THE BET NOW !!! \n" + $scope.betModel.Question;
 	        

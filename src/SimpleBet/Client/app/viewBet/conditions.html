@@ -1,5 +1,6 @@
-﻿<div class="container" id="conditions">
-    <div ng-repeat="option in bet.Options" class="optionItem">
+﻿<div class="container-fluid" id="conditions">
+    <div ng-repeat="option in bet.Options" class="optionItem" ng-click="selectOption(option)"
+         ng-class="{selected : option === input.option}">
         <h4>{{option.Content}}</h4>
     </div>
 </div>
