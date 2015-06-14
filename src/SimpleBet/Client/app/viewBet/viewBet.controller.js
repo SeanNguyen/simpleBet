@@ -64,8 +64,7 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
 
         function intervalUpdateBet() {
             $timeout(function () {
-                var updatedBet = Bet.get({ id: $scope.bet.Id }, function () {
-                    $scope.bet = updatedBet;
+                $scope.bet.$get({ id: $scope.bet.Id }, function () {
                     intervalUpdateBet();
                 })
             }, 5000);
@@ -186,6 +185,10 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
                 participationModel.VoteCancelBetState = VOTE_CANCEL_BET_STATE.CREATOR;
                 participationModel.$update();
             }
+        }
+
+        function onFinallizeSelect() {
+
         }
 
         //private helper methods
