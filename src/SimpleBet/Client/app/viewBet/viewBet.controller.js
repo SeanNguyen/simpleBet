@@ -31,6 +31,7 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         $rootScope.title = "Bet";
         $scope.currentTab = 0;
         $scope.creator = {};
+        $scope.betCancelCreator = {};
         $scope.bet = {};
 
         //input model
@@ -188,6 +189,10 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         }
 
         function onFinallizeSelect() {
+
+        }
+
+        function getCancellingPerson() {
 
         }
 

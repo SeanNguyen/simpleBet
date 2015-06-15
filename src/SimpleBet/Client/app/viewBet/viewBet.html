@@ -25,6 +25,14 @@
 
     </div>
 
+    <div class="tab" ng-show="betCancelCreator">
+        <img src="" />
+        <div>
+            <h4>{{betCancelCreator.name}}</h4>
+            <h5>have started a vote to cancel the bet.</h5>
+        </div>
+    </div>
+
     <div>
         <div ng-include="'app/viewBet/conditions.html'" class="tab"></div>
         <div ng-include="'app/viewBet/wager.html'" class="tab"></div>
