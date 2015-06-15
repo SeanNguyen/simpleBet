@@ -1,0 +1,187 @@
+<div class="container-fluid" id="profile">
+	<div class="container-fluid" ng-show="true">
+			
+		<div class="container-fluid" id="line">
+			<h5 id="confirmTitle"><br>Confirm your Details</h5>
+		</div>
+
+		<div  class= "container-fluid" id="userImage">
+			<center>
+			<img class="img-circle" src="assets/meerkat.jpg" alt="user" id="circleImage">
+			</center>
+		</div>
+		
+		<div class= "container-fluid col-xs-12" id="nameContent">
+			<div class = "col-xs-1 col-sm-4"></div>	
+			<div class = "col-xs-10 col-sm-4">	
+				<h5 id="userText">Name</h5> 	
+				<input type=text id="tbName" placeholder="Aberdon M. Fanner" ng-model="person.name">
+			</div>
+			<div class = "col-xs-1 col-sm-4"></div>	
+		</div>
+	
+		<div class= "container-fluid col-xs-12"   id="emailContent">
+		<div class = "col-xs-1 col-sm-4"></div>	
+			<div class = "col-xs-10 col-sm-4">	
+			<h5 id="emailText"> Email</h5>
+			<input type=text id="tbEmail" placeholder="amf@gmail.com" ng-model="person.email">
+			</div>
+			<div class = "col-xs-1 col-sm-4"></div>	
+		<br>
+		</div>
+
+		<footer>
+		<div >
+			<a class="btn btn-default btn-block btn-sm" role="button" id="nextButton">Next </a>
+		</div>
+		</footer>
+	</div>
+
+
+	<!--*********************** credentialPage *******************-->
+	<div class= "container-fluid" ng-show="false" id="credentialPage">
+		
+		<div class="container-fluid" id="line">
+			<h5 id="credentialsTitle"><br>Credentials</h5>
+		</div>
+		<br>
+
+		<div class = "container-fluid col-xs-12" id="cardSection"> 
+
+			<div class = "col-xs-1 col-sm-4"></div>	
+			<div class = "col-xs-10 col-sm-4">	
+				<h5 id="cardNumText">Card Number</h5> 
+				<div class "inner-addon right-addon" id="cardInputSection">								
+					<input class="form-control" type=text id="tbCardNumInput" ng-model="person.cardNum">
+					<i class="glyphicon glyphicon-camera" id="glyphCamera"></i>
+				</div>
+			</div>
+			<div class = "col-xs-1 col-sm-4"></div>	
+
+		</div><!--end of cardSection-->
+
+
+		<div class="container-fluid col-xs-12" id="cardExpirySection"> 
+			
+			<div class="col-xs-1 col-sm-4"></div>
+						
+			<div class= "col-xs-6 col-sm-3">
+				<h5 id="cardExpiryText">Expiry</h5> 
+				  <select class="form-control col-xs-5" id="selMth">
+			        <option>MM</option>
+			        <option>01</option>
+			        <option>02</option>
+			        <option>03</option>
+			        <option>04</option>
+			        <option>05</option>
+			        <option>06</option>
+			        <option>07</option>
+			        <option>08</option>
+			        <option>09</option>
+			        <option>10</option>
+			        <option>11</option>
+			        <option>12</option>
+      			</select>	
+
+      			<select class="form-control col-xs-5" id="selYear">
+      				<option>YY</option>
+      				<option>14</option>
+			        <option>15</option>
+			        <option>16</option>
+			        <option>17</option>
+			        <option>18</option>
+			        <option>19</option>
+			        <option>20</option>
+			        <option>21</option>
+			        <option>22</option>
+			        <option>23</option>
+			        <option>24</option>
+			        <option>25</option>
+      			</select>
+				
+							
+			</div>
+
+			<div class="col-xs-4 col-sm-1">
+				<h5 id="cvvText">CVV</h5> 
+				<input class="form-control" type=text id="tbcvvInput" ng-model="person.cvvInput" placeholder="YYY">
+			</div>
+
+		    <div class="col-xs-4"></div>
+
+		</div><!--End of cardExpirySection-->
+
+		<div class="container-fluid col-xs-12" id="crdSpace">
+		</div>
+
+	    <div class="container-fluid col-xs-12" id="crdTerms">
+	    	<div class="col-sm-4"></div>
+	    	<div class="col-sm-4">
+	    	<p id="crdTermsText">Ovius halabessic re tervis furei post iurauciendemericae,que consul e ricaperur. Gulum huid dem et que patum trum s hus itis, conde ma, que prare, conlocc ivatus factam pubit, que in dem nium dentri senduc rehem spercep otinesimus conclem noviterfex nimores? quamdiis iam venatil</p>
+			</div>
+			<div class="col-sm-4"></div>
+		</div>
+
+
+		<div class="container-fluid" id="nextBut">
+			<a class="btn btn-default btn-block btn-sm" role="button" id="nextGreyButton">Next </a>
+		</div>
+		
+
+
+	</div> <!--End of Credential-->
+
+	<!--********************* addressPage *******************-->
+	<div class= "container-fluid" ng-show="false" id="addressPage">
+		
+		<div class="container-fluid" id="line">
+			<h5 id="addressTitle"><br>Address</h5>
+		</div>
+	
+		<br>
+
+		<div class = "container-fluid col-xs-12" id="addressSection"> 
+
+			<div class = "col-xs-1 col-sm-4"></div>	
+			<div class = "col-xs-10 col-sm-4">	
+				<h5 id="addressText">Address</h5>
+				<div id = "addressSpace" >
+					<input class="form-control" type=text id="tbaddInput1" ng-model="person.add1Input">
+				</div>
+				<input class="form-control" type=text id="tbaddInput2" ng-model="person.add2Input">
+				
+
+				<h5 id="countryText">Country</h5> 		
+				 <select class="form-control input-medium bfh-countries" id="selCountry">
+				 	<option>Select</option>
+				 	<option>Afghanistan</option>
+				 	<option>Albania</option>
+				 	<option>Algeria</option>
+      			</select>
+
+				<h5 id="postalText">Postal Code</h5> 		
+				<input type= text id="tbPostalCodeInput" ng-model="person.pcInput">
+
+				</div>
+			<div class = "col-xs-1 col-sm-4"></div>	
+
+		</div><!--end of addressSection-->
+
+		<div class="container-fluid col-xs-12" id="addressInst">
+	    	<div class="col-sm-4"></div>
+	    	<div class="col-sm-4">
+	    	<p id="addTermsText">To receive the rewards that you won through the bets, you will have to fill in your address that you will like 
+	    	us to ship it to.</p>
+			</div>
+			<div class="col-sm-4"></div>
+		</div>
+
+		<div class="container-fluid" id="doneBut">
+			<a class="btn btn-default btn-block btn-sm" role="button" id="doneButton">Done!</a>
+		</div>
+
+	</div> <!-- end of addressPage-->
+
+
+
+</div>

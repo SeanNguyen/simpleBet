@@ -1,0 +1,457 @@
+/** Divider **/
+#profile #line{
+	width: 100%;
+
+	padding-top: 40px;
+
+    border: 2px solid;
+    margin: 0;
+	
+	position:fixed;
+
+	background-color: white;
+	border-top-color: #FFF;
+	border-left-color: #FFF;
+	border-right-color: #FFF;
+	border-bottom-color: #9999ff;
+	z-index: 1;
+}
+
+
+/** TextBox Outline Focus **/
+
+#profile input:focus {
+    outline:none;
+}
+
+#profile{
+	background-color: #FFF;
+}
+
+#profile #confirmTitle{
+	text-align: center;	
+	font-size: 15px;
+	color: #9999ff;
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+
+/** Name Content **/
+#profile #nameContent{	
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 60px;
+	background-color: white;
+}
+
+#profile #userText{
+	font-weight: bold;
+	color: #666673;
+	margin: 0px;
+	padding-bottom: 5px;
+	padding-right: 320px;
+}
+
+#profile #nameContent #tbName{
+	height: 40px;
+	width: 100%;	
+	max-width: 100%;
+
+	border: 1px solid;
+	border-radius:10px;
+	border-color: #9999ff;
+    
+    font-size: 15px;
+    text-align: left;
+
+    padding-left: 10px;
+
+}
+
+/** Email Content **/ 
+#profile #emailContent{
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 250px;
+	max-width: 100%;
+	
+	
+}
+#profile #emailText{
+	font-weight: bold;
+	color: #666673;
+	margin: 0px;
+	margin-top: 20px;
+	padding-bottom: 5px;
+	padding-right: 320px;
+}
+
+#profile #emailContent #tbEmail{
+    height: 40px;
+	width: 100%;	
+	max-width: 100%;
+
+	border: 1px solid;
+	border-radius:10px;
+	border-color: #9999ff;
+    
+    font-size: 15px;
+    text-align: left;
+
+     padding-left: 10px;
+}
+
+
+/** User - Image **/
+#profile #userImage{
+	margin-top: 120px;
+	background-color: white;
+
+}
+
+#profile #circleImage{
+	margin-top: 20px;
+	width: 130px;
+	height: 120px;
+	
+}
+
+/** Next Button **/
+#profile #nextButton{
+	width: 100%;
+	height: 50px;
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #FCFCFC;
+	text-align: center;
+	margin: 0 auto;
+	background-color: #ff806f;
+	padding-top: 10px;
+	padding-bottom: auto;
+
+	position: fixed;
+	bottom:0;
+	left: 0;
+}	
+
+
+/************************ Credential Page **********************/
+#profile #credentialPage{
+	background-color: #FFF;
+	background-width: 100%;
+	position: relative;
+
+}
+
+#profile #credentialsTitle{
+ 	text-align: center;	
+	font-size: 15px;
+	color: #9999ff;
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+
+
+/******* Card Section ***********/
+#profile #cardSection{
+	margin-top: 120px;
+	background-color: white;
+}
+
+#profile #cardNumText{
+	margin: 0px auto;
+	font-weight: bold;
+	color: #666673;
+	padding-bottom: 4px;
+	text-align: left;
+	font-size: 1em;
+}
+
+#profile #cardInput{
+	border-radius: 5px;
+    border: 1px solid #4169E1;
+	max-width: 100%;
+    width: auto;
+    height: 35px;
+    text-align: left;
+}
+
+
+#profile #cardSection #tbCardNumInput{
+	height: 40px;
+	width: 100%;	
+	max-width: 100%;
+
+	border: 1px solid;
+	border-radius:10px;
+	border-color: #9999ff;
+
+	padding-right: 50px;
+    
+    font-size: 15px;
+    text-align: left;
+}
+
+#profile #cardSection #glyphCamera{
+	position: absolute;
+  	padding: 10px;
+  	right: 0px;
+  	padding-right: 30px;
+  	padding-top:25px;
+  	font-size: 26px;
+}
+
+
+/****** Card Expiry **********/
+#profile #cardExpiryText{
+	margin: 0px auto;
+	
+	font-weight: bold;
+	font-size: 1em;
+	color: #666673;
+	text-align: left;
+
+	padding-bottom: 4px;
+	padding-top: 20px;
+	
+}
+
+#profile  #selMth{
+	height: 40px;
+	width: 70px;	
+	max-width: 100%;
+
+	border: 1px solid;
+	border-radius:15px;
+	border-color: #9999ff;
+    
+    font-size: 15px;
+    text-align: left;
+
+}
+
+#profile  #selYear{
+
+	height: 40px;
+	width: 70px;	
+	max-width: 100%;
+
+	border: 1px solid;
+	border-radius:10px;
+	border-color: #9999ff;
+    
+    font-size: 15px;
+    text-align: left;
+}
+
+#profile #cvvText{
+	margin: 0px auto;
+	font-weight: bold;
+	color: #666673;
+	padding-bottom: 4px;
+	padding-top: 20px;
+	text-align: left;
+	font-size: 1em;
+}
+
+#profile #tbcvvInput{
+	height: 40px;
+	width: 350px;	
+	max-width: 100%;
+
+	border: 1px solid;
+	border-radius:10px;
+	border-color: #9999ff;
+    
+    font-size: 15px;
+    text-align: left;
+}
+
+#profile #crdSpace{
+	margin-bottom: 200px;
+}
+#profile #crdTerms{
+	margin-bottom: 150px;
+	text-align: center;
+	color: #57d1c2;
+	padding-left: 20px;
+	padding-right:20px;
+	font-size: 0.9em;
+}
+
+/** Next Grey Button **/
+#profile #nextGreyButton{
+
+	width: 100%;
+	height: 50px;
+	
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #ebebff;
+	text-align: center;
+	
+	margin: 0 auto;
+	background-color: #A9A9A9;
+	padding-top: 10px;
+	padding-bottom: auto;
+	max-height: auto;
+
+	position: fixed;
+	bottom:0;
+	left: 0;
+}
+
+
+/***************** Address Page ***************/
+#profile #addressPage{
+	background-color: #FFF;
+	background-width: 100vh;
+	height: 100vh;
+}
+
+#profile #addressTitle{
+	text-align: center;	
+	font-size: 15px;
+	color: #9999ff;
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+
+#profile #addressSection{
+	margin-top: 120px;
+	background-color: white;
+}
+
+
+#profile #addressText{
+	font-weight: bold;
+	color: #666673;
+	margin: 0px;
+	padding-bottom: 5px;
+	padding-right: 320px;
+
+}
+
+#profile #addressSpace{
+	margin-bottom: 10px;
+}
+
+#profile #tbaddInput1{
+	height: 40px;
+	width: 100%;	
+	max-width: 100%;
+
+	border: 1px solid;
+	border-radius:10px;
+	border-color: #9999ff;
+    
+    font-size: 15px;
+    text-align: left;
+
+    padding-left: 10px;
+
+}
+
+#profile #tbaddInput2{
+	height: 40px;
+	width: 100%;	
+	max-width: 100%;
+
+	border: 1px solid;
+	border-radius:10px;
+	border-color: #9999ff; 
+
+    font-size: 15px;
+    text-align: left;
+
+    padding-left: 10px;
+    
+}
+
+#profile #countryText{
+	font-weight: bold;
+	color: #666673;
+	margin-top: 100px;
+	margin: 0px;
+	padding-top: 20px;
+	padding-bottom: 5px;
+	padding-right: 320px;
+
+}
+
+#profile  #selCountry{
+
+	height: 40px;
+	width: 100%;	
+	max-width: 100%;
+
+	border: 1px solid;
+	border-radius:10px;
+	border-color: #9999ff;
+    
+    font-size: 15px;
+    text-align: left;
+}
+
+#profile #postalText{
+	font-weight: bold;
+	color: #666673;	
+	margin-top: 100px;
+	margin: 0px;
+	padding-top: 20px;
+	padding-bottom: 5px;
+	
+}
+
+#profile #tbPostalCodeInput{
+	height: 40px;
+	width: 100%;	
+	max-width: 100%;
+
+	border: 1px solid;
+	border-radius:10px;
+	border-color: #9999ff;
+    
+    font-size: 15px;
+    text-align: left;
+
+    padding-left: 10px;
+}
+
+
+#profile #addressInst{
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
+
+#profile #addTermsText{
+	text-align: center;
+	color:#57d1c2;
+	padding-top: 10px;
+	padding-left: 20px;
+	padding-right:20px;
+	font-size: 0.9em;
+	position: relative;
+
+}
+
+/** Done Button **/
+#profile #doneButton{
+
+	width: 100%;
+	height: 50px;
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #FCFCFC;
+	text-align: center;
+	margin: 0 auto;
+	background-color: #ff806f;
+	padding-top: 10px;
+	padding-bottom: auto;
+
+	position: fixed;
+	bottom:0;
+	left: 0;
+}
+
+
