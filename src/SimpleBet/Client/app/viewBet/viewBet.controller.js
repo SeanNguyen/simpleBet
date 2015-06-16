@@ -35,6 +35,7 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         $scope.betCancelCreator;
         $scope.bet = {};
         $scope.BET_STATE = BET_STATE;
+        $scope.VOTE_CANCEL_BET_STATE = VOTE_CANCEL_BET_STATE;
 
         //input model
         $scope.input = { option: null };

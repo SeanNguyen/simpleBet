@@ -25,11 +25,22 @@
 
     </div>
 
-    <div class="tab" ng-show="betCancelCreator && bet.state !== BET_STATE.CANCELLED" id="cancelAlert">
-        <img src="{{betCancelCreator.avatarUrl}}" />
-        <div>
-            <h4>{{betCancelCreator.name}}</h4>
-            <h5>have started a vote to cancel the bet.</h5>
+    <div class="tab" ng-show="betCancelCreator && bet.state !== BET_STATE.CANCELLED" id="cancelAlertContainer">
+        <div id="cancelAlert">
+            <img src="{{betCancelCreator.avatarUrl}}" />
+            <div>
+                <h4>{{betCancelCreator.name}}</h4>
+                <h5>have started a vote to cancel the bet.</h5>
+            </div>
+        </div>
+        <!-- list of participants -->
+        <div ng-repeat="item in bet.participations" class="challengerItem" 
+             ng-hide="betCancelCreator.id === item.userId">
+            <img src="{{item.user.avatarUrl}}" class="avatar"/>
+            <h5>{{item.user.name}}</h5>
+
+            <img src="assets/radio_button.png" class="status" ng-show="item.voteCancelBetState === VOTE_CANCEL_BET_STATE.AGREE"/>
+            <img src="assets/x_button.png" class="status"  ng-show="item.voteCancelBetState === VOTE_CANCEL_BET_STATE.DISAGREE"/>
         </div>
     </div>
 
@@ -77,4 +88,7 @@
             <div><h4>Bet on it!</h4></div>
         </div>
 	</div>
+
+    <!-- NOTIFICATION -->
+
 </div>
