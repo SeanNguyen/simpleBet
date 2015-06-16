@@ -7,13 +7,13 @@
 	<div id="counter">
 		<div id="day">
 			<img src="assets/arrow_up.png" class="img img-responsive" ng-click="increaseDay()">
-			<h3>{{Math.floor(betModel.Duration / 24)}}</h3>
+			<h3>{{Math.floor(betModel.duration / 24)}}</h3>
 			<h4>Days</h4>
 			<img src="assets/arrow_down.png" class="img img-responsive" ng-click="decreaseDay()">
 		</div>
 		<div id="hour">
 			<img src="assets/arrow_up.png" class="img img-responsive" ng-click="increaseHour()">
-			<h3>{{betModel.Duration % 24}}</h3>
+			<h3>{{betModel.duration % 24}}</h3>
 			<h4>Hours</h4>
 			<img src="assets/arrow_down.png" class="img img-responsive" ng-click="decreaseHour()">
 		</div>

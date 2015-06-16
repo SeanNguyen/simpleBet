@@ -31,10 +31,10 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 
     //bet model
     $scope.betModel = new Bet({ 
-        Options: [], 
-        Duration: 2, /*in hour, TODO: change to minutes*/
-        Participations: [], //this field will actually be on the server database, dont be confuse with the field above
-        State:BET_STATE.NONE
+        options: [], 
+        duration: 2, /*in hour, TODO: change to minutes*/
+        participations: [], //this field will actually be on the server database, dont be confuse with the field above
+        state:BET_STATE.NONE
         //TODO: #367 add  function to load data before controller or app so that this user will be alr loaded here
         //CreatorId: $rootScope.user.Id 
     });
@@ -43,7 +43,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     $scope.input = {
         friendList: '',
         option: '',
-        Participants: []
+        participants: []
     }
 
     //functions
@@ -71,24 +71,24 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     //DETAIL
 
     function increaseHour() {
-        $scope.betModel.Duration ++;
+        $scope.betModel.duration ++;
     };
 
     function decreaseHour() {
-        if ($scope.betModel.Duration > 0) {
-            $scope.betModel.Duration--;
+        if ($scope.betModel.duration > 0) {
+            $scope.betModel.duration--;
         }
     };
 
     function increaseDay() {
-        $scope.betModel.Duration += 24
+        $scope.betModel.duration += 24
     }
 
     function decreaseDay() {
-        if ($scope.betModel.Duration > 24) {
-            $scope.betModel.Duration -= 24;
+        if ($scope.betModel.duration > 24) {
+            $scope.betModel.duration -= 24;
         } else {
-            $scope.betModel.Duration = 0;
+            $scope.betModel.duration = 0;
         }
     }
 
@@ -116,17 +116,17 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	        console.log("Warning: option input invalid");
 			return;
 	    }
-	    var option = { Content: $scope.input.option };
-		$scope.betModel.Options.push(option);
+	    var option = { content: $scope.input.option };
+		$scope.betModel.options.push(option);
 		$scope.input.option = '';
 	}
 
 	function removeOption(index) {
-		$scope.betModel.Options.splice(index, 1);
+		$scope.betModel.options.splice(index, 1);
 	}
 
 	function isTypeSelected(type) {
-	    if (type === $scope.betModel.Type) {
+	    if (type === $scope.betModel.type) {
 	        return true;
 	    }
 	    return false;
@@ -134,7 +134,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     
 	function setBetType(type) {
 	    if (type === BET_TYPE.MVW || type === BET_TYPE.PAS) {
-	        $scope.betModel.Type = type;
+	        $scope.betModel.type = type;
 	    } else {
 	        console.log("ERROR: type input not valid");
 	    }
@@ -142,7 +142,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 
 	function setWagerType(type) {
 	    if (type === WAGER_TYPE.MONETARY || type === WAGER_TYPE.NONMONETARY) {
-	        $scope.betModel.WagerType = type;
+	        $scope.betModel.wagerType = type;
 	    } else {
 	        console.log("ERROR: type input not valid");
 	    }
@@ -152,18 +152,18 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	function submitBet() {
 
         //TODO: remove this line when the #367 solved
-	    $scope.betModel.CreatorId = $rootScope.user.Id;
+	    $scope.betModel.creatorId = $rootScope.user.id;
 
         //save bet without any edges to user just to get the ID first
 	    $scope.betModel.$save()
         .then(function () {
-	        var link = "192.168.0.113:9000/#/bet/" + $scope.betModel.Id //TODO: move this link into the config file
+	        var link = "192.168.0.113:9000/#/bet/" + $scope.betModel.id //TODO: move this link into the config file
 
-	        var message = "JOIN THE BET NOW !!! \n" + $scope.betModel.Question;
+	        var message = "JOIN THE BET NOW !!! \n" + $scope.betModel.question;
 	        
 	        var tagIds = [];
-	        for (var i = $scope.input.Participants.length - 1; i >= 0; i--) {
-	            tagIds.push($scope.input.Participants[i].tagId);
+	        for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
+	            tagIds.push($scope.input.participants[i].tagId);
 	        };
 	        tagIds = tagIds.join(",");
 
@@ -173,6 +173,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	    .then(function (response) {
             //after post successfully onto facebook, get tagged friends ID and add to our awesome system
 	        if (response && !response.error) {
+                //TODO: move this to facebook service
 	            FB.api(response.id, function (response) {
 	                if (response && !response.error) {
 	                    //register all friend tagged with the database
@@ -182,15 +183,15 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	                        //create new user
 	                        var friend = new User({
 	                            FacebookId: taggedFriends[i].id,
-	                            AvatarUrl: $scope.input.Participants[i].AvatarUrl,
+	                            AvatarUrl: $scope.input.participants[i].AvatarUrl,
 	                            Name: taggedFriends[i].name,
 	                        });
 	                        friend.$save(function () {
 	                            //added edges to the betModel
-	                            $scope.betModel.Participations.push({
-	                                UserId: friend.Id,
-	                                BetId: $scope.betModel.Id,
-	                                State: PARTICIPATION_STATE.PENDING
+	                            $scope.betModel.participations.push({
+	                                userId: friend.id,
+	                                betId: $scope.betModel.id,
+	                                state: PARTICIPATION_STATE.PENDING
 	                            });
 
 	                            //TODO: improve this hack around (at first this is to wait until all the new users saved)
@@ -198,18 +199,18 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	                            friendSaveCount++;
                                 if (friendSaveCount === taggedFriends.length) {
                                     //have to add creator to the connection edge as well
-                                    $scope.betModel.Participations.push({
-                                        UserId: $scope.betModel.CreatorId,
-                                        BetId: $scope.betModel.Id,
-                                        State: PARTICIPATION_STATE.CONFIRMED
+                                    $scope.betModel.participations.push({
+                                        userId: $scope.betModel.creatorId,
+                                        betId: $scope.betModel.id,
+                                        state: PARTICIPATION_STATE.CONFIRMED
                                     });
-                                    $scope.betModel.State = BET_STATE.PENDING;
+                                    $scope.betModel.state = BET_STATE.PENDING;
 
                                     //TODO: add loading screen for this and the friend saving above instead of jump directly to the bet pagex
                                     //yay now we can save the betModel
                                     $scope.betModel.$update(function () {
                                         //after settle down everything, relocate to the bet view
-                                        $location.path('bet/' + $scope.betModel.Id);
+                                        $location.path('bet/' + $scope.betModel.id);
                                     });
 	                            }
 

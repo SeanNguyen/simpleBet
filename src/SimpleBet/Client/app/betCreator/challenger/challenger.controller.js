@@ -18,19 +18,19 @@ app.controller('challengerController', function($rootScope, $scope) {
 	    if (!friend.selected) {
 	        resetSearchField();
 	        $scope.input.friendList += friend.name + ",";
-	        $scope.input.Participants.push(friend);
+	        $scope.input.participants.push(friend);
 	    } else {
 	        $scope.input.friendList = $scope.input.friendList.replace(friend.name + ",", '');
 	        var friendIndex = getChoosenFriendIndexById(friend.id);
-	        $scope.input.Participants.splice(friendIndex, 1);
+	        $scope.input.participants.splice(friendIndex, 1);
 	    }
 	    friend.selected = !friend.selected;
 	}
 
 	function isInSearch(name) {
 	    var keyword = $scope.input.friendList;
-	    for (var i = $scope.input.Participants.length - 1; i >= 0; i--) {
-	        keyword = keyword.replace($scope.input.Participants[i].name + ",", '');
+	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
+	        keyword = keyword.replace($scope.input.participants[i].name + ",", '');
 	    };
 
 	    //until here we have the real keyword
@@ -41,8 +41,8 @@ app.controller('challengerController', function($rootScope, $scope) {
 	}
 
 	function getChoosenFriendIndexById(tagId) {
-	    for (var i = $scope.input.Participants.length - 1; i >= 0; i--) {
-	        if ($scope.input.Participants[i].id === tagId) {
+	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
+	        if ($scope.input.participants[i].id === tagId) {
 	            return i;
 	        }
 	    };
@@ -50,8 +50,8 @@ app.controller('challengerController', function($rootScope, $scope) {
 
 	function resetSearchField() {
 	    $scope.input.friendList = '';
-	    for (var i = $scope.input.Participants.length - 1; i >= 0; i--) {
-	        $scope.input.friendList += $scope.input.Participants[i].name + ","
+	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
+	        $scope.input.friendList += $scope.input.participants[i].name + ","
 	    };
 	}
 });
