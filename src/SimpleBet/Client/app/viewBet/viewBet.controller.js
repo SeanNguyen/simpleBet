@@ -31,7 +31,7 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         $rootScope.title = "Bet";
         $scope.currentTab = 0;
         $scope.creator = {};
-        $scope.betCancelCreator = {};
+        $scope.betCancelCreator;
         $scope.bet = {};
 
         //input model
@@ -59,6 +59,9 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         function active() {
             $scope.bet = Bet.get({ id: $stateParams.id }, function () {
                 $scope.creator = User.get({ id: $scope.bet.creatorId });
+                if ($scope.bet.state === BET_STATE.CANCELLING) {
+                    updateCancellingAlert();
+                }
             });
             intervalUpdateBet();
         }
@@ -66,6 +69,9 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         function intervalUpdateBet() {
             $timeout(function () {
                 $scope.bet.$get({ id: $scope.bet.id }, function () {
+                    if ($scope.bet.state === BET_STATE.CANCELLING) {
+                        updateCancellingAlert();
+                    }
                     intervalUpdateBet();
                 })
             }, 5000);
@@ -182,10 +188,13 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
 
             var participation = getParticipationByUserId($rootScope.user.id);
             if (participation) {
+                participation.voteCancelBetState = VOTE_CANCEL_BET_STATE.CREATOR;
                 var participationModel = new BetUser(participation);
-                participationModel.VoteCancelBetState = VOTE_CANCEL_BET_STATE.CREATOR;
                 participationModel.$update();
             }
+
+            //ok, now we can set the bet cancelling creator
+            updateCancellingAlert();
         }
 
         function onFinallizeSelect() {
@@ -202,6 +211,15 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
                 var participation = $scope.bet.participations[i];
                 if (userId === participation.userId) {
                     return participation;
+                }
+            }
+        }
+
+        function updateCancellingAlert() {
+            for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.participations[i];
+                if (participation.voteCancelBetState === VOTE_CANCEL_BET_STATE.CREATOR) {
+                    $scope.betCancelCreator = _.clone(participation.user);
                 }
             }
         }

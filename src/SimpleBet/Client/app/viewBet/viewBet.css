@@ -295,3 +295,27 @@
     margin: 30px 10px;
     box-shadow: 1px 1px 5px 1px #808080;
 }
+
+#viewBet #cancelAlert {
+    position: relative;
+    min-height: 100px;
+    padding: 10px;
+    padding-left: 100px;
+}
+
+#viewBet #cancelAlert img {
+    position: absolute;
+    height: 60px;
+    width: auto;
+    left: 20px; top: 20px;
+}
+
+#viewBet #cancelAlert h4 {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+#viewBet #cancelAlert h5 {
+    margin-left: 0px;
+    margin-right: 0px;
+}
