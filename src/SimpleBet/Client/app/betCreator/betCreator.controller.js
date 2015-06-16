@@ -20,7 +20,9 @@ var BET_STATE = {
     NONE: 0,
     PENDING: 1,
     CONFIRMED: 2,
-    CANCELLING: 3
+    CANCELLING: 3,
+    FINALIZABLE: 4,
+    FINALIZED: 5
 }
 app.controller('betCreatorController', function ($rootScope, $scope, $state, $window, $location, Bet, User, BetUser, facebook) {
     //navigations

@@ -14,8 +14,8 @@ var BET_STATE = {
     CONFIRMED: 2,
     CANCELLING: 3,
     CANCELLED: 4,
-    FINALLIZABLE: 5,
-    FINALLIZED: 6
+    FINALIZABLE: 5,
+    FINALIZED: 6
 };
 var VOTE_CANCEL_BET_STATE = {
     NONE: 0,
@@ -24,8 +24,8 @@ var VOTE_CANCEL_BET_STATE = {
     AGREE: 3,
 }
 
-app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Bet', 'User', 'BetUser', '$timeout',
-    function ($rootScope, $scope, $stateParams, Bet, User, BetUser, $timeout) {
+app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Bet', 'User', 'BetUser', '$timeout', '$window',
+    function ($rootScope, $scope, $stateParams, Bet, User, BetUser, $timeout, $window) {
         $scope.tabs = [
             { name: 'Bet Conditions' },
             { name: 'Bet Wager' },
@@ -59,6 +59,9 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
 
         $scope.accept = accept;
         $scope.decline = decline;
+
+        $scope.finalize = finalize;
+        $scope.share = share;
 
         //start the controller
         active();
@@ -223,11 +226,14 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
                 return 3; //choosing some option
             }
             if ($scope.bet.state === BET_STATE.CONFIRMED || $scope.bet.state === BET_STATE.PENDING
-                || $scope.bet.state === BET_STATE.FINALLIZABLE) {
+                || $scope.bet.state === BET_STATE.FINALIZABLE) {
                 return 4; //when not choosing option
             }
             if ($scope.bet.state === BET_STATE.CANCELLING && participation.voteCancelBetState === VOTE_CANCEL_BET_STATE.NONE) {
                 return 5; //cancelling a bet and havent voted
+            }
+            if ($scope.bet.state === BET_STATE.FINALIZED) {
+                return 6;
             }
         }
 
@@ -253,6 +259,16 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
                 //ok, now we can set the bet cancelling vote
                 updateCancellingAlert();
             }
+        }
+
+        function finalize() {
+            $scope.bet.state = BET_STATE.FINALIZED;
+            $scope.bet.$update();
+            $window.scrollTo(0, 0);
+        }
+
+        function share() {
+
         }
 
         //private helper methods
