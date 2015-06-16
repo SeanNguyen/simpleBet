@@ -286,17 +286,19 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
             var total = $scope.bet.participations.length;
             if (agreeCount / total >= 0.5) {
                 $scope.bet.state = BET_STATE.CANCELLED;
-                $scope.bet.$update();
+                $scope.betCancelCreator = null;
             } else if (disagreeCount / total >= 0.5) {
+                //This was moved to server side
                 //reset cancelling state of all participants
-                for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
-                    $scope.bet.participations[i].voteCancelBetState = VOTE_CANCEL_BET_STATE.NONE;
-                    var model = new BetUser($scope.bet.participations[i]);
-                    model.$update();
-                }
+                //for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+                //    $scope.bet.participations[i].voteCancelBetState = VOTE_CANCEL_BET_STATE.NONE;
+                //    var model = new BetUser($scope.bet.participations[i]);
+                //    model.$update();
+                //}
 
+                //short circuit for responsive effect
                 $scope.bet.state = BET_STATE.CONFIRMED;
-                $scope.bet.$update();
+                $scope.betCancelCreator = null;
             }
         }
     }]);

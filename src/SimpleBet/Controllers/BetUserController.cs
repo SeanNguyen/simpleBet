@@ -89,6 +89,39 @@ namespace SimpleBet.Controllers
                 }
             }
 
+            //post-process bet
+            Bet bet = this.dbContext.Bets.Find(betId);
+            int agreeCount = 0;
+            int disagreeCount = 0;
+            for (int i = 0; i < bet.Participations.Count; i++)
+            {
+                BetUser participation = bet.Participations.ElementAt(i);
+                if (participation.VoteCancelBetState == VoteCancelBetState.DISAGREE)
+                {
+                    disagreeCount++;
+                }
+                else if (participation.VoteCancelBetState == VoteCancelBetState.AGREE
+                        || participation.VoteCancelBetState == VoteCancelBetState.CREATOR)
+                {
+                    agreeCount++;
+                }
+            }
+            if (agreeCount * 2 >= bet.Participations.Count)
+            {
+                bet.State = BET_STATE.CANCELLED;
+            }
+            else if (disagreeCount * 2 >= bet.Participations.Count)
+            {
+                bet.State = BET_STATE.CONFIRM;
+                //reset all the edges
+                for (int i = 0; i < bet.Participations.Count; i++)
+                {
+                    BetUser participation = bet.Participations.ElementAt(i);
+                    participation.VoteCancelBetState = VoteCancelBetState.NONE;
+                }
+            }
+            this.dbContext.SaveChanges();
+
             //seriallize the object
             string json = JsonConvert.SerializeObject(betUser);
             return Ok(json);

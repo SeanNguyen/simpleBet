@@ -71,7 +71,7 @@ namespace SimpleBet.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody]Bet bet)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }

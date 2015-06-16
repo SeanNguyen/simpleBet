@@ -25,7 +25,7 @@
 
     </div>
 
-    <div class="tab" ng-show="betCancelCreator && bet.state !== BET_STATE.CANCELLED" id="cancelAlertContainer">
+    <div class="tab" ng-show="betCancelCreator && bet.state === BET_STATE.CANCELLING" id="cancelAlertContainer">
         <div id="cancelAlert">
             <img src="{{betCancelCreator.avatarUrl}}" />
             <div>
