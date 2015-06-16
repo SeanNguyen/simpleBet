@@ -182,14 +182,14 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	                    for (var i = taggedFriends.length - 1; i >= 0; i--) {
 	                        //create new user
 	                        var friend = new User({
-	                            FacebookId: taggedFriends[i].id,
-	                            AvatarUrl: $scope.input.participants[i].AvatarUrl,
-	                            Name: taggedFriends[i].name,
+	                            facebookId: taggedFriends[i].id,
+	                            avatarUrl: $scope.input.participants[i].avatarUrl,
+	                            name: taggedFriends[i].name,
 	                        });
-	                        friend.$save(function () {
+	                        friend.$save(function (data) {
 	                            //added edges to the betModel
 	                            $scope.betModel.participations.push({
-	                                userId: friend.id,
+	                                userId: data.id,
 	                                betId: $scope.betModel.id,
 	                                state: PARTICIPATION_STATE.PENDING
 	                            });

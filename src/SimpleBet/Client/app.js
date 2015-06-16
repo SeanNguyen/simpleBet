@@ -28,11 +28,11 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
                         facebook.getUserInfo(facebookId)
                         .then(function (facebookUser) {
                             $rootScope.user = new User();
-                            $rootScope.user.FacebookId = facebookId;
-                            $rootScope.user.Name = facebookUser.name;
+                            $rootScope.user.facebookId = facebookId;
+                            $rootScope.user.name = facebookUser.name;
                             $rootScope.user.$save();
                             //TODO: querry correct avatar
-                            $rootScope.user.AvatarUrl = "http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png"
+                            $rootScope.user.avatarUrl = "http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png"
                         });
                     }
                 });
@@ -62,7 +62,7 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
                 $rootScope.taggableFriends = [];
                 for (var i = 0; i < response.data.length; i++) {
                     var friendData = response.data[i];
-                    var friend = { tagId: friendData.id, name: friendData.name, AvatarUrl: friendData.picture.data.url, selected: false };
+                    var friend = { tagId: friendData.id, name: friendData.name, avatarUrl: friendData.picture.data.url, selected: false };
                     $rootScope.taggableFriends.push(friend);
                 }
                 $rootScope.$apply();

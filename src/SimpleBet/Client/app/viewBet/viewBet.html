@@ -25,11 +25,19 @@
 
     </div>
 
-    <div class="tab" ng-show="betCancelCreator" id="cancelAlert">
+    <div class="tab" ng-show="betCancelCreator && bet.state !== BET_STATE.CANCELLED" id="cancelAlert">
         <img src="{{betCancelCreator.avatarUrl}}" />
         <div>
             <h4>{{betCancelCreator.name}}</h4>
             <h5>have started a vote to cancel the bet.</h5>
+        </div>
+    </div>
+
+    <div class="tab" ng-show="bet.state === BET_STATE.CANCELLED">
+        <div>
+            <br />
+            <h4>THE BET WAS CANCELLED</h4>
+            <br />
         </div>
     </div>
 
@@ -41,24 +49,30 @@
 
 	<div class="footerButton">
         <!-- accept button -->
-		<div ng-show="isLoggedIn() && !isCreator() && getState() === 1 && isParticipant()">
+		<div ng-show="getControlButtonState() === 2">
 			<div id="decline" ng-click="decline()"><h4>Decline</h4></div>
 			<div id="accept" ng-click="accept()"><h4>Accept</h4></div>
 		</div>
         <!-- login button -->
-		<div class="loginButton" ng-show="!isLoggedIn()">
+		<div class="loginButton" ng-show="getControlButtonState() === 0">
 			<div><h4>Facebook Log In</h4></div>
 		</div>
 
         <!-- WHEN HAVENT PICK AN OPTION -->
         <!-- cancel button -->
-        <div class="controlButton" ng-show="isLoggedIn() && getState() > 1 && isParticipant() && !input.option">
+        <div class="controlButton" ng-show="getControlButtonState() === 4">
             <button class="btn btn-default" ng-click="cancelBet()" ng-disabled="bet.state === BET_STATE.CANCELLING"><h4>Vote to Cancel</h4></button>
             <button class="btn btn-default" id="finallize" disabled="disabled"><h4>Finalize!</h4></button>
         </div>
 
+        <!-- vote for a bet cancel -->
+        <div class="controlButton" ng-show="getControlButtonState() === 5">
+            <button class="btn btn-default" ng-click="onDisagreeCancelBet()"><h4>Keep Going</h4></button>
+            <button class="btn btn-default" id="finallize" ng-click="onAgreeCancelBet()"><h4>I'm Out!</h4></button>
+        </div>
+
         <!-- WHEN PICKED AN OPTION -->
-        <div id="selectOptionButton" ng-show="isLoggedIn() && isParticipant() && input.option && getState() === 2"
+        <div id="selectOptionButton" ng-show="getControlButtonState() === 3"
              ng-click="confirmSelectOption()">
             <div><h4>Bet on it!</h4></div>
         </div>
