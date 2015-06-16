@@ -1,0 +1,31 @@
+#shareBet #leftCol {
+	padding-right: 0;
+}
+
+#shareBet #rightCol {
+	padding-left: 0;
+}
+
+#shareBet .gifContainer {
+	float: left;
+	height: auto;
+	margin: 5px;
+	box-shadow: 1px 1px 5px 1px #808080;
+}
+
+#shareBet .gifContainer img {
+	width: 100%
+}
+
+#shareBet #selectButton {
+	position: fixed;
+	bottom: 0; top: auto;
+	width: 100%;
+	height: 60px;
+	box-shadow: 0px 0px 10px 1px;
+}
+
+#shareBet #selectButton .btn {
+	width: 100%;
+	height: 100%;
+}
