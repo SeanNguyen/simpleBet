@@ -24,8 +24,8 @@ var VOTE_CANCEL_BET_STATE = {
     AGREE: 3,
 }
 
-app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Bet', 'User', 'BetUser', '$timeout', '$window',
-    function ($rootScope, $scope, $stateParams, Bet, User, BetUser, $timeout, $window) {
+app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Bet', 'User', 'BetUser', '$timeout', '$window', '$state',
+    function ($rootScope, $scope, $stateParams, Bet, User, BetUser, $timeout, $window, $state) {
         $scope.tabs = [
             { name: 'Bet Conditions' },
             { name: 'Bet Wager' },
@@ -268,7 +268,7 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         }
 
         function share() {
-
+            $state.go('bet.share');
         }
 
         //private helper methods

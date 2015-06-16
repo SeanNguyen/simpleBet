@@ -1,103 +1,108 @@
 <div class="container-fluid" id="viewBet" ng-controller="viewBetController">
-	<div class="header">
-		<div class="container-fluid">
-			<div class="avata">
-				<img src="{{creator.avatarUrl}}">
-			</div>
-			
-			<div class="creator">
-				<h4>{{creator.name}}</h4>
-				<h5>wants to bet with you</h5>
-				<div class="expire">
-					<img src="assets/icon_sandClock.png">
-					<h5>Expires in: </h5>
-					<h5>{{bet.duration}} hours</h5>
-				</div>
-			</div>
-            <h3 class="question">{{bet.question}}</h3>
-		</div>
-	</div>
-    <!-- Detail navbar -->
-    <div class="navbarContainer" ng-hide="true">
-        <img id="leftArrow" src="assets/arrow_left_white.png" ng-click="lastTab()" />
-        <img id="rightArrow" src="assets/arrow_right_white.png" ng-click="nextTab()" />
-        <h4>{{tabs[currentTab].name}}</h4>
 
-    </div>
+    <div ui-view>
+        <div class="header">
+            <div class="container-fluid">
+                <div class="avata">
+                    <img src="{{creator.avatarUrl}}">
+                </div>
 
-    <div class="tab" ng-show="betCancelCreator && bet.state === BET_STATE.CANCELLING" id="cancelAlertContainer">
-        <div id="cancelAlert">
-            <img src="{{betCancelCreator.avatarUrl}}" />
-            <div>
-                <h4>{{betCancelCreator.name}}</h4>
-                <h5>have started a vote to cancel the bet.</h5>
+                <div class="creator">
+                    <h4>{{creator.name}}</h4>
+                    <h5>wants to bet with you</h5>
+                    <div class="expire">
+                        <img src="assets/icon_sandClock.png">
+                        <h5>Expires in: </h5>
+                        <h5>{{bet.duration}} hours</h5>
+                    </div>
+                </div>
+                <h3 class="question">{{bet.question}}</h3>
             </div>
         </div>
-        <!-- list of participants -->
-        <div ng-repeat="item in bet.participations" class="challengerItem" 
-             ng-hide="betCancelCreator.id === item.userId">
-            <img src="{{item.user.avatarUrl}}" class="avatar"/>
-            <h5>{{item.user.name}}</h5>
+        <!-- Detail navbar -->
+        <div class="navbarContainer" ng-hide="true">
+            <img id="leftArrow" src="assets/arrow_left_white.png" ng-click="lastTab()" />
+            <img id="rightArrow" src="assets/arrow_right_white.png" ng-click="nextTab()" />
+            <h4>{{tabs[currentTab].name}}</h4>
 
-            <img src="assets/radio_button.png" class="status" ng-show="item.voteCancelBetState === VOTE_CANCEL_BET_STATE.AGREE"/>
-            <img src="assets/x_button.png" class="status"  ng-show="item.voteCancelBetState === VOTE_CANCEL_BET_STATE.DISAGREE"/>
         </div>
-    </div>
-    
-    <div class="tab" ng-show="bet.state === BET_STATE.CANCELLED">
+
+        <div class="tab" ng-show="betCancelCreator && bet.state === BET_STATE.CANCELLING" id="cancelAlertContainer">
+            <div id="cancelAlert">
+                <img src="{{betCancelCreator.avatarUrl}}" />
+                <div>
+                    <h4>{{betCancelCreator.name}}</h4>
+                    <h5>have started a vote to cancel the bet.</h5>
+                </div>
+            </div>
+            <!-- list of participants -->
+            <div ng-repeat="item in bet.participations" class="challengerItem"
+                 ng-hide="betCancelCreator.id === item.userId">
+                <img src="{{item.user.avatarUrl}}" class="avatar" />
+                <h5>{{item.user.name}}</h5>
+
+                <img src="assets/radio_button.png" class="status" ng-show="item.voteCancelBetState === VOTE_CANCEL_BET_STATE.AGREE" />
+                <img src="assets/x_button.png" class="status" ng-show="item.voteCancelBetState === VOTE_CANCEL_BET_STATE.DISAGREE" />
+            </div>
+        </div>
+
+        <div class="tab" ng-show="bet.state === BET_STATE.CANCELLED">
+            <div>
+                <br />
+                <h4>THE BET WAS CANCELLED</h4>
+                <br />
+            </div>
+        </div>
+
         <div>
-            <br />
-            <h4>THE BET WAS CANCELLED</h4>
-            <br />
+            <div ng-include="'app/viewBet/result.html'" class="tab" ng-show="bet.state === BET_STATE.FINALIZED"></div>
+            <div ng-include="'app/viewBet/conditions.html'" class="tab"></div>
+            <div ng-include="'app/viewBet/wager.html'" class="tab"></div>
+            <div ng-include="'app/viewBet/challengers.html'" class="tab"></div>
         </div>
+
+        <div class="footerButton">
+            <!-- accept button -->
+            <div ng-show="getControlButtonState() === 2">
+                <div id="decline" ng-click="decline()"><h4>Decline</h4></div>
+                <div id="accept" ng-click="accept()"><h4>Accept</h4></div>
+            </div>
+            <!-- login button -->
+            <div class="loginButton" ng-show="getControlButtonState() === 0">
+                <div><h4>Facebook Log In</h4></div>
+            </div>
+
+            <!-- WHEN HAVENT PICK AN OPTION -->
+            <!-- cancel/finalize button -->
+            <div class="controlButton" ng-show="getControlButtonState() === 4">
+                <button class="btn btn-default" ng-click="cancelBet()" ng-disabled="bet.state === BET_STATE.CANCELLING"><h4>Vote to Cancel</h4></button>
+                <button class="btn btn-default" id="finallize" ng-disabled="bet.state !== BET_STATE.FINALIZABLE" ng-click="finalize()">
+                    <h4>Finalize!</h4>
+                </button>
+            </div>
+
+            <!-- vote for a bet cancel -->
+            <div class="controlButton" ng-show="getControlButtonState() === 5">
+                <button class="btn btn-default" ng-click="onDisagreeCancelBet()"><h4>Keep Going</h4></button>
+                <button class="btn btn-default" id="finallize" ng-click="onAgreeCancelBet()"><h4>I'm Out!</h4></button>
+            </div>
+
+            <!-- WHEN PICKED AN OPTION -->
+            <div id="selectOptionButton" ng-show="getControlButtonState() === 3"
+                 ng-click="confirmSelectOption()">
+                <div><h4>Bet on it!</h4></div>
+            </div>
+
+            <!-- AFTER FINALIZING -->
+            <div id="postBetButtons" ng-show="getControlButtonState() === 6"
+                 ng-click="share()">
+                <button class="btn btn-default"><h4>Share</h4></button>
+            </div>
+        </div>
+
+        <!-- NOTIFICATION -->
+
     </div>
 
-    <div>
-        <div ng-include="'app/viewBet/result.html'" class="tab" ng-show="bet.state === BET_STATE.FINALIZED"></div>
-        <div ng-include="'app/viewBet/conditions.html'" class="tab"></div>
-        <div ng-include="'app/viewBet/wager.html'" class="tab"></div>
-        <div ng-include="'app/viewBet/challengers.html'" class="tab"></div>
-    </div>
-
-	<div class="footerButton">
-        <!-- accept button -->
-		<div ng-show="getControlButtonState() === 2">
-			<div id="decline" ng-click="decline()"><h4>Decline</h4></div>
-			<div id="accept" ng-click="accept()"><h4>Accept</h4></div>
-		</div>
-        <!-- login button -->
-		<div class="loginButton" ng-show="getControlButtonState() === 0">
-			<div><h4>Facebook Log In</h4></div>
-		</div>
-
-        <!-- WHEN HAVENT PICK AN OPTION -->
-        <!-- cancel/finalize button -->
-        <div class="controlButton" ng-show="getControlButtonState() === 4">
-            <button class="btn btn-default" ng-click="cancelBet()" ng-disabled="bet.state === BET_STATE.CANCELLING"><h4>Vote to Cancel</h4></button>
-            <button class="btn btn-default" id="finallize" ng-disabled="bet.state !== BET_STATE.FINALIZABLE" ng-click="finalize()">
-                <h4>Finalize!</h4>
-            </button>
-        </div>
-
-        <!-- vote for a bet cancel -->
-        <div class="controlButton" ng-show="getControlButtonState() === 5">
-            <button class="btn btn-default" ng-click="onDisagreeCancelBet()"><h4>Keep Going</h4></button>
-            <button class="btn btn-default" id="finallize" ng-click="onAgreeCancelBet()"><h4>I'm Out!</h4></button>
-        </div>
-
-        <!-- WHEN PICKED AN OPTION -->
-        <div id="selectOptionButton" ng-show="getControlButtonState() === 3"
-             ng-click="confirmSelectOption()">
-            <div><h4>Bet on it!</h4></div>
-        </div>
-
-        <!-- AFTER FINALIZING -->
-        <div id="postBetButtons" ng-show="getControlButtonState() === 6"
-             ng-click="share()">
-            <button class="btn btn-default"><h4>Share</h4></button>
-        </div>
-	</div>
-
-    <!-- NOTIFICATION -->
-
+	
 </div>

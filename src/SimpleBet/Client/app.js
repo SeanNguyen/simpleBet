@@ -2,8 +2,10 @@
 
 var app = angular.module('app', ['ui.router', 'ngResource', 'angular-loading-bar', 'ngAnimate']);
 
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
     $urlRouterProvider.otherwise("/");
+    //TODO: restrict this white list down to only the site we need
+    $sceDelegateProvider.resourceUrlWhitelist(['**']);
 });
 
 app.controller('appController', function ($rootScope, $scope, $location) {
