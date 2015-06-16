@@ -58,14 +58,14 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         //public method implementations
         function active() {
             $scope.bet = Bet.get({ id: $stateParams.id }, function () {
-                $scope.creator = User.get({ id: $scope.bet.CreatorId });
+                $scope.creator = User.get({ id: $scope.bet.creatorId });
             });
             intervalUpdateBet();
         }
 
         function intervalUpdateBet() {
             $timeout(function () {
-                $scope.bet.$get({ id: $scope.bet.Id }, function () {
+                $scope.bet.$get({ id: $scope.bet.id }, function () {
                     intervalUpdateBet();
                 })
             }, 5000);
@@ -84,23 +84,23 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         }
 
         function isCreator() {
-            if ($rootScope.user && $rootScope.user.Id === $scope.bet.CreatorId) {
+            if ($rootScope.user && $rootScope.user.id === $scope.bet.creatorId) {
                 return true;
             }
             return false;
         }
 
         function isLoggedIn() {
-            if ($rootScope.user && $rootScope.user.Id) {
+            if ($rootScope.user && $rootScope.user.id) {
                 return true;
             }
             return false;
         }
         
         function isParticipant() {
-            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
-                var participation = $scope.bet.Participations[i];
-                if ($rootScope.user.Id === participation.UserId) {
+            for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.participations[i];
+                if ($rootScope.user.id === participation.userId) {
                     return true;
                 }
             }
@@ -108,10 +108,10 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         }
 
         function accept() {
-            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
-                var participation = $scope.bet.Participations[i];
-                if ($rootScope.user.Id === participation.UserId) {
-                    participation.State = PARTICIPATION_STATE.CONFIRMED;
+            for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.participations[i];
+                if ($rootScope.user.id === participation.userId) {
+                    participation.state = PARTICIPATION_STATE.CONFIRMED;
                 }
             }
             $scope.bet.$update();
@@ -121,16 +121,16 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
             //TODO: update to database
             for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
                 var participation = $scope.bet.Participations[i];
-                if ($rootScope.user.Id === participation.UserId) {
+                if ($rootScope.user.id === participation.userId) {
                     $scope.bet.Participations.splice(i, 1);
                 }
             }
         }
 
         function selectOption(option) {
-            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
-                var participation = $scope.bet.Participations[i];
-                if ($rootScope.user.Id === participation.UserId && participation.State !== PARTICIPATION_STATE.CONFIRMED) {
+            for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.participations[i];
+                if ($rootScope.user.id === participation.userId && participation.state !== PARTICIPATION_STATE.CONFIRMED) {
                     return;
                 }
             }
@@ -143,14 +143,14 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
 
         function confirmSelectOption() {
             //TODO: update to database
-            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
-                var participation = $scope.bet.Participations[i];
-                if ($rootScope.user.Id === participation.UserId) {
-                    participation.Option = $scope.input.option.Content;
-                    participation.State = PARTICIPATION_STATE.VOTED;
+            for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.participations[i];
+                if ($rootScope.user.id === participation.userId) {
+                    participation.option = $scope.input.option.content;
+                    participation.state = PARTICIPATION_STATE.VOTED;
                     $scope.input.option = null;
                     //save to server
-                    var participationResource = createParticipationResourceModel(participation);
+                    var participationResource = new BetUser(participation);
                     participationResource.$update();
                 }
             }
@@ -158,9 +158,9 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
 
         function getParticipantByOption(option) {
             var result = [];
-            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
-                var participation = $scope.bet.Participations[i];
-                if (option.Content === participation.Option) {
+            for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.participations[i];
+                if (option.content === participation.option) {
                     result.push(participation)
                 }
             }
@@ -168,19 +168,19 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
         }
 
         function getState() {
-            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
-                var participation = $scope.bet.Participations[i];
-                if ($rootScope.user.Id === participation.UserId) {
-                    return participation.State;
+            for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.participations[i];
+                if ($rootScope.user.id === participation.userId) {
+                    return participation.state;
                 }
             }
         }
 
         function cancelBet() {
-            $scope.bet.State = BET_STATE.CANCELLING;
+            $scope.bet.state = BET_STATE.CANCELLING;
             $scope.bet.$update();
 
-            var participation = getParticipationByUserId($rootScope.user.Id);
+            var participation = getParticipationByUserId($rootScope.user.id);
             if (participation) {
                 var participationModel = new BetUser(participation);
                 participationModel.VoteCancelBetState = VOTE_CANCEL_BET_STATE.CREATOR;
@@ -198,9 +198,9 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
 
         //private helper methods
         function getParticipationByUserId(userId) {
-            for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
-                var participation = $scope.bet.Participations[i];
-                if (userId === participation.UserId) {
+            for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+                var participation = $scope.bet.participations[i];
+                if (userId === participation.userId) {
                     return participation;
                 }
             }

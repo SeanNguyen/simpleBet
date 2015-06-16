@@ -1,10 +1,10 @@
 ﻿<div class="container-fluid" id="conditions">
-    <div ng-repeat="option in bet.Options" class="optionItem" ng-click="selectOption(option)"
-         ng-class="{selected : option.Content === input.option.Content}">
-        <h4>{{option.Content}}</h4>
+    <div ng-repeat="option in bet.options" class="optionItem" ng-click="selectOption(option)"
+         ng-class="{selected : option.content === input.option.content}">
+        <h4>{{option.content}}</h4>
         <div id="avatarContainer">
             <div ng-repeat="participant in getParticipantByOption(option)">
-                <img src="{{participant.User.AvatarUrl}}" />
+                <img src="{{participant.user.avatarUrl}}" />
             </div>
         </div>
     </div>
