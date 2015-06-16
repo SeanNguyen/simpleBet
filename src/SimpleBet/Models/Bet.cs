@@ -14,7 +14,9 @@ namespace SimpleBet.Models
         PENDING,
         CONFIRM,
         CANCELLING,
-        CANCELLED
+        CANCELLED,
+        FINALLIZABLE,
+        FINALLIZED
     }
 
     public class Bet : Model

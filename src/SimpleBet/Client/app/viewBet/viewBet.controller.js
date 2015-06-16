@@ -14,6 +14,8 @@ var BET_STATE = {
     CONFIRMED: 2,
     CANCELLING: 3,
     CANCELLED: 4,
+    FINALLIZABLE: 5,
+    FINALLIZED: 6
 };
 var VOTE_CANCEL_BET_STATE = {
     NONE: 0,
@@ -220,7 +222,8 @@ app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Be
             if($scope.input.option) {
                 return 3; //choosing some option
             }
-            if ($scope.bet.state === BET_STATE.CONFIRMED || $scope.bet.state === BET_STATE.PENDING) {
+            if ($scope.bet.state === BET_STATE.CONFIRMED || $scope.bet.state === BET_STATE.PENDING
+                || $scope.bet.state === BET_STATE.FINALLIZABLE) {
                 return 4; //when not choosing option
             }
             if ($scope.bet.state === BET_STATE.CANCELLING && participation.voteCancelBetState === VOTE_CANCEL_BET_STATE.NONE) {

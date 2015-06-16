@@ -90,6 +90,42 @@ namespace SimpleBet.Controllers
             }
 
             //post-process bet
+            updateCancellingStatus(betId);
+            updateFinallizableStatus(betId);
+
+            //seriallize the object
+            string json = JsonConvert.SerializeObject(betUser);
+            return Ok(json);
+        }
+
+        // DELETE api/values/5
+        [Route("api/[controller]/{betId}/{userId}")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int userId, int betId)
+        {
+            BetUser betUser = this.dbContext.BetUsers
+                                .Where(bu => bu.BetId == betId && bu.UserId == userId)
+                                .FirstOrDefault();
+            if (betUser == null)
+            {
+                return NotFound();
+            }
+
+            this.dbContext.BetUsers.Remove(betUser);
+            await this.dbContext.SaveChangesAsync();
+
+            string json = JsonConvert.SerializeObject(betUser);
+            return Ok(json);
+        }
+
+        //private helper methods
+        private bool isExist(int betId, int userId)
+        {
+            return this.dbContext.BetUsers.Count(b => b.BetId == betId && b.UserId == userId) > 0;
+        }
+
+        private void updateCancellingStatus(int betId)
+        {
             Bet bet = this.dbContext.Bets.Find(betId);
             int agreeCount = 0;
             int disagreeCount = 0;
@@ -121,36 +157,26 @@ namespace SimpleBet.Controllers
                 }
             }
             this.dbContext.SaveChanges();
-
-            //seriallize the object
-            string json = JsonConvert.SerializeObject(betUser);
-            return Ok(json);
         }
 
-        // DELETE api/values/5
-        [Route("api/[controller]/{betId}/{userId}")]
-        [HttpDelete]
-        public async Task<IActionResult> Delete(int userId, int betId)
+        private void updateFinallizableStatus(int betId)
         {
-            BetUser betUser = this.dbContext.BetUsers
-                                .Where(bu => bu.BetId == betId && bu.UserId == userId)
-                                .FirstOrDefault();
-            if (betUser == null)
+            Bet bet = this.dbContext.Bets.Find(betId);
+            bool allAnswered = true;
+            for (int i = 0; i < bet.Participations.Count; i++)
             {
-                return NotFound();
+                BetUser participation = bet.Participations.ElementAt(i);
+                if (participation.State < BetUserState.VOTED)
+                {
+                    allAnswered = false;
+                    break;
+                }
             }
-
-            this.dbContext.BetUsers.Remove(betUser);
-            await this.dbContext.SaveChangesAsync();
-
-            string json = JsonConvert.SerializeObject(betUser);
-            return Ok(json);
-        }
-
-        //private helper methods
-        private bool isExist(int betId, int userId)
-        {
-            return this.dbContext.BetUsers.Count(b => b.BetId == betId && b.UserId == userId) > 0;
+            if(allAnswered)
+            {
+                bet.State = BET_STATE.FINALLIZABLE;
+            }
+            this.dbContext.SaveChanges();
         }
     }
 }

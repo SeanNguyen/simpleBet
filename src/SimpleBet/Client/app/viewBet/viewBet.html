@@ -73,7 +73,7 @@
         <!-- cancel button -->
         <div class="controlButton" ng-show="getControlButtonState() === 4">
             <button class="btn btn-default" ng-click="cancelBet()" ng-disabled="bet.state === BET_STATE.CANCELLING"><h4>Vote to Cancel</h4></button>
-            <button class="btn btn-default" id="finallize" disabled="disabled"><h4>Finalize!</h4></button>
+            <button class="btn btn-default" id="finallize" ng-disabled="bet.state !== BET_STATE.FINALLIZABLE"><h4>Finalize!</h4></button>
         </div>
 
         <!-- vote for a bet cancel -->
