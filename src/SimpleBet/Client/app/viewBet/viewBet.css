@@ -250,27 +250,40 @@
 
 #viewBet .controlButton {
     height: 80px;
-    background-color: #808080;
+    background-color: #FCFCFC;
     box-shadow: 0px 0px 5px #000;
 }
 
+#viewBet .controlButton .btn{
+    background-color: #808080;
+    height: 100%;
+    width: 50%;
+    float: left;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+}
+
 #viewBet .controlButton h4 {
+    width: 100%;
     float: left;
     margin: 0;
-    width: 50%;
     font-size: 20px;
     padding-top: 20px;
     padding-bottom: 30px;
     text-align: center;
 }
 
-#viewBet .controlButton #finallize h4{
+#viewBet .controlButton #finallize {
     background-color: #ff806f;
 }
 
-#viewBet .controlButton #finallize .disable {
-    background-color: #808080;
-    color: #C0C0C0;
+#viewBet .controlButton [disabled] h4 {
+    color: #909090;
+}
+
+#viewBet .controlButton #finallize[disabled] h4 {
+    color: #CCC;
 }
 
 #viewBet #conditions .selected {
