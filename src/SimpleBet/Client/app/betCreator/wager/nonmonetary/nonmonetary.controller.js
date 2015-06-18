@@ -67,5 +67,6 @@ app.controller('nonmonetaryController', function($scope, $window, $state) {
 	$scope.selectDare = function (dare) {
 	    $scope.selectedDare = dare;
 	    //TODO: add this to the main betModel
+	    $scope.$parent.$parent.setTab(3);
 	}
 });
