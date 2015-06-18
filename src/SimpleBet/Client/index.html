@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html class="no-js">
 <head>
 	<meta charset="utf-8">
@@ -39,6 +39,12 @@
 	<!--[if lt IE 7]>
 	  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
+
+
+    <div id="globalLoader" ng-show="!loaded">
+        <div ng-include="'app/components/loader/loader.html'"></div>
+    </div>
+    
 
 	<div ng-show="isNavbarVisible()" ng-include="'app/navbar/navbar.html'"></div>
 	

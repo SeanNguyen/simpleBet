@@ -17,7 +17,8 @@ app.controller('appController', function ($rootScope, $scope, $location) {
 
 app.run(['$rootScope', '$window', 'facebook', 'User',
     function ($rootScope, $window, facebook, User) {
-        var queryUserByFacebookId = function (facebookId) {
+
+        function queryUserByFacebookId(facebookId) {
             //alr connected to facebook, let's check if there is any user in the databse or not
             User.get({ id: facebookId })
                 .$promise.then(
@@ -44,6 +45,7 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
         $rootScope.user = {};
         $rootScope.facebookLoginStatus = {};
         $rootScope.loginStatus = {};
+        $rootScope.loaded = false;
 
         //init facebook
         facebook.init()
@@ -59,6 +61,7 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
                 $rootScope.user = {};
             }
 
+            //TODO pull facebook friends for user click the login button as well
             //get facebook friends
             FB.api('/me/taggable_friends?limit=10', function (response) {
                 $rootScope.taggableFriends = [];
@@ -68,6 +71,7 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
                     $rootScope.taggableFriends.push(friend);
                 }
                 $rootScope.$apply();
+                $rootScope.loaded = true;
             });
         })
     }]);
