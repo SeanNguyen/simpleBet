@@ -1,5 +1,5 @@
 ﻿#betType {
-    height: calc(100% - 50px);
+    height: 100%;
 }
 
 #betType>h3 {
@@ -24,6 +24,7 @@
 #betType>div h5 {
     text-align: center;
     color: #FCFCFC;
+    margin-bottom: 0;
 }
 
 #betType>div img {
