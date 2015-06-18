@@ -44,7 +44,7 @@ function shareController($rootScope, $scope, $http, $state, facebook) {
 
     function select(index) {
         $scope.selection = index;
-        $scope.image.src = $scope.gifs[index].images.original.webp;
+        $scope.image.src = $scope.gifs[index].images.fixed_width.url;
         $scope.image.link = $scope.gifs[index].images.original.url;
     }
 
@@ -61,6 +61,8 @@ function shareController($rootScope, $scope, $http, $state, facebook) {
     }
 
     function share() {
+        $rootScope.loaded = false;
+
         //get tag ids
         var tagId = [];
         for (var i = $rootScope.taggableFriends.length - 1; i >= 0 ; i--) {
@@ -70,6 +72,7 @@ function shareController($rootScope, $scope, $http, $state, facebook) {
         }
 
         facebook.post($scope.input.message, $scope.image.link, tagId).then(function () {
+            $rootScope.loaded = true;
             $state.go("bet");
         });
     }
