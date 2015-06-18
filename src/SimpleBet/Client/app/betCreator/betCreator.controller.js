@@ -137,6 +137,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	function setBetType(type) {
 	    if (type === BET_TYPE.MVW || type === BET_TYPE.PAS) {
 	        $scope.betModel.type = type;
+	        setTab(1);
 	    } else {
 	        console.log("ERROR: type input not valid");
 	    }

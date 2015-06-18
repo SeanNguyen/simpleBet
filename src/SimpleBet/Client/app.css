@@ -74,5 +74,9 @@ http://www.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centerin
     width: 100%;
     z-index: 1500;
     background-color: rgba(0, 0, 0, 0.3);
-    padding-top: 50%;
+}
+
+#globalLoader>div {
+    position: relative;
+    top: 40%;
 }
