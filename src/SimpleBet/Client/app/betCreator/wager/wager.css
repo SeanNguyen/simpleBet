@@ -1,6 +1,8 @@
 /*Wager type view*/
 #wagerTypeView {
     background-color: #FCFCFC;
+    height: 100%;
+    overflow-x: hidden;
 }
 
 #wagerTypeView #title {
@@ -11,60 +13,49 @@
 #wagerTypeView #title h4{
 	color: #9999ff;
 	font-weight: bold;
+    font-size: 16px;
 }
 
-#wagerTypeView #optionContainer {
-	position: relative;
-	height: 300px;
-}
-
-#wagerTypeView .col {
-	position: absolute;
-	width: 50%;
-	height: 100%;
-}
-
-#wagerTypeView #optionContainer .col img {
-    height: 100px;
-	width: auto;
-}
-
-#wagerTypeView .col h1 {
-	color: #FCFCFC;
-	font-weight: bold;
+#wagerTypeView #loot h4 {
     text-align: center;
+    font-weight: bold;
 }
 
-#wagerTypeView #optionContainer #leftCol {
-	background-color: #57d1c2;
+#wagerTypeView  #loot h5 {
+    text-align: center;
+    color: #FCFCFC;
+    margin-bottom: 0;
 }
 
-#wagerTypeView #optionContainer #rightCol {
-	background-color: #ff806f;
-	left: 50%;
+#wagerTypeView #dare h4 {
+    text-align: center;
+    font-weight: bold;
 }
 
-#wagerTypeView #descriptionContainer {
-    position: relative;
-    min-height: 180px;
+#wagerTypeView  #dare h5 {
+    text-align: center;
+    color: #FCFCFC;
+    margin-bottom: 0;
 }
 
-#wagerTypeView #descriptionContainer #rightCol {
-	left: 50%;
-	border-left-style: solid;
-	border-left-width: 1px;
-	border-left-color: #9999ff;
+#wagerTypeView #loot {
+    padding-top: 20px;
+    background-color: #57d1c2;
+    height: calc(50% - 25px);
 }
 
-
-#wagerTypeView #descriptionContainer .col h5 {
-	max-width: 80%;
-	text-align: center;
-	margin: 10px auto;
+#wagerTypeView #dare {
+    padding-top: 20px;
+    background-color: #ff806f;
+    height: calc(50% - 25px);
 }
 
+#wagerTypeView #loot img {
+    height: 40%;
+    width: auto;
+}
 
-#wagerTypeView #descriptionContainer .col .note {
-	color: #ff806f;
-	font-size: 90%;
+#wagerTypeView #dare img {
+    height: 40%;
+    width: auto;
 }

@@ -34,7 +34,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     //bet model
     $scope.betModel = new Bet({ 
         options: [], 
-        duration: 2, /*in hour, TODO: change to minutes*/
+        duration: 120,
         participations: [], //this field will actually be on the server database, dont be confuse with the field above
         state:BET_STATE.NONE
         //TODO: #367 add  function to load data before controller or app so that this user will be alr loaded here
@@ -67,28 +67,44 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     $scope.decreaseHour = decreaseHour;
     $scope.increaseDay = increaseDay;
     $scope.decreaseDay = decreaseDay;
+    $scope.increaseMinute = increaseMinute;
+    $scope.decreaseMinute = decreaseMinute;
 
     active();
 
     //DETAIL
 
     function increaseHour() {
-        $scope.betModel.duration ++;
+        $scope.betModel.duration += 60;
     };
 
     function decreaseHour() {
-        if ($scope.betModel.duration > 0) {
-            $scope.betModel.duration--;
+        if ($scope.betModel.duration > 60) {
+            $scope.betModel.duration -= 60;
+        } else {
+            $scope.betModel.duration = 0;
         }
     };
 
     function increaseDay() {
-        $scope.betModel.duration += 24
+        $scope.betModel.duration += 24 * 60;
     }
 
     function decreaseDay() {
-        if ($scope.betModel.duration > 24) {
-            $scope.betModel.duration -= 24;
+        if ($scope.betModel.duration > 24 * 60) {
+            $scope.betModel.duration -= 24 * 60;
+        } else {
+            $scope.betModel.duration = 0;
+        }
+    }
+
+    function increaseMinute() {
+        $scope.betModel.duration += 5;
+    }
+
+    function decreaseMinute() {
+        if ($scope.betModel.duration > 5) {
+            $scope.betModel.duration -= 5;
         } else {
             $scope.betModel.duration = 0;
         }
@@ -114,7 +130,8 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	}
 
 	function addOption() {
-	    if (!$scope.input.option || $scope.input.option.lenght <= 0) {
+	    if (!$scope.input.option || $scope.input.option.length <= 0
+            || $scope.betModel.options.length >= 10 || isOptionExist($scope.input.option)) {
 	        console.log("Warning: option input invalid");
 			return;
 	    }
@@ -137,6 +154,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	function setBetType(type) {
 	    if (type === BET_TYPE.MVW || type === BET_TYPE.PAS) {
 	        $scope.betModel.type = type;
+	        setTab(1);
 	    } else {
 	        console.log("ERROR: type input not valid");
 	    }
@@ -152,6 +170,8 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 
     //TODO: this function make me look fat, break it down
 	function submitBet() {
+
+	    $rootScope.loaded = false;
 
         //TODO: remove this line when the #367 solved
 	    $scope.betModel.creatorId = $rootScope.user.id;
@@ -212,6 +232,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
                                     //yay now we can save the betModel
                                     $scope.betModel.$update(function () {
                                         //after settle down everything, relocate to the bet view
+                                        $rootScope.loaded = true;
                                         $location.path('bet/' + $scope.betModel.id);
                                     });
 	                            }
@@ -223,16 +244,27 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	                } else {
 	                    console.log("ERROR: get post from facebook");
 	                    console.log(response.error);
+	                    $rootScope.loaded = true;
 	                }
 	            })
 	        } else {
 	            console.log("ERROR: post to facebook");
 	            console.log(response.error);
+	            $rootScope.loaded = true;
 	        }
 	    });
 	}
 
 	function active() {
 	    setTab(0);
+	}
+
+	function isOptionExist(option) {
+	    for (var i = $scope.betModel.options.length - 1; i >= 0; i--) {
+	        if (option === $scope.betModel.options[i].content) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 });

@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html class="no-js">
 <head>
 	<meta charset="utf-8">
@@ -17,12 +17,14 @@
 	<link rel="stylesheet" href="app/betCreator/betCreator.css">
 	<link rel="stylesheet" href="app/betCreator/challenger/challenger.css">
 	<link rel="stylesheet" href="app/betCreator/option/option.css">
+	<link rel="stylesheet" href="app/betCreator/question/betType.css">
 	<link rel="stylesheet" href="app/betCreator/question/question.css">
 	<link rel="stylesheet" href="app/betCreator/rule/rule.css">
 	<link rel="stylesheet" href="app/betCreator/wager/nonmonetary/nonmonetary.css">
 	<link rel="stylesheet" href="app/betCreator/wager/wager.css">
 	<link rel="stylesheet" href="app/components/customNavbar/customNavbar.css">
 	<link rel="stylesheet" href="app/components/listItem/listItem.css">
+	<link rel="stylesheet" href="app/components/loader/loader.css">
 	<link rel="stylesheet" href="app/components/secondaryNavbar/secondaryNavbar.css">
 	<link rel="stylesheet" href="app/home/home.css">
 	<link rel="stylesheet" href="app/navbar/navbar.css">
@@ -38,6 +40,12 @@
 	<!--[if lt IE 7]>
 	  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
+
+
+    <div id="globalLoader" ng-show="!loaded">
+        <div ng-include="'app/components/loader/loader.html'"></div>
+    </div>
+    
 
 	<div ng-show="isNavbarVisible()" ng-include="'app/navbar/navbar.html'"></div>
 	

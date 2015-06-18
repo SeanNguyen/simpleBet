@@ -1,6 +1,19 @@
 #rule {
-	padding-top: 50px;
 	background-color: #FCFCFC;
+}
+
+#rule>h3 {
+    height: 33px;
+    font-size: 16px;
+    color: #9999ff;
+    background-color: #FCFCFC;
+    margin: 17px 0 0 0;
+    padding-bottom: 17px;
+    text-align: center;
+
+    border-bottom: solid;
+    border-bottom-color: #9999ff;
+    border-bottom-width: 2px;
 }
 
 #rule .customNavbar h4 {
@@ -34,7 +47,9 @@
 
 #rule #counter h4 {
 	text-align: center;
-	font-size: 2em;
+	font-size: 16px;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 #rule #counter img {
@@ -43,19 +58,39 @@
 }
 
 #rule #counter #day {
-	position: absolute;
-	width: 50%;
-	top: 0; left: 0;
+	float: left;
+	width: 33%;
 	background: #FCFCFC;
 	padding-top: 2em;
 	padding-bottom: 5em;
 }
 
 #rule #counter #hour {
-	position: absolute;
-	width: 50%;
-	top: 0; right: 0;
+	float: left;
+	width: 33%;
 	background: #FCFCFC;
 	padding-top: 2em;
 	padding-bottom: 5em;
+}
+
+#rule #counter #minute {
+	float: left;
+	width: 33%;
+	background: #FCFCFC;
+	padding-top: 2em;
+	padding-bottom: 5em;
+}
+
+#rule #nextButton {
+    position: absolute;
+    top: auto; bottom: 0;
+    left: 0; right: 0;
+    height: 60px;
+    background-color: #ff806f;
+    color: #FCFCFC;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 0px;
+    border: none;
+    width: 100%;
 }

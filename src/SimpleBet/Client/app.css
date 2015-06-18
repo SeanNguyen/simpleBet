@@ -67,3 +67,16 @@ http://www.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centerin
 .shadow {
 	box-shadow: 0px 0px 7px 0px;
 }
+
+#globalLoader {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 1500;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+#globalLoader>div {
+    position: relative;
+    top: 40%;
+}

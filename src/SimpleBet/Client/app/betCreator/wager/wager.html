@@ -1,33 +1,17 @@
 <div id="wagerTypeView">
-	<div ui-view>
-		<div id="title">
-			<h4 class="center-various">Select a Wager Type</h4>
-		</div>
-		<div id="optionContainer">
-			<div class="col" id="leftCol">
-	            <div class="center-various">
-	                <img class="img img-responsive" src="assets/icon_giftBox.png"/>
-	                <h1>LOOT</h1>
-	            </div>
-			</div>
-			<div class="col" id="rightCol" ui-sref="create.wager.nonmonetary">
-	            <div class="center-various">
-	                <img class="img img-responsive" src="assets/icon_slap.png" />
-	                <h1>DARES</h1>
-	            </div>
-			</div>
-		</div>
-		<div id="descriptionContainer">
-			<div class="col" id="leftCol">
-				<h5>Choose from a wide range of items we offer from our store, from wine to gifts!</h5>
-				<h5>The loser(s) pays for the wager and it will be mailed to the winner(s)!</h5>
-				<h5 class="note">For monetary bets, all participants must be logged in.</h5>
-			</div>
-			<div class="col" id="rightCol" ng-click="setWagerType(1)">
-				<h5>Select from many different penalties for the losers of the bet to perform!</h5>
-				<h5>From hilarious to embarassing, inject even more spice into your bet!</h5>
-				<h5>You may also create your own forfeits for your bet</h5>
-			</div>
-		</div>
-	</div>
+    <div ui-view>
+        <div id="title">
+            <h4 class="center-various">Select a Wager Type</h4>
+        </div>
+        <div id="loot">
+            <img src="assets/icon_giftBox.png" class="img img-responsive" />
+            <h4>Pick-A-Side</h4>
+            <h5>Write your own options and let your friends pick a side!</h5>
+        </div>
+        <div id="dare" ui-sref="create.wager.nonmonetary">
+            <img src="assets/icon_dare.png" class="img img-responsive"/>
+            <h4>Me-Against-The-World</h4>
+            <h5>Be the sole winner and prove everyone else wrong! Invite those against you for a bet.</h5>
+        </div>
+    </div>
 </div>
