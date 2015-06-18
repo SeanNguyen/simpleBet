@@ -80,3 +80,17 @@
 	padding-top: 2em;
 	padding-bottom: 5em;
 }
+
+#rule #nextButton {
+    position: absolute;
+    top: auto; bottom: 0;
+    left: 0; right: 0;
+    height: 60px;
+    background-color: #ff806f;
+    color: #FCFCFC;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 0px;
+    border: none;
+    width: 100%;
+}
