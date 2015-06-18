@@ -22,14 +22,14 @@
         <div class="row">
             <div class="col col-xs-6" id="leftCol">
                 <div ng-repeat="gif in gifs" class="gifContainer" ng-show="$even" ng-click="select($index)">
-                    <img src="{{gif.images.original_still.url}}" ng-show="!isSelected($index)" />
-                    <img src="{{gif.images.original.webp}}" ng-show="isSelected($index)" />
+                    <img src="{{gif.images.fixed_width_still.url}}" ng-show="!isSelected($index)" />
+                    <img src="{{gif.images.fixed_width.url}}" ng-show="isSelected($index)" />
                 </div>
             </div>
             <div class="col col-xs-6" id="rightCol">
                 <div ng-repeat="gif in gifs" class="gifContainer" ng-show="$odd" ng-click="select($index)">
-                    <img src="{{gif.images.original_still.url}}" ng-show="!isSelected($index)" />
-                    <img src="{{gif.images.original.webp}}" ng-show="isSelected($index)" />
+                    <img src="{{gif.images.fixed_width_still.url}}" ng-show="!isSelected($index)" />
+                    <img src="{{gif.images.fixed_width.url}}" ng-show="isSelected($index)" />
                 </div>
             </div>
         </div>
