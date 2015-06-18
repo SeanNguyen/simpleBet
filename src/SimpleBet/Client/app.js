@@ -79,4 +79,9 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
             console.log(e); // "oh, no!"
             $rootScope.loaded = true;
         });
+
+        //added fastclick element
+        $(function() {
+            FastClick.attach(document.body);
+        });
     }]);
