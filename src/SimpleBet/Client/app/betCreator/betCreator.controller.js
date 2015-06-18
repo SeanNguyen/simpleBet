@@ -114,7 +114,8 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	}
 
 	function addOption() {
-	    if (!$scope.input.option || $scope.input.option.lenght <= 0) {
+	    if (!$scope.input.option || $scope.input.option.length <= 0
+            || $scope.betModel.options.length >= 10 || isOptionExist($scope.input.option)) {
 	        console.log("Warning: option input invalid");
 			return;
 	    }
@@ -235,5 +236,14 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 
 	function active() {
 	    setTab(0);
+	}
+
+	function isOptionExist(option) {
+	    for (var i = $scope.betModel.options.length - 1; i >= 0; i--) {
+	        if (option === $scope.betModel.options[i].content) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 });
