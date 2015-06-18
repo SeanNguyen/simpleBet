@@ -11,13 +11,12 @@
 		</div>
 	</div>
 	<div ng-show="currentTab === 0">
-	    <div class="listItem" ng-repeat="item in taggableFriends" ng-click="onFriendSelect(item)" ng-class="{selected: item.selected}" ng-show="isInSearch(item.name)">
+	    <div class="listItem" ng-repeat="item in taggableFriends" ng-click="onFriendSelect(item)" ng-show="isInSearch(item.name)">
 			<img src="{{item.avatarUrl}}" class="center avata">
 			<div class="content">
 				<h3 class="title">{{item.name}}</h3>
-				<h4 class="description">{{item.description}}</h4>
 			</div>
-			<img src="assets/checkBox.png" class=" center actionImg">
+			<img src="assets/icon_tab_done.png" class=" center actionImg" ng-show="item.selected">
 		</div>
 	</div>
 	<button id="inviteButton" ng-click="$parent.submitBet()">Send Invitation</button>

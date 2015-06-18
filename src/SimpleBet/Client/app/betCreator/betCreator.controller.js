@@ -171,6 +171,8 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     //TODO: this function make me look fat, break it down
 	function submitBet() {
 
+	    $rootScope.loaded = false;
+
         //TODO: remove this line when the #367 solved
 	    $scope.betModel.creatorId = $rootScope.user.id;
 
@@ -230,6 +232,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
                                     //yay now we can save the betModel
                                     $scope.betModel.$update(function () {
                                         //after settle down everything, relocate to the bet view
+                                        $rootScope.loaded = true;
                                         $location.path('bet/' + $scope.betModel.id);
                                     });
 	                            }
@@ -241,11 +244,13 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	                } else {
 	                    console.log("ERROR: get post from facebook");
 	                    console.log(response.error);
+	                    $rootScope.loaded = true;
 	                }
 	            })
 	        } else {
 	            console.log("ERROR: post to facebook");
 	            console.log(response.error);
+	            $rootScope.loaded = true;
 	        }
 	    });
 	}

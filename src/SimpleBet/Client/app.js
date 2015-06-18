@@ -59,6 +59,7 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
             } else if (response.status === 'not_authorized' || response.status === 'unknown') {
                 //haven't connect, let show the login button
                 $rootScope.user = {};
+                $rootScope.loaded = true;
             }
 
             //TODO pull facebook friends for user click the login button as well
@@ -74,4 +75,8 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
                 $rootScope.loaded = true;
             });
         })
+        .catch(function (e) {
+            console.log(e); // "oh, no!"
+            $rootScope.loaded = true;
+        });
     }]);
