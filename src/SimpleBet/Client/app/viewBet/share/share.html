@@ -1,24 +1,42 @@
 ﻿<div class="container-fluid" id="shareBet">
-	<div>
-		<input type="text" ng-model="input.query" ng-change="search(input.query)" placeholder="search GIFs">
-	</div>
-	<div class="row">
-		<div class="col col-xs-6" id="leftCol">
-			<div ng-repeat="gif in gifs" class="gifContainer" ng-show="$even" ng-click="select($index)">
-		        <img src="{{gif.images.original_still.url}}" ng-show="!isSelected($index)"/>
-		        <img src="{{gif.images.original.webp}}" ng-show="isSelected($index)"/>
-		    </div>		
-		</div>
-		<div class="col col-xs-6" id="rightCol">
-			<div ng-repeat="gif in gifs" class="gifContainer" ng-show="$odd" ng-click="select($index)">
-				<img src="{{gif.images.original_still.url}}" ng-show="!isSelected($index)"/>
-		        <img src="{{gif.images.original.webp}}" ng-show="isSelected($index)"/>
-		    </div>
-		</div>
-	</div> 
-	<div id="selectButton">
-		<button class="btn btn-default">
-			<h4>Choose</h4>
-		</button>
-	</div>
+
+    <div id="message" ng-show="state === 1">
+        <div class="container-fluid" id="imageSelection">
+            <img class="img img-responsive" src="assets/icon_gif.png" ng-click="changeToSelectGif()"/>
+        </div>
+        <img src="{{image.src}}" class="imgPreview"/>
+        <textarea rows="5" placeholder="message" ng-model="input.message"/> 
+        <div id="selectButton">
+            <button class="btn btn-default" ng-click="share()">
+                <h4>SHARE</h4>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- CHOOSE GIF VIEW -->
+    <div ng-show="state === 2">
+        <div>
+            <input type="text" ng-model="input.query" ng-change="search(input.query)" placeholder="search GIFs">
+        </div>
+        <div class="row">
+            <div class="col col-xs-6" id="leftCol">
+                <div ng-repeat="gif in gifs" class="gifContainer" ng-show="$even" ng-click="select($index)">
+                    <img src="{{gif.images.original_still.url}}" ng-show="!isSelected($index)" />
+                    <img src="{{gif.images.original.webp}}" ng-show="isSelected($index)" />
+                </div>
+            </div>
+            <div class="col col-xs-6" id="rightCol">
+                <div ng-repeat="gif in gifs" class="gifContainer" ng-show="$odd" ng-click="select($index)">
+                    <img src="{{gif.images.original_still.url}}" ng-show="!isSelected($index)" />
+                    <img src="{{gif.images.original.webp}}" ng-show="isSelected($index)" />
+                </div>
+            </div>
+        </div>
+        <div id="selectButton">
+            <button class="btn btn-default" ng-click="changeToComposingView()">
+                <h4>Choose</h4>
+            </button>
+        </div>
+    </div>
 </div>
