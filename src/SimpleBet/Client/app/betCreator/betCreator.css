@@ -5,12 +5,17 @@
     height: calc(100% - 50px);
     width: 100%;
     z-index: 1;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 #betCreator [ui-view] {
     height: 100%;
-    overflow: scroll;
+    overflow-x: hidden;
+}
+
+#betCreator>.container {
+    padding: 0;
+    box-shadow: 0px 0px 5px 0px #808080;
 }
 
 #betCreator #appBottomNavbar {
