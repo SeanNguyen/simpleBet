@@ -34,7 +34,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     //bet model
     $scope.betModel = new Bet({ 
         options: [], 
-        duration: 2, /*in hour, TODO: change to minutes*/
+        duration: 120,
         participations: [], //this field will actually be on the server database, dont be confuse with the field above
         state:BET_STATE.NONE
         //TODO: #367 add  function to load data before controller or app so that this user will be alr loaded here
@@ -67,28 +67,44 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     $scope.decreaseHour = decreaseHour;
     $scope.increaseDay = increaseDay;
     $scope.decreaseDay = decreaseDay;
+    $scope.increaseMinute = increaseMinute;
+    $scope.decreaseMinute = decreaseMinute;
 
     active();
 
     //DETAIL
 
     function increaseHour() {
-        $scope.betModel.duration ++;
+        $scope.betModel.duration += 60;
     };
 
     function decreaseHour() {
-        if ($scope.betModel.duration > 0) {
-            $scope.betModel.duration--;
+        if ($scope.betModel.duration > 60) {
+            $scope.betModel.duration -= 60;
+        } else {
+            $scope.betModel.duration = 0;
         }
     };
 
     function increaseDay() {
-        $scope.betModel.duration += 24
+        $scope.betModel.duration += 24 * 60;
     }
 
     function decreaseDay() {
-        if ($scope.betModel.duration > 24) {
-            $scope.betModel.duration -= 24;
+        if ($scope.betModel.duration > 24 * 60) {
+            $scope.betModel.duration -= 24 * 60;
+        } else {
+            $scope.betModel.duration = 0;
+        }
+    }
+
+    function increaseMinute() {
+        $scope.betModel.duration += 5;
+    }
+
+    function decreaseMinute() {
+        if ($scope.betModel.duration > 5) {
+            $scope.betModel.duration -= 5;
         } else {
             $scope.betModel.duration = 0;
         }
