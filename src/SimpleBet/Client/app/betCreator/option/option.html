@@ -1,7 +1,7 @@
 <div class="container-fluid" id="optionView">
     <div class="container-fluid question">
         <h4>I'd bet that...</h4>
-        <textarea rows="3" ng-model="betModel.question" maxlength="100" placeholder=". . ."></textarea>
+        <textarea rows="3" ng-model="betModel.question" maxlength="100" placeholder=". . ." class="needsclick"></textarea>
     </div>
     <div class="container-fluid" id="description">
         <h3>Write your options</h3>
@@ -12,11 +12,11 @@
         <h4 class="center">{{option.content}}</h4>
     </div>
     <div class="container-fluid option">
-        <input class="center" type="text" ng-model="input.option" maxlength="50" placeholder=". . ."/>
+        <input class="center needsclick" type="text" ng-model="input.option" maxlength="50" placeholder=". . ."/>
     </div>
     <button id="addOption" ng-click="addOption()">
         <img class="add_button center" src="assets/add_button.png" />
-        <h4 class="center-various">ADD OPTION</h4>
+        <h4>ADD OPTION</h4>
     </button>
 
     <button id="nextButton" class="btn btn-default" ng-click="setTab(2)">
