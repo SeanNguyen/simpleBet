@@ -1,5 +1,6 @@
 ﻿#betType {
     height: 100%;
+    min-height: 480px;
 }
 
 #betType>h3 {

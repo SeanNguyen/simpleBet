@@ -54,6 +54,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 
     $scope.addOption = addOption;
     $scope.removeOption = removeOption;
+    $scope.submitQuestionAndOptions = submitQuestionAndOptions;
 
     $scope.isTypeSelected = isTypeSelected;
     $scope.setBetType = setBetType;
@@ -73,6 +74,16 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
     active();
 
     //DETAIL
+
+    function submitQuestionAndOptions() {
+        if (!$scope.betModel.question || $scope.betModel.question.length === 0) {
+            return;
+        }
+        if (!$scope.betModel.options || $scope.betModel.options.length === 0) {
+            return;
+        }
+        setTab(2);
+    }
 
     function increaseHour() {
         $scope.betModel.duration += 60;

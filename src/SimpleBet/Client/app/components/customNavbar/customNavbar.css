@@ -9,6 +9,7 @@
 	position: fixed;
 	margin: 0;
 	top: 100px; bottom: auto;
+    left: 0px;
 	z-index: 800;
 }
 

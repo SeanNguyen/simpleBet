@@ -80,8 +80,7 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
             $rootScope.loaded = true;
         });
 
-        //added fastclick element
-        $(function() {
+        $(function () {
             FastClick.attach(document.body);
         });
     }]);

@@ -112,7 +112,8 @@
 
 #optionView #addOption h4 {
     color: #9999ff;
-    font-size: 14pt;
+    font-size: 16px;
+    margin-top: 10px;
 }
 
 #optionView #addOption {

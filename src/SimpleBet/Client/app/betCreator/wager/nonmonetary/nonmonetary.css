@@ -1,5 +1,6 @@
 #nonmonetaryContainer {
-	margin-top: 50px;
+    position: relative;
+    padding-top: 50px;
 }
 
 #customBetContainer .listItem .avata {
@@ -21,6 +22,7 @@
 	width: 100%;
 	height: 50px;
 	top: 100px;
+    left: 0px;
 	bottom: auto;
 	background-color: #ff806f;
 	z-index: 800;
@@ -37,6 +39,7 @@
 #nonmonetaryContainer #createNavbar h4 {
 	font-weight: bold;
 	color: #FCFCFC;
+    padding-top: 17px;
 	margin: 0;
 	left: 50%; right: auto;
 	vertical-align: middle;
@@ -92,4 +95,41 @@
 
 #nonmonetaryContainer .selectedItem {
     background-color: #ebebff;
+}
+
+#nonmonetaryContainer #secNavbar {
+    position: fixed;
+    top: 50px; bottom: auto;
+    left: 0; right: 0;
+    z-index: 900;
+    height: 50px;
+    width: 100%;
+    background-color: #9999ff;
+    box-shadow: 0 0 5px #808080;
+}
+
+#nonmonetaryContainer #secNavbar>div {
+    position: relative;
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
+#nonmonetaryContainer #secNavbar h4{
+    margin: 0;
+    text-align: center;
+    padding-top: 15px;
+    color: #FCFCFC;
+}
+
+#nonmonetaryContainer #secNavbar .selected .selectionBox {
+	background-color: #ff806f;
+	height: 10px;
+	width: 60%;
+	top: auto;
+	bottom: 0;
+}
+
+#nonmonetaryContainer #secNavbar .selected h4 {
+	font-weight: bold;
 }
