@@ -87,7 +87,7 @@ module.exports = function (grunt) {
 		connect: {
 			server: {
 				options: {
-					port: 9001,
+					port: 9000,
 					base: '<%= pathConfig.webRoot %>'
 				}
 			}
