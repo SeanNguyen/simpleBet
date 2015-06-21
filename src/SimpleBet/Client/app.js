@@ -71,8 +71,8 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
                     var friend = { tagId: friendData.id, name: friendData.name, avatarUrl: friendData.picture.data.url, selected: false };
                     $rootScope.taggableFriends.push(friend);
                 }
-                $rootScope.$apply();
                 $rootScope.loaded = true;
+                $rootScope.$apply();
             });
         })
         .catch(function (e) {
