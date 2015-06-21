@@ -19,5 +19,7 @@
 			<img src="assets/icon_tab_done.png" class=" center actionImg" ng-show="item.selected">
 		</div>
 	</div>
-	<button id="inviteButton" ng-click="$parent.submitBet()">Send Invitation</button>
+    <div class="buttonContainer">
+        <button class="btn btn-default" id="inviteButton" ng-click="$parent.submitBet()" ng-disabled="!canSubmit()">Send Invitation</button>
+    </div>
 </div>

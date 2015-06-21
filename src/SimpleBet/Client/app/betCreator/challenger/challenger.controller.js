@@ -16,6 +16,7 @@ function challengerController ($rootScope, $scope) {
 	$scope.setTab = setTab;
 	$scope.onFriendSelect = onFriendSelect;
 	$scope.onSearchChange = onSearchChange;
+	$scope.canSubmit = canSubmit;
 
 	active();
 
@@ -67,5 +68,12 @@ function challengerController ($rootScope, $scope) {
 	    $scope.friends = $rootScope.taggableFriends
 	    $scope.visibleFriends = $scope.friends;
 	    $scope.visibleRange =visibleRange_min;
+	}
+
+	function canSubmit() {
+	    if ($scope.input.participants && $scope.input.participants.length > 0) {
+	        return true;
+	    }
+	    return false;
 	}
 };

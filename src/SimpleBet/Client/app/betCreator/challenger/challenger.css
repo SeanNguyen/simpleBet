@@ -100,11 +100,15 @@
 	background-color: #ebebff;
 }
 
-#challenger #inviteButton {
-	position: fixed;
+#challenger .buttonContainer {
+    position: fixed;
 	margin: 0;
 	top: auto; bottom: 0;
     left: 0px; right: 0px;
+    background: #000000;
+}
+
+#challenger #inviteButton {
 	height: 50px;
 	width: 100%;
 	background-color: #ff806f;
