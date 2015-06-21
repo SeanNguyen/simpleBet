@@ -3,7 +3,7 @@ var app = angular.module('app');
 
 app.controller('challengerController', ['$rootScope', '$scope', challengerController]); 
 
-var visibleRange_min = 10;
+var visibleRange_min = 20;
 
 function challengerController ($rootScope, $scope) {
 
@@ -17,6 +17,7 @@ function challengerController ($rootScope, $scope) {
 	$scope.onFriendSelect = onFriendSelect;
 	$scope.onSearchChange = onSearchChange;
 	$scope.canSubmit = canSubmit;
+	$scope.increaseVisibleLimit = increaseVisibleLimit;
 
 	active();
 
@@ -91,5 +92,9 @@ function challengerController ($rootScope, $scope) {
 	        return true;
 	    }
 	    return false;
+	}
+
+	function increaseVisibleLimit() {
+	    $scope.visibleRange += visibleRange_min;
 	}
 };

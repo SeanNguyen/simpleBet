@@ -143,3 +143,9 @@
 #challenger .listContainer {
     padding-bottom: 50px;
 }
+
+#challenger #seeMoreButton {
+    height: 50px;
+    width: 100%;
+    color: #9999ff;
+}
