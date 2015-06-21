@@ -32,7 +32,7 @@ function challengerController ($rootScope, $scope) {
 	        $scope.input.participants.push(friend);
 	    } else {
 	        $scope.input.friendList = $scope.input.friendList.replace(friend.name + ",", '');
-	        var friendIndex = getChoosenFriendIndexById(friend.id);
+	        var friendIndex = getChoosenFriendIndexById(friend.tagId);
 	        $scope.input.participants.splice(friendIndex, 1);
 	    }
 	    friend.selected = !friend.selected;
@@ -40,7 +40,7 @@ function challengerController ($rootScope, $scope) {
 
 	function getChoosenFriendIndexById(tagId) {
 	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
-	        if ($scope.input.participants[i].id === tagId) {
+	        if ($scope.input.participants[i].tagId === tagId) {
 	            return i;
 	        }
 	    };
