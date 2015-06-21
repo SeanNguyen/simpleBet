@@ -1,13 +1,23 @@
 'use-strict';
 var app = angular.module('app');
 
-app.controller('challengerController', function($rootScope, $scope) {
-	$scope.currentTab = 0;
+app.controller('challengerController', ['$rootScope', '$scope', challengerController]); 
 
+var visibleRange_min = 10;
+
+function challengerController ($rootScope, $scope) {
+
+    $scope.currentTab = 0;
+    $scope.friends = [];
+    $scope.visibleFriends = [];
+    $scope.visibleRange = 0;
+     
     //functions
 	$scope.setTab = setTab;
 	$scope.onFriendSelect = onFriendSelect;
-	$scope.isInSearch = isInSearch;
+	$scope.onSearchChange = onSearchChange;
+
+	active();
 
     //private helper methods
 	function setTab(index) {
@@ -27,19 +37,6 @@ app.controller('challengerController', function($rootScope, $scope) {
 	    friend.selected = !friend.selected;
 	}
 
-	function isInSearch(name) {
-	    var keyword = $scope.input.friendList;
-	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
-	        keyword = keyword.replace($scope.input.participants[i].name + ",", '');
-	    };
-
-	    //until here we have the real keyword
-	    keyword = keyword.toLowerCase();
-	    name = name.toLowerCase();
-	    var isContain = name.search(keyword) !== -1;
-	    return isContain;
-	}
-
 	function getChoosenFriendIndexById(tagId) {
 	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
 	        if ($scope.input.participants[i].id === tagId) {
@@ -54,4 +51,21 @@ app.controller('challengerController', function($rootScope, $scope) {
 	        $scope.input.friendList += $scope.input.participants[i].name + ","
 	    };
 	}
-});
+
+	function onSearchChange(query) {
+	    $scope.visibleFriends = [];
+	    query = query.toLowerCase();
+	    for (var i = $scope.friends.length - 1; i >= 0; i--) {
+	        var friendName = $scope.friends[i].name.toLowerCase();
+	        if (friendName.indexOf(query) > -1) {
+	            $scope.visibleFriends.push($scope.friends[i]);
+	        }
+	    }
+	}
+    
+	function active() {
+	    $scope.friends = $rootScope.taggableFriends
+	    $scope.visibleFriends = $scope.friends;
+	    $scope.visibleRange =visibleRange_min;
+	}
+};

@@ -1,7 +1,7 @@
 <div class="container-fluid" id="challenger" ng-controller="challengerController">
 	<div class="shadow secondaryNavbar">
 		<div id="to"><h5>To:</h5></div>
-		<input type="text" ng-model="input.friendList">
+		<input type="text" ng-model="input.friendList" ng-change="onSearchChange(input.friendList)">
 		<img src="assets/icon_search.png">
 	</div>
 	<div class="customNavbar shadow">
