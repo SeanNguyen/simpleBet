@@ -100,6 +100,26 @@
 	background-color: #ebebff;
 }
 
+#challenger .listItem {
+    height: 50px;
+    min-height: 50px;
+}
+
+#challenger .listItem .avatar {
+    height: 30px;
+    width: auto;
+    margin: 10px;
+    float: left;
+}
+
+#challenger .listItem h3 {
+    height: 50px;
+    font-size: 15px;
+    vertical-align: middle;
+    padding-top: 15px;
+    margin: 0;
+}
+
 #challenger .buttonContainer {
     position: fixed;
 	margin: 0;
@@ -118,4 +138,8 @@
 	color: #FCFCFC;
 	font-size: 20px;
 	font-weight: bold;
+}
+
+#challenger .listContainer {
+    padding-bottom: 50px;
 }
