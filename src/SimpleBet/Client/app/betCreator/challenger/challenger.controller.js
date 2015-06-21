@@ -34,6 +34,7 @@ function challengerController ($rootScope, $scope) {
 	        $scope.input.friendList = $scope.input.friendList.replace(friend.name + ",", '');
 	        var friendIndex = getChoosenFriendIndexById(friend.tagId);
 	        $scope.input.participants.splice(friendIndex, 1);
+	        resetSearchField();
 	    }
 	    friend.selected = !friend.selected;
 	    onSearchChange($scope.input.friendList);
