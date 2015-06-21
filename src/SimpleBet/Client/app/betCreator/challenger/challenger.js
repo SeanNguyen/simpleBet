@@ -6,7 +6,6 @@ app.config(function($stateProvider) {
   $stateProvider
     .state('create.challenger', {
       url: "/challenger",
-      templateUrl: "app/betCreator/challenger/challenger.html",
-      controller: 'challengerController'
+      templateUrl: "app/betCreator/challenger/challenger.html"
     })
 });
