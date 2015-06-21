@@ -28,7 +28,7 @@
 			</div>
 			<div ng-repeat="item in customItems track by $index" ng-click="selectDare(item)" ng-class="{selectedItem: item === selectedDare}">
 				<div class="listItem">
-					<img src="{{item.avata}}" class="center avata" ng-click="removeCustomDare($index)">
+					<img ng-src="{{item.avata}}" class="center avata" ng-click="removeCustomDare($index)">
 					<div class="content">
 						<h3 class="title">{{item.title}}</h3>
 						<h4 class="description">{{item.description}}</h4>
