@@ -36,6 +36,7 @@ function challengerController ($rootScope, $scope) {
 	        $scope.input.participants.splice(friendIndex, 1);
 	    }
 	    friend.selected = !friend.selected;
+	    onSearchChange($scope.input.friendList);
 	}
 
 	function getChoosenFriendIndexById(tagId) {
@@ -54,14 +55,28 @@ function challengerController ($rootScope, $scope) {
 	}
 
 	function onSearchChange(query) {
+	    //remove all choosen friend's names
+	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
+	        var name = $scope.input.participants[i].name;
+	        query = query.replace(name + ',', '')
+	    }
+
+        //then search the real query
 	    $scope.visibleFriends = [];
 	    query = query.toLowerCase();
-	    for (var i = $scope.friends.length - 1; i >= 0; i--) {
-	        var friendName = $scope.friends[i].name.toLowerCase();
-	        if (friendName.indexOf(query) > -1) {
-	            $scope.visibleFriends.push($scope.friends[i]);
+	    if (query === '') {
+	        $scope.visibleFriends = $scope.friends;
+	    } else {
+	        for (var i = $scope.friends.length - 1; i >= 0; i--) {
+	            var friendName = $scope.friends[i].name.toLowerCase();
+	            if (friendName.indexOf(query) > -1) {
+	                $scope.visibleFriends.push($scope.friends[i]);
+	            }
 	        }
 	    }
+        
+	    //reset the visible limit
+	    $scope.visibleRange = visibleRange_min;
 	}
     
 	function active() {
