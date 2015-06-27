@@ -24,7 +24,7 @@ namespace SimpleBet.Controllers
         }
 
         // GET: api/values
-        [HttpGet]
+        //[HttpGet]
         public string Get()
         {
             return JsonConvert.SerializeObject(this.dbContext.BetUsers);
@@ -48,7 +48,7 @@ namespace SimpleBet.Controllers
         //}
         
         // POST api/values
-        [HttpPost]
+        //[HttpPost]
         public IActionResult Post([FromBody]BetUser betUser)
         {
             this.dbContext.BetUsers.Add(betUser);
@@ -58,8 +58,8 @@ namespace SimpleBet.Controllers
         }
 
         // PUT api/values/5
-        [Route("api/[controller]/{betId}/{userId}")]
-        [HttpPut]
+        //[Route("api/[controller]/{betId}/{userId}")]
+        //[HttpPut]
         public async Task<IActionResult> Put(int betId, int userId, [FromBody]BetUser betUser)
         {
             if (!ModelState.IsValid)
@@ -99,8 +99,8 @@ namespace SimpleBet.Controllers
         }
 
         // DELETE api/values/5
-        [Route("api/[controller]/{betId}/{userId}")]
-        [HttpDelete]
+        //[Route("api/[controller]/{betId}/{userId}")]
+        //[HttpDelete]
         public async Task<IActionResult> Delete(int userId, int betId)
         {
             BetUser betUser = this.dbContext.BetUsers
