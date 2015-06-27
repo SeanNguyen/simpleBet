@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using SimpleBet.Data;
 using SimpleBet.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace SimpleBet.Controllers
             Bet bet = this.dbContext.Bets.Where(b => b.Id == id)
                                         .Include(b => b.Participations.Select(p => p.User))
                                         .FirstOrDefault();
-            //Bet bet = this.dbContext.Bets.Find(id);
+
             if (bet == null)
             {
                 return new HttpNotFoundResult();
@@ -45,10 +46,10 @@ namespace SimpleBet.Controllers
             else
             {
                 //TODO: later change this to Eager Loading
-                foreach (BetUser betUser in bet.Participations)
-                {
-                    User mock = betUser.User;
-                }
+                //foreach (BetUser betUser in bet.Participations)
+                //{
+                //    User mock = betUser.User;
+                //}
                 string betJson = JsonConvert.SerializeObject(bet);
                 return new ObjectResult(betJson);
             }
@@ -59,7 +60,7 @@ namespace SimpleBet.Controllers
         public IActionResult Post([FromBody]Bet bet)
         {
             //manually create datetime here, TODO: maybe move this creation to client
-            bet.CreationDate = DateTime.Now;
+            bet.CreationTime = DateTime.Now;
 
             this.dbContext.Bets.Add(bet);
             this.dbContext.SaveChanges();
@@ -79,20 +80,35 @@ namespace SimpleBet.Controllers
             {
                 return BadRequest();
             }
-
-            this.dbContext.Entry(bet).State = EntityState.Modified;
-            //added all participations as well
-            foreach(BetUser betUser in bet.Participations)
+            if (!isExist(id))
             {
-                if (this.dbContext.BetUsers
-                    .Where(bu => bu.BetId == betUser.BetId && bu.UserId == betUser.UserId)
-                    .FirstOrDefault() != null)
+                return NotFound();
+            }
+
+            Bet existingBet = this.dbContext.Bets.Find(id);
+            this.dbContext.Entry(existingBet).CurrentValues.SetValues(bet);
+
+            //update all participations as well
+            //remove
+            foreach (BetUser existingBetUser in existingBet.Participations.ToList())
+            {  
+                if (!bet.Participations.Any(p => p.UserId == existingBetUser.UserId))
                 {
-                    this.dbContext.Entry(betUser).State = EntityState.Modified;
+                    existingBet.Participations.Remove(existingBetUser);
                 }
-                else
+            }
+            //add and update
+            foreach(BetUser updatedBetUser in bet.Participations.ToList())
+            {
+                BetUser existingParticipation = existingBet.Participations.FirstOrDefault(p => p.UserId == updatedBetUser.UserId);
+                //if existed then update it
+                if (existingParticipation != null)
                 {
-                    this.dbContext.BetUsers.Add(betUser);
+                    this.dbContext.Entry(existingParticipation).CurrentValues.SetValues(updatedBetUser);
+                }
+                else //if not, add it
+                {
+                    existingBet.Participations.Add(updatedBetUser);
                 }
             }
 
@@ -102,14 +118,7 @@ namespace SimpleBet.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!isExist(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             //seriallize the object
