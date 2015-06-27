@@ -25,7 +25,5 @@ namespace SimpleBet.Data
 
         public DbSet<Bet> Bets { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Option> Options { get; set; }
-        public DbSet<BetUser> BetUsers { get; set; }
     }
 }
