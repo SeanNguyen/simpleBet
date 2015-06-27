@@ -10,13 +10,27 @@ namespace SimpleBet.Models
 {
     public enum BET_STATE
     {
+        //init state
         NONE,
+        //wait for everyone to accept or decline the bet
         PENDING,
+        //everyone accepted or declined the bet
         CONFIRM,
+        //someone choose to cancel the bet
         CANCELLING,
         CANCELLED,
+        //everyone pick their options
         FINALLIZABLE,
-        FINALLIZED
+        //someone choose to finallize the bet and now anyone can choose to dispute
+        DISPUTABLE,
+        //after everyone key in the correct option, the bet now officially closed
+        FINALLIZED,
+    }
+
+    public enum BET_TYPE
+    {
+        MONETARY,
+        NONMONETARY
     }
 
     public class Bet : Model
@@ -32,20 +46,23 @@ namespace SimpleBet.Models
         public int Id { get; set; }
 
         //basic info
+        [Required]
+        public BET_TYPE BetType { get; set; }
         [Required, MaxLength(100)]
         public string Question { get; set; }
+        public string WinningOption { get; set; }
         public virtual ICollection<Option> Options { get; set; }
 
         //time
         [Required]
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationTime { get; set; }
         [Required]
         public int Duration { get; set; } //this is in minute
+        public DateTime DisputeTime { get; set; }
 
         //user
         [Required]
         public int CreatorId { get; set; }
-        //public virtual ICollection<User> Participants { get; set; }
         public virtual ICollection<BetUser> Participations { get; set; }
 
         //state
