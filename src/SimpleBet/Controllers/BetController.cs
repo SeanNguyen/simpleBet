@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -74,6 +75,7 @@ namespace SimpleBet.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var errors = this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors);
                 return BadRequest(ModelState);
             }
             if (id != bet.Id)
@@ -90,27 +92,27 @@ namespace SimpleBet.Controllers
 
             //update all participations as well
             //remove
-            foreach (BetUser existingBetUser in existingBet.Participations.ToList())
-            {  
-                if (!bet.Participations.Any(p => p.UserId == existingBetUser.UserId))
-                {
-                    existingBet.Participations.Remove(existingBetUser);
-                }
-            }
-            //add and update
-            foreach(BetUser updatedBetUser in bet.Participations.ToList())
-            {
-                BetUser existingParticipation = existingBet.Participations.FirstOrDefault(p => p.UserId == updatedBetUser.UserId);
-                //if existed then update it
-                if (existingParticipation != null)
-                {
-                    this.dbContext.Entry(existingParticipation).CurrentValues.SetValues(updatedBetUser);
-                }
-                else //if not, add it
-                {
-                    existingBet.Participations.Add(updatedBetUser);
-                }
-            }
+            //foreach (BetUser existingBetUser in existingBet.Participations.ToList())
+            //{  
+            //    if (!bet.Participations.Any(p => p.UserId == existingBetUser.UserId))
+            //    {
+            //        existingBet.Participations.Remove(existingBetUser);
+            //    }
+            //}
+            ////add and update
+            //foreach(BetUser updatedBetUser in bet.Participations.ToList())
+            //{
+            //    BetUser existingParticipation = existingBet.Participations.FirstOrDefault(p => p.UserId == updatedBetUser.UserId);
+            //    //if existed then update it
+            //    if (existingParticipation != null)
+            //    {
+            //        this.dbContext.Entry(existingParticipation).CurrentValues.SetValues(updatedBetUser);
+            //    }
+            //    else //if not, add it
+            //    {
+            //        existingBet.Participations.Add(updatedBetUser);
+            //    }
+            //}
 
             try
             {

@@ -58,7 +58,7 @@ namespace SimpleBet.Models
         public DateTime CreationTime { get; set; }
         [Required]
         public int Duration { get; set; } //this is in minute
-        public DateTime DisputeTime { get; set; }
+        public DateTime? DisputeTime { get; set; }
 
         //user
         [Required]
