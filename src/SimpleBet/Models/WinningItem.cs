@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,10 +17,13 @@ namespace SimpleBet.Models
     {
         public int Id { get; set; }
         public WINNING_ITEM_TYPE Type { get; set; }
+        [MaxLength(100)]
         public string Title { get; set; }
         public string Description { get; set; }
 
+        [Required]
         public int CreatorId { get; set; }
+        [ForeignKey("CreatorId")]
         public User Creator { get; set; }
         
         //public methods
