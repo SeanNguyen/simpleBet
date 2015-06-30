@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SimpleBet.Models
 {
@@ -52,6 +49,11 @@ namespace SimpleBet.Models
         public string Question { get; set; }
         public string WinningOption { get; set; }
         public virtual ICollection<Option> Options { get; set; }
+
+        //winning item
+        public int WinningItemId { get; set; }
+        [ForeignKey("WinningItemId")]
+        public WinningItem WinningItem { get; set; }
 
         //time
         [Required]
