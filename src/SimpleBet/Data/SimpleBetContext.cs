@@ -1,6 +1,5 @@
 ﻿using SimpleBet.Models;
 using System.Data.Entity;
-using System.Data.SqlClient;
 
 /* Connection string for azure server
 @"Server=tcp:pvuq1gyimf.database.windows.net,1433;Database=simplebet;
@@ -20,10 +19,12 @@ namespace SimpleBet.Data
                                         Integrated Security=True; Pooling=false;
                                         MultipleActiveResultSets=true;")
         {
-            Database.SetInitializer<SimpleBetContext>(new Initializer());
+            Database.SetInitializer(new Initializer());
         }
 
         public DbSet<Bet> Bets { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<BetUser> BetUsers { get; set; }
+        public DbSet<WinningItem> WinningItems { get; set; }
     }
 }
