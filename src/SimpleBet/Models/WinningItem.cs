@@ -20,11 +20,9 @@ namespace SimpleBet.Models
         [MaxLength(100)]
         public string Title { get; set; }
         public string Description { get; set; }
-
-        [Required]
+        
         public int CreatorId { get; set; }
-        [ForeignKey("CreatorId")]
-        public User Creator { get; set; }
+        public virtual User Creator { get; set; }
         
         //public methods
         public override Model parse(dynamic data)

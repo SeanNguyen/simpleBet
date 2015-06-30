@@ -26,8 +26,8 @@ namespace SimpleBet.Models
 
     public enum BET_TYPE
     {
-        MONETARY,
-        NONMONETARY
+        ONE_MANY,
+        MANY_MANY
     }
 
     public class Bet : Model
@@ -51,8 +51,7 @@ namespace SimpleBet.Models
         public virtual ICollection<Option> Options { get; set; }
 
         //winning item
-        public int WinningItemId { get; set; }
-        [ForeignKey("WinningItemId")]
+        public int? WinningItemId { get; set; }
         public WinningItem WinningItem { get; set; }
 
         //time

@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using SimpleBet.Models;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimpleBet.Models
@@ -12,7 +8,7 @@ namespace SimpleBet.Models
     {
         public User()
         {
-            //this.Bets = new List<Bet>();
+            this.WinningItems = new List<WinningItem>();
             this.Participations = new List<BetUser>();
         }
 
@@ -26,8 +22,8 @@ namespace SimpleBet.Models
         public string AvatarUrl { get; set; }
 
         //bets
-        //public virtual ICollection<Bet> Bets { get; set; }
         public virtual ICollection<BetUser> Participations { get; set; }
+        public virtual ICollection<WinningItem> WinningItems { get; set; }
         
         /*************************************************************/
         //public methods
