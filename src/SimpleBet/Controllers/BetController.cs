@@ -48,6 +48,9 @@ namespace SimpleBet.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]Bet bet)
         {
+            //manually create datetime here, TODO: maybe move this creation to client
+            bet.CreationTime = DateTime.Now;
+
             this.dataService.AddBet(bet);
             string betJson = JsonConvert.SerializeObject(bet);
             return new ObjectResult(betJson);

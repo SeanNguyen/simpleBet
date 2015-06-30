@@ -108,9 +108,6 @@ namespace SimpleBet.Services
 
         public Bet AddBet(Bet bet)
         {
-            //manually create datetime here, TODO: maybe move this creation to client
-            bet.CreationTime = DateTime.Now;
-
             this.dbContext.Bets.Add(bet);
             this.dbContext.SaveChanges();
             return bet;

@@ -5,45 +5,43 @@ using System.Threading.Tasks;
 using Xunit;
 using SimpleBet.Controllers;
 using SimpleBet.Models;
+using SimpleBet.Services;
 
 namespace SimpleBet.Test.Api
 {
     public class BetControllerTest
     {
-        //[Fact]
-        //public void CreateBet()
-        //{
-        //    BetController betController = new BetController();
-        //    betController.Post(bet);
+        private IDataService dataService = new DataService();
+        private User user1 { get { return new User() { Id = 1, FacebookId = 123, Name = "Jon Snow", AvatarUrl = "someUrl" }; } }
 
-        //    UserController userController = new UserController();
-        //    User user = new User();
-        //    user.Name = "Sean";
-        //    user.Bets.Add(bet);
-        //    userController.Post(user);
-        //}
+        Bet betNoId;
 
-        ////private helper methods
-        //public Bet getInitMockBet()
-        //{
-        //    Bet bet = new Bet();
-        //    bet.BetType = BET_TYPE.NONMONETARY;
-        //    bet.Question = "This is a question";
+        public BetControllerTest()
+        {
+            List<Option> options = new List<Option>();
+            options.Add(new Option() { Content = "This is option a" });
+            options.Add(new Option() { Content = "This is option b" });
 
-        //    //options
-        //    Option option1 = new Option();
-        //    option1.Content = "This is option 1";
-        //    Option option2 = new Option();
-        //    option2.Content = "This is option 2";
-        //    ICollection<Option> options = new List<Option>();
-        //    options.Add(option1);
-        //    options.Add(option2);
-        //    bet.Options = options;
+            List<BetUser> participations = new List<BetUser>();
+            participations.Add(new BetUser() { State = BetUserState.CONFIRMED, UserId = 1 });
+            participations.Add(new BetUser() { State = BetUserState.PENDING, UserId = 2 });
 
-        //    bet.
-        //    bet.Duration = 60;
-        //    bet.CreatorId = 1;
-        //    return bet;
-        //}
+            this.betNoId = new Bet()
+            {
+                BetType = BET_TYPE.ONE_MANY,
+                CreationTime = DateTime.Now,
+                Duration = 1000,
+                CreatorId = 1,
+                Question = "This is a question",
+                State = BET_STATE.CONFIRM,
+                Options = options,
+                Participations = participations
+            };
+        }
+
+        [Fact]
+        public void TestAddBet()
+        {
+        }
     }
 }
