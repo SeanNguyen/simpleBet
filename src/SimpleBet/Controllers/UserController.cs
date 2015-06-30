@@ -17,11 +17,11 @@ namespace SimpleBet.Controllers
         public UserController() { }
 
         // GET: api/values
-        [HttpGet]
-        public string Get()
-        {
-            return JsonConvert.SerializeObject(this.dataService.GetUsers());
-        }
+        //[HttpGet]
+        //public string Get()
+        //{
+        //    return JsonConvert.SerializeObject(this.dataService.GetUsers());
+        //}
 
         // GET api/values/5
         [HttpGet("{id:int}")]

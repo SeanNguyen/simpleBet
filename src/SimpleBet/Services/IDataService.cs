@@ -16,11 +16,25 @@ namespace SimpleBet.Services
         WinningItem RemoveWinningItem(int id);
 
         //user
-        IList<User> GetUsers();
+        //IList<User> GetUsers();
         User GetUserById(int id);
         User GetUserByFacebookId(long id);
         User AddUser(User user);
         User UpdateUser(User user);
-        User RemoveUser(int id);
+        //User RemoveUser(int id);
+
+        //bet
+        //IList<Bet> GetBets();
+        Bet GetBet(int id);
+        Bet AddBet(Bet bet);
+        Bet UpdateBet(Bet bet);
+        //Bet RemoveBet(int id);
+
+        //bet
+        //IList<BetUser> GetBetUsers();
+        BetUser GetBetUser(int betId, int userId);
+        //BetUser AddBetUser(BetUser betUser);
+        BetUser UpdateBetUser(BetUser betUser);
+        BetUser RemoveBetUser(int betId, int userId);
     }
 }
