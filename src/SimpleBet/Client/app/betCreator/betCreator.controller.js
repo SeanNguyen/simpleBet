@@ -9,8 +9,8 @@ var PATH_TAB_CURRENT = 'assets/icon_tab_current.png';
 var TAB_SIZE = 5;
 var TAB_NAMES = ['The Bet', 'The Bet', 'The Wager', 'The Rule', 'The Challengers'];
 var TAB_STATES = ['question', 'option', 'wager', 'rule', 'challenger'];
-var BET_TYPE = { MVW: 'MVW', PAS: 'PAS' };
-var WAGER_TYPE = { MONETARY: 'MONETARY', NONMONETARY: 'NONMONETARY' };
+var BET_TYPE = { ONE_MANY: 0, MANY_MANY: 1 };
+var WAGER_TYPE = { MONETARY: 0, NONMONETARY: 1 };
 var PARTICIPATION_STATE = {
     NONE: 0,
     PENDING: 1,
@@ -163,7 +163,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	}
     
 	function setBetType(type) {
-	    if (type === BET_TYPE.MVW || type === BET_TYPE.PAS) {
+	    if (type === BET_TYPE.ONE_MANY || type === BET_TYPE.MANY_MANY) {
 	        $scope.betModel.type = type;
 	        setTab(1);
 	    } else {
@@ -187,22 +187,17 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
         //TODO: remove this line when the #367 solved
 	    $scope.betModel.creatorId = $rootScope.user.id;
 
-        //save bet without any edges to user just to get the ID first
-	    $scope.betModel.$save()
-        .then(function () {
-	        var link = "192.168.0.113:9000/#/bet/" + $scope.betModel.id //TODO: move this link into the config file
+	    var link = "192.168.0.113:9000/#/bet/" + $scope.betModel.id //TODO: move this link into the config file
 
-	        var message = "JOIN THE BET NOW !!! \n" + $scope.betModel.question;
+	    var message = "JOIN THE BET NOW !!! \n" + $scope.betModel.question;
 	        
-	        var tagIds = [];
-	        for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
-	            tagIds.push($scope.input.participants[i].tagId);
-	        };
-	        tagIds = tagIds.join(",");
+	    var tagIds = [];
+	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
+	        tagIds.push($scope.input.participants[i].tagId);
+	    };
+	    tagIds = tagIds.join(",");
 
-	        var promise = facebook.post(message, link, tagIds);
-	        return promise;
-	    })
+	    facebook.post(message, link, tagIds)
 	    .then(function (response) {
             //after post successfully onto facebook, get tagged friends ID and add to our awesome system
 	        if (response && !response.error) {
@@ -239,13 +234,12 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
                                     });
                                     $scope.betModel.state = BET_STATE.PENDING;
 
-                                    //TODO: add loading screen for this and the friend saving above instead of jump directly to the bet pagex
                                     //yay now we can save the betModel
-                                    $scope.betModel.$update(function () {
+                                    $scope.betModel.$save(function () {
                                         //after settle down everything, relocate to the bet view
                                         $rootScope.loaded = true;
                                         $location.path('bet/' + $scope.betModel.id);
-                                    });
+                                    })
 	                            }
 
 	                        }, function () {

@@ -1,36 +1,11 @@
-<!--<div class="container-fluid" id="questionView">
-    <div class="container-fluid question">
-        <h4>What are you betting on?</h4>
-        <div class="roundTextbox">
-            <input type="text" class="form-control" id="questionInput" placeholder="I'd bet..." ng-model="betModel.question">
-        </div>
-    </div>
-    <div class="container-fluid" id="betSelect">
-        <div class="container-fluid" id="typeOfBet">
-            <h3>Type of Bet</h3>
-            <h4>Select the type of bet you want</h4>
-        </div>
-        <div class="container-fluid choice" ng-class="{selected: isTypeSelected('PAS')}" ng-click="setBetType('PAS')">
-            <div class="center selectionSideBox" ng-show="isTypeSelected(0)"></div>
-            <h3>Pick-A-Side</h3>
-            <h4>You set different conditions for your bet above. Your friends participating can select which one they would like to bet on.  More than 1 person can bet on any single condition.</h4>
-        </div>
-        <div class="container-fluid choice" ng-class="{selected: isTypeSelected('MVW')}" ng-click="setBetType('MVW')">
-            <div class="center selectionSideBox" ng-show="isTypeSelected(1)"></div>
-            <h3>Me-Against-The-World</h3>
-            <h4>All of your friends who participate in this bet are going against your bet set above. It's either you win against all the participants or lose to all of them. Your friends can only accept or decline the bet as it is with no options to select.</h4>
-        </div>
-    </div>
-</div>-->
-
 <div class="container-fluid" id="betType">
     <h3>Select a Type of Bet</h3>
-    <div id="pickASide" ng-click="setBetType('PAS')">
+    <div id="pickASide" ng-click="setBetType(1)">
         <img src="assets/image_pickASide.png" class="img img-responsive"/>
         <h4>Pick-A-Side</h4>
         <h5>Write your own options and let your friends pick a side!</h5>
     </div>
-    <div id="meWorld" ng-click="setBetType('MVW')">
+    <div id="meWorld" ng-click="setBetType(0)">
         <img src="assets/image_meVsTheWorld.png" class="img img-responsive" />
         <h4>Me-Against-The-World</h4>
         <h5>Be the sole winner and prove everyone else wrong! Invite those against you for a bet.</h5>
