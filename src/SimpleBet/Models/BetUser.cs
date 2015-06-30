@@ -28,15 +28,14 @@ namespace SimpleBet.Models
         //Attributes
         //Keys
         [Key, Column(Order = 0)]
-        public int UserId { get; set; }
-        [ForeignKey("UserId")]
-        public User User { get; set; }
-
-        [Key, Column(Order = 1)]
         public int BetId { get; set; }
         [ForeignKey("BetId")]
         public Bet Bet { get; set; }
 
+        [Key, Column(Order = 1)]
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
         
         public BetUserState State { get; set; }
         public string Option { get; set; }
