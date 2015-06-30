@@ -46,5 +46,50 @@ namespace SimpleBet.Services
             this.dbContext.SaveChanges();
             return winningItem;
         }
+
+        //User
+        public IList<User> GetUsers()
+        {
+            return dbContext.WinningItems.ToList();
+        }
+
+        public User GetUserById(int id)
+        {
+            return dbContext.Users.Find(id);
+        }
+
+        public User GetUserByFacebookId(long facebookId)
+        {
+            User user = this.dbContext.Users.FirstOrDefault(u => u.FacebookId == facebookId);
+            return user;
+        }
+
+        public User AddUser(User user)
+        {
+            //check if exists, then add
+            User existingUser = this.dbContext.Users.Where(u => u.FacebookId == user.FacebookId).FirstOrDefault();
+            if (existingUser == null)
+            {
+                this.dbContext.Users.Add(user);
+                this.dbContext.SaveChanges();
+                return user;
+            }
+            return existingUser;
+        }
+
+        public User UpdateUser(User user)
+        {
+            dbContext.Entry(user).State = EntityState.Modified;
+            this.dbContext.SaveChanges();
+            return user;
+        }
+
+        public User RemoveUser(int id)
+        {
+            User user = dbContext.Users.Find(id);
+            this.dbContext.Users.Remove(user);
+            this.dbContext.SaveChanges();
+            return user;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using SimpleBet.Data;
 using SimpleBet.Models;
+using SimpleBet.Services;
 using System.Linq;
 
 namespace SimpleBet.Controllers
@@ -10,26 +11,23 @@ namespace SimpleBet.Controllers
     public class UserController : Controller
     {
         //Attributes
-        private readonly SimpleBetContext dbContext;
+        private IDataService dataService = new DataService();
 
         //Constructors
-        public UserController()
-        {
-            this.dbContext = new SimpleBetContext();
-        }
+        public UserController() { }
 
         // GET: api/values
         [HttpGet]
         public string Get()
         {
-            return JsonConvert.SerializeObject(this.dbContext.Users);
+            return JsonConvert.SerializeObject(this.dataService.GetUsers());
         }
 
         // GET api/values/5
         [HttpGet("{id:int}")]
         public IActionResult Get(int id)
         {
-            User user = this.dbContext.Users.Find(id);
+            User user = this.dataService.GetUserById(id);
             if (user == null)
             {
                 return new HttpNotFoundResult();
@@ -45,7 +43,7 @@ namespace SimpleBet.Controllers
         [HttpGet("{id:long}")]
         public IActionResult Get(long id)
         {
-            User user = this.dbContext.Users.FirstOrDefault(u => u.FacebookId == id);
+            User user = this.dataService.GetUserByFacebookId(id);
             if (user == null)
             {
                 return new HttpNotFoundResult();
@@ -60,15 +58,8 @@ namespace SimpleBet.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]User user)
         {
-            //check if exists, then add
-            User existingUser = this.dbContext.Users.Where(u => u.FacebookId == user.FacebookId).FirstOrDefault();
-            if (existingUser == null)
-            {
-                this.dbContext.Users.Add(user);
-                this.dbContext.SaveChanges();
-                existingUser = user;
-            }
-            string json = JsonConvert.SerializeObject(existingUser);
+            user = this.dataService.AddUser(user);
+            string json = JsonConvert.SerializeObject(user);
             return new ObjectResult(json);
         }
 
