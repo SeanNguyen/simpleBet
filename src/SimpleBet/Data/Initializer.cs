@@ -6,12 +6,12 @@ using System.Data.Entity;
 namespace SimpleBet.Data
 {
 
-    public class Initializer : DropCreateDatabaseAlways<SimpleBetContext>
+    public class Initializer : DropCreateDatabaseIfModelChanges<SimpleBetContext>
     {
         protected override void Seed(SimpleBetContext context)
         {
             //Users
-            context.Users.Add(new User() { FacebookId = 123, Name = "Jon Snow", AvatarUrl = "someUrl" });
+            context.Users.Add(new User() { FacebookId = 123, Name = "Admin", AvatarUrl = "http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png" });
             context.Users.Add(new User() { FacebookId = 321, Name = "I am a robot", AvatarUrl = "someUrl" });
             context.SaveChanges();
 
@@ -21,6 +21,7 @@ namespace SimpleBet.Data
                 Type = WINNING_ITEM_TYPE.NONMONETARY,
                 Title = "Punch",
                 Description = "I will punch you",
+                imageUrl = "assets/icon_dare.png",
                 CreatorId = 1
             });
             context.WinningItems.Add(new WinningItem()
@@ -28,7 +29,32 @@ namespace SimpleBet.Data
                 Type = WINNING_ITEM_TYPE.MONETARY,
                 Title = "Wine",
                 Description = "I will buy you this",
+                imageUrl = "assets/icon_giftBox.png",
                 CreatorId = 2
+            });
+            context.WinningItems.Add(new WinningItem()
+            {
+                Type = WINNING_ITEM_TYPE.NONMONETARY,
+                Title = "Catch‘em All",
+                Description = "Put on your business suit and seal the nearest 3 kids you see into a ball. (They must wear a tie.)",
+                imageUrl = "assets/icon_dare.png",
+                CreatorId = 1
+            });
+            context.WinningItems.Add(new WinningItem()
+            {
+                Type = WINNING_ITEM_TYPE.NONMONETARY,
+                Title = "A Noble King",
+                Description = "Donate all of your valubles in your wallet to a nearby beggar.",
+                imageUrl = "assets/icon_dare.png",
+                CreatorId = 1
+            });
+            context.WinningItems.Add(new WinningItem()
+            {
+                Type = WINNING_ITEM_TYPE.NONMONETARY,
+                Title = "Static Shock",
+                Description = "Get eletricfied in a thunderstorm. Zap Zap pikachu I choose you.",
+                imageUrl = "assets/icon_dare.png",
+                CreatorId = 1
             });
             context.SaveChanges();
 
