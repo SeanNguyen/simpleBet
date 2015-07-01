@@ -4,7 +4,7 @@
         <div class="header">
             <div class="container-fluid">
                 <div class="avata">
-                    <img src="{{creator.avatarUrl}}">
+                    <img ng-src="{{creator.avatarUrl}}">
                 </div>
 
                 <div class="creator">
@@ -29,7 +29,7 @@
 
         <div class="tab" ng-show="betCancelCreator && bet.state === BET_STATE.CANCELLING" id="cancelAlertContainer">
             <div id="cancelAlert">
-                <img src="{{betCancelCreator.avatarUrl}}" />
+                <img ng-src="{{betCancelCreator.avatarUrl}}" />
                 <div>
                     <h4>{{betCancelCreator.name}}</h4>
                     <h5>have started a vote to cancel the bet.</h5>
@@ -38,7 +38,7 @@
             <!-- list of participants -->
             <div ng-repeat="item in bet.participations" class="challengerItem"
                  ng-hide="betCancelCreator.id === item.userId">
-                <img src="{{item.user.avatarUrl}}" class="avatar" />
+                <img ng-src="{{item.user.avatarUrl}}" class="avatar" />
                 <h5>{{item.user.name}}</h5>
 
                 <img src="assets/radio_button.png" class="status" ng-show="item.voteCancelBetState === VOTE_CANCEL_BET_STATE.AGREE" />

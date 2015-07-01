@@ -4,7 +4,7 @@
         <div class="container-fluid" id="imageSelection">
             <img class="img img-responsive" src="assets/icon_gif.png" ng-click="changeToSelectGif()"/>
         </div>
-        <img src="{{image.src}}" class="imgPreview"/>
+        <img ng-src="{{image.src}}" class="imgPreview"/>
         <textarea rows="5" placeholder="message" ng-model="input.message"/> 
         <div id="selectButton">
             <button class="btn btn-default" ng-click="share()">

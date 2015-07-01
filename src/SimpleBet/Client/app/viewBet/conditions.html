@@ -4,7 +4,7 @@
         <h4>{{option.content}}</h4>
         <div id="avatarContainer">
             <div ng-repeat="participant in getParticipantByOption(option)">
-                <img src="{{participant.user.avatarUrl}}" />
+                <img ng-src="{{participant.user.avatarUrl}}" />
             </div>
         </div>
     </div>
