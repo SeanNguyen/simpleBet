@@ -172,6 +172,14 @@
     border-bottom-width: 1px;
 }
 
+#viewBet #challenger .challengerItem.decline{
+    background-color: #CCC;
+}
+
+#viewBet #challenger .challengerItem.accept{
+    background-color: #ebebff;
+}
+
 #viewBet #challenger .challengerItem img {
     position: absolute;
     height: 50px;
