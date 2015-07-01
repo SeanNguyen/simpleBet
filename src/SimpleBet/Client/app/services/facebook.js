@@ -79,11 +79,29 @@ app.factory('facebook', ['$q', '$rootScope', function ($q, $rootScope) {
         return deferred.promise;
     }
 
+    function getAvatar(facebookId) {
+        var deferred = $q.defer();
+        FB.api(
+            "/" + facebookId + "/picture",
+            { height: 200, width: 200 },
+            function (response) {
+                if (response && !response.error) {
+                    deferred.resolve(response.data.url);
+                } else {
+                    console.log("Get facebook avatar fail");
+                    deferred.reject();
+                }
+            }
+        );
+        return deferred.promise;
+    }
+
     return {
         init: init,
         getLoginStatus: getLoginStatus,
         getUserInfo: getUserInfo,
         logIn: logIn,
-        post: post
+        post: post,
+        getAvatar: getAvatar
     };
 }]);
