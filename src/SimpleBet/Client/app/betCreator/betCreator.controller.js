@@ -9,22 +9,11 @@ var PATH_TAB_CURRENT = 'assets/icon_tab_current.png';
 var TAB_SIZE = 5;
 var TAB_NAMES = ['The Bet', 'The Bet', 'The Wager', 'The Rule', 'The Challengers'];
 var TAB_STATES = ['question', 'option', 'wager', 'rule', 'challenger'];
-var BET_TYPE = { ONE_MANY: 0, MANY_MANY: 1 };
-var WAGER_TYPE = { MONETARY: 0, NONMONETARY: 1 };
-var PARTICIPATION_STATE = {
-    NONE: 0,
-    PENDING: 1,
-    CONFIRMED: 2
-};
-var BET_STATE = {
-    NONE: 0,
-    PENDING: 1,
-    CONFIRMED: 2,
-    CANCELLING: 3,
-    FINALIZABLE: 4,
-    FINALIZED: 5
-}
-app.controller('betCreatorController', function ($rootScope, $scope, $state, $window, $location, Bet, User, BetUser, facebook) {
+
+app.controller('betCreatorController', betCreatorController);
+
+function betCreatorController($rootScope, $scope, $state, $window, $location, Bet, User, BetUser,
+    facebook, BET_TYPE, WAGER_TYPE, BET_STAE, PARTICIPATION_STATE) {
     //navigations
     $scope.currentTab = 0;
     $rootScope.title = TAB_NAMES[$scope.currentTab];
@@ -276,4 +265,4 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 	    }
 	    return false;
 	}
-});
+}
