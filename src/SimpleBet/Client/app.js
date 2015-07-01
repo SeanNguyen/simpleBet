@@ -15,34 +15,8 @@ app.controller('appController', function ($rootScope, $scope, $location) {
     }
 });
 
-app.run(['$rootScope', '$window', 'facebook', 'User',
-    function ($rootScope, $window, facebook, User) {
-
-        function queryUserByFacebookId(facebookId) {
-            //alr connected to facebook, let's check if there is any user in the databse or not
-            User.get({ id: facebookId })
-                .$promise.then(
-                function (data) {
-                    $rootScope.user = data;
-                },
-                function (error) {
-                    //cant find this fbID, must be new to the town, let's him join
-                    if (error.status === 404) {
-                        facebook.getUserInfo(facebookId)
-                        .then(function (facebookUser) {
-                            $rootScope.user = new User();
-                            $rootScope.user.facebookId = facebookId;
-                            $rootScope.user.name = facebookUser.name;
-                            facebook.getAvatar(facebookId)
-                            .then(function (avatarUrl) {
-                                $rootScope.user.avatarUrl = avatarUrl;
-                                $rootScope.user.$save();
-                            });
-                        });
-                    }
-                });
-        }
-
+app.run(['$rootScope', '$window', 'facebook', 'User', '$q',
+    function ($rootScope, $window, facebook, User, $q) {
         //init root
         $rootScope.user = {};
         $rootScope.facebookLoginStatus = {};
@@ -57,25 +31,19 @@ app.run(['$rootScope', '$window', 'facebook', 'User',
         .then(function (response) {
             $rootScope.facebookLoginStatus = response;
             if (response.status === 'connected') {
-                queryUserByFacebookId(response.authResponse.userID);
+                $q.all([
+                    facebook.updateRootUserByFacebookId(response.authResponse.userID),
+                    facebook.queryFacebookFriends()
+                ])
+                .then(function () {
+                    $rootScope.loaded = true;
+                });
+
             } else if (response.status === 'not_authorized' || response.status === 'unknown') {
                 //haven't connect, let show the login button
                 $rootScope.user = {};
                 $rootScope.loaded = true;
             }
-
-            //TODO pull facebook friends for user click the login button as well
-            //get facebook friends
-            FB.api('/me/taggable_friends?limit=5000', function (response) {
-                $rootScope.taggableFriends = [];
-                for (var i = 0; i < response.data.length; i++) {
-                    var friendData = response.data[i];
-                    var friend = { tagId: friendData.id, name: friendData.name, avatarUrl: friendData.picture.data.url, selected: false };
-                    $rootScope.taggableFriends.push(friend);
-                }
-                $rootScope.loaded = true;
-                $rootScope.$apply();
-            });
         })
         .catch(function (e) {
             console.log(e); // "oh, no!"

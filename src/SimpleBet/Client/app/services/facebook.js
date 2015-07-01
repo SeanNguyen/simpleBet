@@ -1,6 +1,6 @@
 ﻿var app = angular.module('app');
 
-app.factory('facebook', ['$q', '$rootScope', function ($q, $rootScope) {
+app.factory('facebook', ['$q', '$rootScope', 'User', function ($q, $rootScope, User) {
 
     function init() {
         var deferred = $q.defer();
@@ -53,6 +53,31 @@ app.factory('facebook', ['$q', '$rootScope', function ($q, $rootScope) {
         return deferred.promise;
     }
 
+    function updateRootUserByFacebookId(facebookId) {
+        //alr connected to facebook, let's check if there is any user in the databse or not
+        User.get({ id: facebookId })
+            .$promise.then(
+            function (data) {
+                $rootScope.user = data;
+            },
+            function (error) {
+                //cant find this fbID, must be new to the town, let's him join
+                if (error.status === 404) {
+                    facebook.getUserInfo(facebookId)
+                    .then(function (facebookUser) {
+                        $rootScope.user = new User();
+                        $rootScope.user.facebookId = facebookId;
+                        $rootScope.user.name = facebookUser.name;
+                        facebook.getAvatar(facebookId)
+                        .then(function (avatarUrl) {
+                            $rootScope.user.avatarUrl = avatarUrl;
+                            $rootScope.user.$save();
+                        });
+                    });
+                }
+            });
+    }
+
     function getUserInfo(userId) {
         var deferred = $q.defer();
         FB.api('/' + userId, function (response) {
@@ -96,12 +121,34 @@ app.factory('facebook', ['$q', '$rootScope', function ($q, $rootScope) {
         return deferred.promise;
     }
 
+    function queryFacebookFriends() {
+        var deferred = $q.defer();
+        FB.api('/me/taggable_friends?limit=5000', function (response) {
+            if (!response || response.error) {
+                deferred.reject();
+                return;
+            }
+
+            $rootScope.taggableFriends = [];
+            for (var i = 0; i < response.data.length; i++) {
+                var friendData = response.data[i];
+                var friend = { tagId: friendData.id, name: friendData.name, avatarUrl: friendData.picture.data.url, selected: false };
+                $rootScope.taggableFriends.push(friend);
+            }
+            $rootScope.$apply();
+            deferred.resolve(response.data.url);
+        });
+        return deferred.promise;
+    }
+
     return {
         init: init,
         getLoginStatus: getLoginStatus,
         getUserInfo: getUserInfo,
         logIn: logIn,
         post: post,
-        getAvatar: getAvatar
+        getAvatar: getAvatar,
+        queryFacebookFriends: queryFacebookFriends,
+        updateRootUserByFacebookId: updateRootUserByFacebookId
     };
 }]);
