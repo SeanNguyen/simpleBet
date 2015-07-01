@@ -33,11 +33,14 @@ body {
 	color: #666673;
     background-color: #FCFCFC;
 	font-family: 'PT Sans', sans-serif;
+    height: 100%;
 }
 
 body > .container {
     padding-left: 0;
     padding-right: 0;
+
+    height: 100%;
 }
 
 /*set img to be default horizontally center*/
