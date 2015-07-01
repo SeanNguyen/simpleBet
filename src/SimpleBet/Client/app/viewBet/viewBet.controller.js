@@ -17,8 +17,11 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.creator = {};
     $scope.betCancelCreator;
     $scope.bet = {};
+    $scope.expireDuration = 0;
+
     $scope.BET_STATE = BET_STATE;
     $scope.VOTE_CANCEL_BET_STATE = VOTE_CANCEL_BET_STATE;
+    $scope.Math = Math;
 
     //input model
     $scope.input = { option: null };
@@ -52,6 +55,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     function active() {
         $scope.bet = Bet.get({ id: $stateParams.id }, function () {
             $scope.creator = User.get({ id: $scope.bet.creatorId });
+            $scope.expireDuration = getExpireDuration();
             if ($scope.bet.state === BET_STATE.CANCELLING) {
                 updateCancellingAlert();
             }
@@ -61,12 +65,13 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
 
     function intervalUpdateBet() {
         $timeout(function () {
+            $scope.expireDuration = getExpireDuration();
             $scope.bet.$get({ id: $scope.bet.id }, function () {
                 if ($scope.bet.state === BET_STATE.CANCELLING) {
                     updateCancellingAlert();
                 }
                 intervalUpdateBet();
-            })
+            });
         }, 5000);
     }
 
@@ -262,6 +267,15 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             console.log("Cant log in into Facebook");
             $rootScope.loaded = true;
         });
+    }
+
+    function getExpireDuration() {
+        var currentTime = new Date().getTime();
+        var offset = new Date().getTimezoneOffset();//this is in minute
+        var startTime = Date.parse($scope.bet.creationTime) + (offset * 1000 * 60);
+        var passedTime = currentTime - startTime; //this is in millisec
+        var timeLeft = Math.floor(passedTime / 1000 / 60) - $scope.bet.duration; //this is in minute
+        return timeLeft;
     }
 
     //private helper methods
