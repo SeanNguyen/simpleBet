@@ -184,20 +184,24 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
 
 	    $rootScope.loaded = false;
 
-        //TODO: remove this line when the #367 solved
+	    //TODO: remove this line when the #367 solved
+
 	    $scope.betModel.creatorId = $rootScope.user.id;
+	    $scope.betModel.$save()
+        .then(function () {
+	        var link = "192.168.0.113:9000/#/bet/" + $scope.betModel.id //TODO: move this link into the config file
 
-	    var link = "192.168.0.113:9000/#/bet/" + $scope.betModel.id //TODO: move this link into the config file
-
-	    var message = "JOIN THE BET NOW !!! \n" + $scope.betModel.question;
+	        var message = "JOIN THE BET NOW !!! \n" + $scope.betModel.question;
 	        
-	    var tagIds = [];
-	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
-	        tagIds.push($scope.input.participants[i].tagId);
-	    };
-	    tagIds = tagIds.join(",");
+	        var tagIds = [];
+	        for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
+	            tagIds.push($scope.input.participants[i].tagId);
+	        };
+	        tagIds = tagIds.join(",");
 
-	    facebook.post(message, link, tagIds)
+	        var promise = facebook.post(message, link, tagIds);
+	        return promise;
+	    })    
 	    .then(function (response) {
             //after post successfully onto facebook, get tagged friends ID and add to our awesome system
 	        if (response && !response.error) {
@@ -235,7 +239,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
                                     $scope.betModel.state = BET_STATE.PENDING;
 
                                     //yay now we can save the betModel
-                                    $scope.betModel.$save(function () {
+                                    $scope.betModel.$update(function () {
                                         //after settle down everything, relocate to the bet view
                                         $rootScope.loaded = true;
                                         $location.path('bet/' + $scope.betModel.id);

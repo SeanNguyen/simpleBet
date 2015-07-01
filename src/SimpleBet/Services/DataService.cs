@@ -109,8 +109,6 @@ namespace SimpleBet.Services
             Bet bet = this.dbContext.Bets.Where(b => b.Id == id)
                                         .Include(b => b.Participations.Select(p => p.User))
                                         .FirstOrDefault();
-            
-            WinningItem item = bet.WinningItem;
             return bet;
         }
 
@@ -123,7 +121,23 @@ namespace SimpleBet.Services
 
         public Bet UpdateBet(Bet bet)
         {
-            dbContext.Entry(bet).State = EntityState.Modified;
+            Bet existingBet = this.dbContext.Bets.Find(bet.Id);
+            dbContext.Entry(existingBet).CurrentValues.SetValues(bet);
+
+            //save all the connection as well
+            for(int i = 0; i < bet.Participations.Count; i++)
+            {
+                BetUser betUser = bet.Participations.ElementAt(i);
+                if(dbContext.BetUsers.Count(bu => bu.BetId == betUser.BetId && bu.UserId == betUser.UserId) > 0)
+                {
+                    dbContext.Entry(betUser).State = EntityState.Modified;
+                }
+                else
+                {
+                    dbContext.Entry(betUser).State = EntityState.Added;
+                }
+            }
+
             this.dbContext.SaveChanges();
             return bet;
         }
