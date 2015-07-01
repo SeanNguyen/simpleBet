@@ -1,17 +1,23 @@
 #home {
-	height: 100%;
 	background-image: url('../../assets/home_background.png'); 
 	background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 #home .logo {
-	width: auto;
-	height: 50%;
-	margin-top: 10%;
-	margin-bottom: 10%;
+    width: 80%;
+}
+
+#home .logo img {
+    height: auto;
+    width: 100%;
 }
 
 #home #version {
+    flex-shrink: 0;
 	font-size: 0.8em;
 	color: #FCFCFC;
 	text-align: center;
@@ -19,43 +25,39 @@
 	border-bottom-style: solid;
 	border-bottom-color: #FCFCFC;
 	border-bottom-width: 1px;
-
-	display: table;
-	margin: 0 auto;
-	padding-left: 2em; 
-	padding-right: 2em;
 }
 
 #home #description {
+    flex-shrink: 0;
 	max-width: 70%;
 	font-size: 1em;
 	color: #FCFCFC;
 	text-align: center;
-	margin: 1em auto;
 }
 
-#home #betButton {
+#home .betButton {
+    margin: 10px auto;
+    flex-shrink: 0;
 	width: 80%;
 	font-size: 1.5em;
 	font-weight: bold;
 	color: #FCFCFC;
 	text-align: center;
-	margin: 1em 10%;
 
 	background-color: #ff806f;
 	border-radius: 0;
 	padding: 1em;
 }
 
-#home #facebookButton {
+#home .facebookButton {
+    margin: 10px auto;
+    flex-shrink: 0;
 	width: 80%;
 	font-size: 1.2em;
 	color: #FCFCFC;
 	text-align: center;
-	margin: 1em 10%;
 
 	background-color: rgba(252, 252, 252, 0.3);
-	opacity: 50%;
 	border-radius: 0;
 
 	padding-top: 0.5em;
@@ -63,10 +65,9 @@
 	border-style: none;
 }
 
-#home #facebookButton #fbLogo {
+#home .facebookButton #fbLogo {
 	position: relative;
-	height: 2em;
-	width: auto;
-	bottom: 3px;
-	left: 5px;
+	height: 30px;
+    bottom: 5px;
+    left: 10px;
 }
