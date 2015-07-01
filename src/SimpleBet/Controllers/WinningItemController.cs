@@ -24,9 +24,17 @@ namespace SimpleBet.Controllers
 
         // GET: api/values
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Query([FromUri] int creatorId)
         {
-            IList<WinningItem> winningItems = dataService.GetWinningItems();
+            IList<WinningItem> winningItems;
+            if (creatorId > 0)
+            {
+                winningItems = dataService.GetWinningItemsByCreator(creatorId);
+            }
+            else
+            {
+                winningItems = dataService.GetWinningItems();
+            }
             string json = JsonConvert.SerializeObject(winningItems);
             return Ok(json);
         }

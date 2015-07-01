@@ -36,7 +36,7 @@ app.controller('betCreatorController', function ($rootScope, $scope, $state, $wi
         options: [], 
         duration: 120,
         participations: [], //this field will actually be on the server database, dont be confuse with the field above
-        state:BET_STATE.NONE
+        state: BET_STATE.NONE,
         //TODO: #367 add  function to load data before controller or app so that this user will be alr loaded here
         //CreatorId: $rootScope.user.Id 
     });

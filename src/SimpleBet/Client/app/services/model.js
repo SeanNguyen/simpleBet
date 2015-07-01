@@ -25,3 +25,11 @@ app.factory('BetUser', ['$resource', '$q', function ($resource, $q) {
         }
     });
 }]);
+
+app.factory('WinningItem', ['$resource', '$q', function ($resource, $q) {
+    return $resource('/api/winningItem/:id', { id: '@id' }, {
+        update: {
+            method: 'PUT' // this method issues a PUT request
+        }
+    });
+}]);

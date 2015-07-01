@@ -20,6 +20,12 @@ namespace SimpleBet.Services
             return dbContext.WinningItems.ToList();
         }
 
+        public IList<WinningItem> GetWinningItemsByCreator(int creatorId)
+        {
+            List<WinningItem> winningItems = this.dbContext.WinningItems.Where(w => w.CreatorId == creatorId).ToList();
+            return winningItems;
+        }
+
         public WinningItem GetWinningItem(int id)
         {
             return dbContext.WinningItems.Find(id);

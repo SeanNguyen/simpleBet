@@ -1,4 +1,4 @@
-<div class="container-fluid" ng-controller="nonmonetaryController" id="nonmonetaryContainer">
+<div class="container-fluid" id="nonmonetaryContainer">
     <div id="secNavbar">
         <div ng-click="setTab(0)" ng-class="{selected: isTabselected(0)}">
             <h4>Our Dare</h4>
@@ -10,8 +10,13 @@
         </div>
     </div>
 	<div ng-show="0 === currentTab">
-		<div ng-repeat="item in ourItems track by $index" ng-click="selectDare(item)" ng-class="{selectedItem: item === selectedDare}">
-			<div ng-include="'app/components/listItem/listItem.html'"></div>
+		<div class="listItem" ng-repeat="item in ourItems track by $index" ng-click="selectDare(item)" ng-class="{selectedItem: item === selectedDare}">
+            <img ng-src="{{item.imageUrl}}" class="center avata">
+            <div class="content">
+                <h3 class="title">{{item.title}}</h3>
+                <h4 class="description">{{item.description}}</h4>
+            </div>
+            <img src="assets/submit_button.png" class=" center actionImg">
 		</div>
 	</div>
 	<div ng-show="1 === currentTab" id="customBetContainer">
