@@ -109,6 +109,8 @@ namespace SimpleBet.Services
             Bet bet = this.dbContext.Bets.Where(b => b.Id == id)
                                         .Include(b => b.Participations.Select(p => p.User))
                                         .FirstOrDefault();
+            
+            WinningItem item = bet.WinningItem;
             return bet;
         }
 

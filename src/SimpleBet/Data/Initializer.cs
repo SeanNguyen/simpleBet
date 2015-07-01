@@ -77,7 +77,7 @@ namespace SimpleBet.Data
                 State = BET_STATE.CONFIRM,
                 Options = options,
                 Participations = participations,
-                //WinningItemId = 1
+                WinningItemId = 1
             });
             context.SaveChanges();
 

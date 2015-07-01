@@ -52,7 +52,7 @@ namespace SimpleBet.Models
 
         //winning item
         public int? WinningItemId { get; set; }
-        public WinningItem WinningItem { get; set; }
+        public virtual WinningItem WinningItem { get; set; }
 
         //time
         [Required]

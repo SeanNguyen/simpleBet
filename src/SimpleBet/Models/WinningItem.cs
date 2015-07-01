@@ -15,6 +15,11 @@ namespace SimpleBet.Models
 
     public class WinningItem : Model
     {
+        public WinningItem()
+        {
+            this.Bets = new List<Bet>();
+        }
+
         public int Id { get; set; }
         public WINNING_ITEM_TYPE Type { get; set; }
         [MaxLength(100)]
@@ -24,6 +29,8 @@ namespace SimpleBet.Models
         
         public int CreatorId { get; set; }
         public virtual User Creator { get; set; }
+
+        public virtual ICollection<Bet> Bets { get; set; }
         
         //public methods
         public override Model parse(dynamic data)
