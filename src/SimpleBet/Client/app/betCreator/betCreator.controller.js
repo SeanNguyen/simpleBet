@@ -13,7 +13,7 @@ var TAB_STATES = ['question', 'option', 'wager', 'rule', 'challenger'];
 app.controller('betCreatorController', betCreatorController);
 
 function betCreatorController($rootScope, $scope, $state, $window, $location, Bet, User, BetUser,
-    facebook, BET_TYPE, WAGER_TYPE, BET_STAE, PARTICIPATION_STATE) {
+    facebook, BET_TYPE, WAGER_TYPE, BET_STATE, PARTICIPATION_STATE) {
     //navigations
     $scope.currentTab = 0;
     $rootScope.title = TAB_NAMES[$scope.currentTab];

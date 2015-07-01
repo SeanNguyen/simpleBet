@@ -1,33 +1,12 @@
 'use-strict';
 var app = angular.module('app');
 
-//TODO: move this to "value" in app, and the same one in betCreatorController
-var PARTICIPATION_STATE = {
-    NONE: 0,
-    PENDING: 1,
-    CONFIRMED: 2,
-    VOTED: 3
-};
-var BET_STATE = {
-    NONE: 0,
-    PENDING: 1,
-    CONFIRMED: 2,
-    CANCELLING: 3,
-    CANCELLED: 4,
-    FINALIZABLE: 5,
-    FINALIZED: 6
-};
-var VOTE_CANCEL_BET_STATE = {
-    NONE: 0,
-    CREATOR: 1,
-    DISAGREE: 2,
-    AGREE: 3,
-}
-
 app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Bet', 'User',
-    'BetUser', '$timeout', '$window', '$state', 'facebook', '$q', viewBetController]);
+    'BetUser', '$timeout', '$window', '$state', 'facebook', '$q', 'PARTICIPATION_STATE', 'BET_STATE',
+    'VOTE_CANCEL_BET_STATE', viewBetController]);
 
-function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser, $timeout, $window, $state, facebook, $q) {
+function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser, $timeout, $window,
+    $state, facebook, $q, PARTICIPATION_STATE, BET_STATE, VOTE_CANCEL_BET_STATE) {
     $scope.tabs = [
         { name: 'Bet Conditions' },
         { name: 'Bet Wager' },
@@ -138,13 +117,9 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     }
 
     function decline() {
-        //TODO: update to database
-        for (var i = $scope.bet.Participations.length - 1; i >= 0; i--) {
-            var participation = $scope.bet.Participations[i];
-            if ($rootScope.user.id === participation.userId) {
-                $scope.bet.Participations.splice(i, 1);
-            }
-        }
+        var participant = getParticipationByUserId($rootScope.user.id);
+        participant.state = PARTICIPATION_STATE.DECLINED;
+        BetUser.update(participant);
     }
 
     function selectOption(option) {

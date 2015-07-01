@@ -12,8 +12,8 @@ namespace SimpleBet.Models
         NONE,
         PENDING,
         CONFIRMED,
-        VOTED,
-        DECLINED
+        DECLINED,
+        VOTED
     };
 
     public enum VoteCancelBetState

@@ -163,8 +163,8 @@ namespace SimpleBet.Services
             this.dbContext.SaveChanges();
 
             //post-process bet
-            updateCancellingStatus(betUser.BetId);
-            updateFinallizableStatus(betUser.BetId);
+            //updateCancellingStatus(betUser.BetId);
+            //updateFinallizableStatus(betUser.BetId);
 
             return betUser;
         }

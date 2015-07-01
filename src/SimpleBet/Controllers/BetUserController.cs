@@ -12,7 +12,6 @@ using System.Web.Http;
 
 namespace SimpleBet.Controllers
 {
-    [Route("api/[controller]")]
     public class BetUserController : ApiController
     {
         //Attributes
