@@ -41,13 +41,28 @@ namespace SimpleBet.Test.Api
             }
         }
 
+        private WinningItem winningItem2
+        {
+            get
+            {
+                return new WinningItem()
+                {
+                    Id = 1,
+                    Type = WINNING_ITEM_TYPE.NONMONETARY,
+                    Title = "Punch",
+                    Description = "I will punch you",
+                    CreatorId = 1
+                };
+            }
+        }
+
         private IDataService dataService = new DataService();
 
         [Fact]
         public void Get()
         {
-            WinningItem actual = this.dataService.GetWinningItem(2);
-            WinningItem expected = this.winningItem;
+            WinningItem actual = this.dataService.GetWinningItem(1);
+            WinningItem expected = this.winningItem2;
 
             Assert.Equal(expected.Id, actual.Id);
             Assert.Equal(expected.Type, actual.Type);

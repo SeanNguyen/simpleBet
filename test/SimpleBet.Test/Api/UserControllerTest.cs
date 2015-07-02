@@ -13,7 +13,8 @@ namespace SimpleBet.Test.Api
         private IDataService dataService = new DataService();
 
         private User user1 { get { return new User() { Id = 1, FacebookId = 123, Name = "Jon Snow", AvatarUrl = "someUrl" }; } }
-        private User userNoId { get { return new User() { FacebookId = 321, Name = "I am a robot", AvatarUrl = "someUrl" }; } }
+        private User user2 { get { return new User() { Id = 2, FacebookId = 321, Name = "I am a robot", AvatarUrl = "someUrl" }; } }
+        private User userNoId { get { return new User() { FacebookId = 123456, Name = "I am a new user", AvatarUrl = "someUrl" }; } }
 
         [Fact]
         public void TestGet()
@@ -54,8 +55,8 @@ namespace SimpleBet.Test.Api
         [Fact]
         public void TestUpdate()
         {
-            User actual = this.user1;
-            User expected = this.user1;
+            User actual = this.user2;
+            User expected = this.user2;
             expected.AvatarUrl = "changed avatar url";
             actual.AvatarUrl = "changed avatar url";
             this.dataService.UpdateUser(actual);

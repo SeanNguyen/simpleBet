@@ -74,7 +74,7 @@ namespace SimpleBet.Data
                 PendingDuration = 1000,
                 CreatorId = 1,
                 Question = "This is a question",
-                State = BET_STATE.CONFIRM,
+                State = BET_STATE.ANSWERABLE,
                 Options = options,
                 Participations = participations,
                 WinningItemId = 1
