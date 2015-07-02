@@ -54,28 +54,35 @@ app.factory('facebook', ['$q', '$rootScope', 'User', function ($q, $rootScope, U
     }
 
     function updateRootUserByFacebookId(facebookId) {
+        var deferred = $q.defer();
         //alr connected to facebook, let's check if there is any user in the databse or not
-        User.get({ id: facebookId })
-            .$promise.then(
-            function (data) {
-                $rootScope.user = data;
-            },
-            function (error) {
-                //cant find this fbID, must be new to the town, let's him join
-                if (error.status === 404) {
-                    facebook.getUserInfo(facebookId)
-                    .then(function (facebookUser) {
-                        $rootScope.user = new User();
-                        $rootScope.user.facebookId = facebookId;
-                        $rootScope.user.name = facebookUser.name;
-                        facebook.getAvatar(facebookId)
-                        .then(function (avatarUrl) {
-                            $rootScope.user.avatarUrl = avatarUrl;
-                            $rootScope.user.$save();
-                        });
-                    });
-                }
+        User.get({ id: facebookId }).$promise
+        .then(function (data) {
+            $rootScope.user = data;
+            deferred.resolve();
+        },
+        function (error) {
+            //cant find this fbID, must be new to the town, let's him join
+            if (error.status !== 404) {
+                deferred.resolve();
+                return;
+            }
+            $q.all([
+                getUserInfo(facebookId),
+                getAvatar(facebookId)])
+            .then(function (data) {
+                var facebookUser = data[0];
+                var avatarUrl = data[1];
+                $rootScope.user = new User();
+                $rootScope.user.facebookId = facebookId;
+                $rootScope.user.name = facebookUser.name;
+                $rootScope.user.avatarUrl = avatarUrl;
+                return $rootScope.user.$save().$promise;
+            }).then(function () {
+                deferred.resolve();
             });
+        });
+        return deferred.promise;
     }
 
     function getUserInfo(userId) {
