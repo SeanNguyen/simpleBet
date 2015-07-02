@@ -9,17 +9,14 @@ namespace SimpleBet.Models
     {
         //init state
         NONE,
-        //wait for everyone to accept or decline the bet
+        //wait for everyone to accept or decline the bet and pick their option
         PENDING,
         //everyone accepted or declined the bet
         CONFIRM,
-        //someone choose to cancel the bet
-        CANCELLING,
-        CANCELLED,
-        //everyone pick their options
-        FINALLIZABLE,
-        //someone choose to finallize the bet and now anyone can choose to dispute
-        DISPUTABLE,
+        //Answer phase
+        ANSWERABLE,
+        //Verify duration
+        VERIFYING,
         //after everyone key in the correct option, the bet now officially closed
         FINALLIZED,
     }
@@ -32,11 +29,13 @@ namespace SimpleBet.Models
 
     public class Bet : Model
     {
+        public const int ANSWER_DURATION = 12 * 60; //12 hours in minute
+        public const int VERIFY_DURATION = 12 * 60; //12 hours in minute
+
         public Bet()
         {
             this.Options = new List<Option>();
             this.Participations = new List<BetUser>();
-            //this.Participants = new List<User>();
         }
 
         //id
@@ -58,8 +57,10 @@ namespace SimpleBet.Models
         [Required]
         public DateTime CreationTime { get; set; }
         [Required]
-        public int Duration { get; set; } //this is in minute
-        public DateTime? DisputeTime { get; set; }
+        public int PendingDuration { get; set; } //this is in minute
+
+        public DateTime? AnswerStartTime { get; set; }
+        public DateTime? VerifyStartTime { get; set; }
 
         //user
         [Required]
