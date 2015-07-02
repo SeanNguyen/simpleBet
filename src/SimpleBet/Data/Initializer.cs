@@ -71,7 +71,7 @@ namespace SimpleBet.Data
             {
                 BetType = BET_TYPE.ONE_MANY,
                 CreationTime = DateTime.Now,
-                Duration = 1000,
+                PendingDuration = 1000,
                 CreatorId = 1,
                 Question = "This is a question",
                 State = BET_STATE.CONFIRM,

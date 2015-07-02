@@ -130,7 +130,8 @@ namespace SimpleBet.Services
                 BetUser betUser = bet.Participations.ElementAt(i);
                 if(dbContext.BetUsers.Count(bu => bu.BetId == betUser.BetId && bu.UserId == betUser.UserId) > 0)
                 {
-                    dbContext.Entry(betUser).State = EntityState.Modified;
+                    // no need to update edge from here
+                    //dbContext.Entry(betUser).State = EntityState.Modified;
                 }
                 else
                 {
@@ -166,6 +167,8 @@ namespace SimpleBet.Services
             //updateCancellingStatus(betUser.BetId);
             //updateFinallizableStatus(betUser.BetId);
 
+            
+
             return betUser;
         }
 
@@ -179,59 +182,73 @@ namespace SimpleBet.Services
         
         //PRIVATE HELPER METHODS
 
-        private void updateCancellingStatus(int betId)
+        //private void updateCancellingStatus(int betId)
+        //{
+        //    Bet bet = this.dbContext.Bets.Find(betId);
+        //    int agreeCount = 0;
+        //    int disagreeCount = 0;
+        //    for (int i = 0; i < bet.Participations.Count; i++)
+        //    {
+        //        BetUser participation = bet.Participations.ElementAt(i);
+        //        if (participation.VoteCancelBetState == VoteCancelBetState.DISAGREE)
+        //        {
+        //            disagreeCount++;
+        //        }
+        //        else if (participation.VoteCancelBetState == VoteCancelBetState.AGREE
+        //                || participation.VoteCancelBetState == VoteCancelBetState.CREATOR)
+        //        {
+        //            agreeCount++;
+        //        }
+        //    }
+        //    if (agreeCount * 2 >= bet.Participations.Count)
+        //    {
+        //        bet.State = BET_STATE.CANCELLED;
+        //    }
+        //    else if (disagreeCount * 2 >= bet.Participations.Count)
+        //    {
+        //        bet.State = BET_STATE.CONFIRM;
+        //        //reset all the edges
+        //        for (int i = 0; i < bet.Participations.Count; i++)
+        //        {
+        //            BetUser participation = bet.Participations.ElementAt(i);
+        //            participation.VoteCancelBetState = VoteCancelBetState.NONE;
+        //        }
+        //    }
+        //    this.dbContext.SaveChanges();
+        //}
+
+        //private void updateFinallizableStatus(int betId)
+        //{
+        //    Bet bet = this.dbContext.Bets.Find(betId);
+        //    bool allAnswered = true;
+        //    for (int i = 0; i < bet.Participations.Count; i++)
+        //    {
+        //        BetUser participation = bet.Participations.ElementAt(i);
+        //        if (participation.State < BetUserState.VOTED)
+        //        {
+        //            allAnswered = false;
+        //            break;
+        //        }
+        //    }
+        //    if (allAnswered)
+        //    {
+        //        bet.State = BET_STATE.FINALLIZABLE;
+        //    }
+        //    this.dbContext.SaveChanges();
+        //}
+
+        private void updateBetState(Bet bet)
         {
-            Bet bet = this.dbContext.Bets.Find(betId);
-            int agreeCount = 0;
-            int disagreeCount = 0;
-            for (int i = 0; i < bet.Participations.Count; i++)
+            if(bet.State == BET_STATE.NONE)
             {
-                BetUser participation = bet.Participations.ElementAt(i);
-                if (participation.VoteCancelBetState == VoteCancelBetState.DISAGREE)
-                {
-                    disagreeCount++;
-                }
-                else if (participation.VoteCancelBetState == VoteCancelBetState.AGREE
-                        || participation.VoteCancelBetState == VoteCancelBetState.CREATOR)
-                {
-                    agreeCount++;
-                }
+                return;
             }
-            if (agreeCount * 2 >= bet.Participations.Count)
+            else if(bet.State == BET_STATE.PENDING)
             {
-                bet.State = BET_STATE.CANCELLED;
+
             }
-            else if (disagreeCount * 2 >= bet.Participations.Count)
-            {
-                bet.State = BET_STATE.CONFIRM;
-                //reset all the edges
-                for (int i = 0; i < bet.Participations.Count; i++)
-                {
-                    BetUser participation = bet.Participations.ElementAt(i);
-                    participation.VoteCancelBetState = VoteCancelBetState.NONE;
-                }
-            }
-            this.dbContext.SaveChanges();
         }
 
-        private void updateFinallizableStatus(int betId)
-        {
-            Bet bet = this.dbContext.Bets.Find(betId);
-            bool allAnswered = true;
-            for (int i = 0; i < bet.Participations.Count; i++)
-            {
-                BetUser participation = bet.Participations.ElementAt(i);
-                if (participation.State < BetUserState.VOTED)
-                {
-                    allAnswered = false;
-                    break;
-                }
-            }
-            if (allAnswered)
-            {
-                bet.State = BET_STATE.FINALLIZABLE;
-            }
-            this.dbContext.SaveChanges();
-        }
+        
     }
 }
