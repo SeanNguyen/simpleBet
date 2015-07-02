@@ -6,7 +6,7 @@ using System.Data.Entity;
 namespace SimpleBet.Data
 {
 
-    public class Initializer : DropCreateDatabaseIfModelChanges<SimpleBetContext>
+    public class Initializer : DropCreateDatabaseAlways<SimpleBetContext>
     {
         protected override void Seed(SimpleBetContext context)
         {

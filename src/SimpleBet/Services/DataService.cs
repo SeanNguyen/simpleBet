@@ -11,11 +11,9 @@ namespace SimpleBet.Services
 {
     public class DataService : IDataService
     {
-        private SimpleBetContext dbContext;
+        private SimpleBetContext dbContext = new SimpleBetContext();
 
-        public DataService(SimpleBetContext dbContext)
-        {
-            this.dbContext = dbContext;
+        public DataService() {
         }
 
         //Winning Item
