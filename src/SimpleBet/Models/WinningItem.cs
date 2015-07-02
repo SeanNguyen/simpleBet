@@ -30,7 +30,7 @@ namespace SimpleBet.Models
         public int CreatorId { get; set; }
         public virtual User Creator { get; set; }
 
-        public virtual ICollection<Bet> Bets { get; set; }
+        public ICollection<Bet> Bets { get; set; }
         
         //public methods
         public override Model parse(dynamic data)

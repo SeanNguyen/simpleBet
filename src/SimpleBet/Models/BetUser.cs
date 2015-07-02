@@ -32,12 +32,12 @@ namespace SimpleBet.Models
         [Key, Column(Order = 0)]
         public int BetId { get; set; }
         [ForeignKey("BetId")]
-        public Bet Bet { get; set; }
+        public virtual Bet Bet { get; set; }
 
         [Key, Column(Order = 1)]
         public int UserId { get; set; }
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public virtual User User { get; set; }
         
         public BETUSER_STATE State { get; set; }
         public string Option { get; set; }

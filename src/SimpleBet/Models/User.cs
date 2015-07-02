@@ -22,7 +22,7 @@ namespace SimpleBet.Models
         public string AvatarUrl { get; set; }
 
         //bets
-        public virtual ICollection<BetUser> Participations { get; set; }
+        public ICollection<BetUser> Participations { get; set; } //removed virtural property here to disable lazy loading
         public virtual ICollection<WinningItem> WinningItems { get; set; }
         
         /*************************************************************/
