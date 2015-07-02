@@ -136,7 +136,7 @@ namespace SimpleBet.Test.Services
             Bet bet = this.betStatePending;
             bet = this.dataService.AddBet(bet);
             bet.CreationTime = bet.CreationTime.AddMinutes(- bet.PendingDuration - 1);
-            bet = this.dataService.GetBet(1);
+            bet = this.dataService.GetBet(bet.Id);
 
             Assert.Equal(BET_STATE.ANSWERABLE, bet.State);
         }
