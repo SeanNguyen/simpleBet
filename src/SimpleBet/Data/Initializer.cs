@@ -64,8 +64,8 @@ namespace SimpleBet.Data
             options.Add(new Option() { Content = "This is option b" });
 
             List<BetUser> participations = new List<BetUser>();
-            participations.Add(new BetUser() { State = BetUserState.CONFIRMED, UserId = 1 });
-            participations.Add(new BetUser() { State = BetUserState.PENDING, UserId = 2 });
+            participations.Add(new BetUser() { State = BETUSER_STATE.CONFIRMED, UserId = 1 });
+            participations.Add(new BetUser() { State = BETUSER_STATE.PENDING, UserId = 2 });
 
             context.Bets.Add(new Bet()
             {

@@ -1,5 +1,6 @@
 ﻿using SimpleBet.Data;
 using SimpleBet.Models;
+using SimpleBet.Ultilities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -109,6 +110,7 @@ namespace SimpleBet.Services
             Bet bet = this.dbContext.Bets.Where(b => b.Id == id)
                                         .Include(b => b.Participations.Select(p => p.User))
                                         .FirstOrDefault();
+            updateBetState(bet);
             return bet;
         }
 
@@ -139,6 +141,8 @@ namespace SimpleBet.Services
                 }
             }
 
+            updateBetState(existingBet);
+
             this.dbContext.SaveChanges();
             return bet;
         }
@@ -166,9 +170,8 @@ namespace SimpleBet.Services
             //post-process bet
             //updateCancellingStatus(betUser.BetId);
             //updateFinallizableStatus(betUser.BetId);
-
+            updateBetState(betUser.Bet);
             
-
             return betUser;
         }
 
@@ -237,18 +240,99 @@ namespace SimpleBet.Services
         //    this.dbContext.SaveChanges();
         //}
 
-        private void updateBetState(Bet bet)
+        private Bet updateBetState(Bet bet)
         {
             if(bet.State == BET_STATE.NONE)
             {
-                return;
+                return bet;
             }
             else if(bet.State == BET_STATE.PENDING)
             {
+                bool areAllParticipantVoted = this.areAllParticipantVoted(bet.Participations);
+                bool isTimeout = TimeUltility.isTimeout(bet.CreationTime, bet.PendingDuration);
+                if (areAllParticipantVoted || isTimeout)
+                {
+                    bet.State = BET_STATE.ANSWERABLE;
+                    bet.AnswerStartTime = DateTime.Now;
+                    setAllInactiveUserDecline(bet.Participations);
+                }
+            }
+            else if(bet.State == BET_STATE.ANSWERABLE)
+            {
+                DateTime answerStartTime = bet.AnswerStartTime ?? DateTime.Now;
+                bet.AnswerStartTime = answerStartTime;
 
+                bool isTimeout = TimeUltility.isTimeout(answerStartTime, Bet.ANSWER_DURATION);
+                if(isTimeout)
+                {
+                    bet.State = BET_STATE.VERIFYING;
+                    bet.VerifyStartTime = DateTime.Now;
+
+                    BetUser creator = getBetUserByUserId(bet.Participations, bet.CreatorId);
+                    bet.WinningOption = creator.Option;
+                }
+            }
+            else if(bet.State == BET_STATE.VERIFYING)
+            {
+                DateTime verifyStartTime = bet.AnswerStartTime ?? DateTime.Now;
+                bet.VerifyStartTime = verifyStartTime;
+
+                bool isTimeout = TimeUltility.isTimeout(verifyStartTime, Bet.VERIFY_DURATION);
+                bool areAllParticipantAgree = this.areAllParticipantAgree(bet.Participations);
+
+                if(isTimeout || areAllParticipantAgree)
+                {
+                    bet.State = BET_STATE.FINALLIZED;
+                }
+            }
+            this.dbContext.SaveChanges();
+            return bet;
+        }
+
+        private bool areAllParticipantVoted(ICollection<BetUser> participations)
+        {
+            foreach(BetUser betUser in participations)
+            {
+                if(betUser.State == BETUSER_STATE.PENDING || betUser.State == BETUSER_STATE.CONFIRMED)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool areAllParticipantAgree(ICollection<BetUser> participations)
+        {
+            foreach (BetUser betUser in participations)
+            {
+                if (betUser.State < BETUSER_STATE.AGREE)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void setAllInactiveUserDecline(ICollection<BetUser> participations)
+        {
+            foreach(BetUser betUser in participations)
+            {
+                if(String.IsNullOrWhiteSpace(betUser.Option)) {
+                    betUser.State = BETUSER_STATE.DECLINED;
+                }
             }
         }
 
-        
+        private BetUser getBetUserByUserId(ICollection<BetUser> betUsers, int userId)
+        {
+            foreach(BetUser betUser in betUsers)
+            {
+                if(betUser.UserId == userId)
+                {
+                    return betUser;
+                }
+            }
+            return null;
+        }
     }
 }

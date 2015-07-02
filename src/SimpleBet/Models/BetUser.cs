@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace SimpleBet.Models
 {
-    public enum BetUserState
+    public enum BETUSER_STATE
     {
         NONE,
         PENDING,
         CONFIRMED,
         DECLINED,
-        VOTED
+        VOTED,
+        AGREE
     };
 
     public enum VoteCancelBetState
@@ -38,7 +39,7 @@ namespace SimpleBet.Models
         [ForeignKey("UserId")]
         public User User { get; set; }
         
-        public BetUserState State { get; set; }
+        public BETUSER_STATE State { get; set; }
         public string Option { get; set; }
 
 
