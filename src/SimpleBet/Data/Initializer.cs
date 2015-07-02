@@ -74,9 +74,31 @@ namespace SimpleBet.Data
                 PendingDuration = 1000,
                 CreatorId = 1,
                 Question = "This is a question",
-                State = BET_STATE.ANSWERABLE,
+                State = BET_STATE.PENDING,
                 Options = options,
                 Participations = participations,
+                WinningItemId = 1
+            });
+
+            context.Bets.Add(new Bet()
+            {
+                BetType = BET_TYPE.ONE_MANY,
+                CreationTime = DateTime.Now,
+                PendingDuration = 1000,
+                CreatorId = 1,
+                Question = "This is a question",
+                State = BET_STATE.ANSWERABLE,
+                WinningItemId = 1
+            });
+
+            context.Bets.Add(new Bet()
+            {
+                BetType = BET_TYPE.ONE_MANY,
+                CreationTime = DateTime.Now,
+                PendingDuration = 1000,
+                CreatorId = 1,
+                Question = "This is a question",
+                State = BET_STATE.VERIFYING,
                 WinningItemId = 1
             });
             context.SaveChanges();

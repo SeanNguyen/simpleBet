@@ -12,7 +12,7 @@ namespace SimpleBet.Test.Api
     {
         private IDataService dataService = new DataService();
 
-        private User user1 { get { return new User() { Id = 1, FacebookId = 123, Name = "Jon Snow", AvatarUrl = "someUrl" }; } }
+        private User user1 { get { return new User() { Id = 1, FacebookId = 123, Name = "Admin", AvatarUrl = "http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png" }; } }
         private User user2 { get { return new User() { Id = 2, FacebookId = 321, Name = "I am a robot", AvatarUrl = "someUrl" }; } }
         private User userNoId { get { return new User() { FacebookId = 123456, Name = "I am a new user", AvatarUrl = "someUrl" }; } }
 

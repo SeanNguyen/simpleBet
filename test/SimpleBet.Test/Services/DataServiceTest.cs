@@ -72,20 +72,7 @@ namespace SimpleBet.Test.Services
         [Fact]
         public void pendingTimeout()
         {
-            Bet actual = this.betStateNone;
-            actual = this.dataService.AddBet(this.betStateNone);
-            actual.Participations = this.betUsers;
-            actual.State = BET_STATE.PENDING;
-            actual = this.dataService.UpdateBet(actual);
-
-            Assert.NotNull(actual.Id);
-            Bet expected = this.betStateNone;
-            expected.Id = actual.Id;
-            expected.Participations = this.betUsers;
-            expected.State = BET_STATE.PENDING;
-            expected.CreationTime = actual.CreationTime;
-
-            Assert.Equal(true, compareBets(expected, actual));
+            Bet bet = this.dataService.GetBet(1);
         }
 
         //private helper methods
