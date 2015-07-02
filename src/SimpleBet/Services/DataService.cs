@@ -123,25 +123,37 @@ namespace SimpleBet.Services
 
         public Bet UpdateBet(Bet bet)
         {
+            //check for action
             Bet existingBet = this.dbContext.Bets.Find(bet.Id);
-            dbContext.Entry(existingBet).CurrentValues.SetValues(bet);
 
-            //save all the connection as well
-            for(int i = 0; i < bet.Participations.Count; i++)
+            //add participants
+            if(existingBet.State == BET_STATE.NONE && bet.State == BET_STATE.PENDING && existingBet.Participations.Count == 0)
             {
-                BetUser betUser = bet.Participations.ElementAt(i);
-                if(dbContext.BetUsers.Count(bu => bu.BetId == betUser.BetId && bu.UserId == betUser.UserId) > 0)
+                for (int i = 0; i < bet.Participations.Count; i++)
                 {
-                    // no need to update edge from here
-                    //dbContext.Entry(betUser).State = EntityState.Modified;
-                }
-                else
-                {
+                    BetUser betUser = bet.Participations.ElementAt(i);
                     dbContext.Entry(betUser).State = EntityState.Added;
                 }
             }
+            else if(existingBet.State == BET_STATE.ANSWERABLE && bet.State == BET_STATE.VERIFYING)
+            {
+                existingBet.State = BET_STATE.VERIFYING;
+                existingBet.WinningItemId = bet.WinningItemId;
+                existingBet.WinningOption = bet.WinningOption;
+                existingBet.WinningOptionChooser = bet.WinningOptionChooser;
+                existingBet.VerifyStartTime = DateTime.Now;
+            }
+            else if(existingBet.State == BET_STATE.VERIFYING && bet.State == BET_STATE.ANSWERABLE)
+            {
+                existingBet.State = BET_STATE.ANSWERABLE;
+                existingBet.WinningItemId = bet.WinningItemId;
+                existingBet.WinningOption = bet.WinningOption;
+                existingBet.WinningOptionChooser = bet.WinningOptionChooser;
+                existingBet.AnswerStartTime = DateTime.Now;
+            }
 
             updateBetState(existingBet);
+            resetParticipationState(existingBet);
 
             this.dbContext.SaveChanges();
             return bet;
@@ -333,6 +345,32 @@ namespace SimpleBet.Services
                 }
             }
             return null;
+        }
+
+        private void resetParticipationState(Bet bet)
+        {
+            ICollection<BetUser> activeBetUser = getActiveBetUser(bet.Participations);
+            foreach (BetUser betUser in activeBetUser)
+            {
+                if(bet.State == BET_STATE.ANSWERABLE)
+                { 
+                    betUser.State = BETUSER_STATE.VOTED;
+                }
+            }
+            this.dbContext.SaveChanges();
+        }
+
+        private ICollection<BetUser> getActiveBetUser(ICollection<BetUser> betUsers)
+        {
+            List<BetUser> activeBetUsers = new List<BetUser>();
+            foreach (BetUser betUser in betUsers)
+            {
+                if(betUser.State != BETUSER_STATE.DECLINED)
+                {
+                    activeBetUsers.Add(betUser);
+                }
+            }
+            return activeBetUsers;
         }
     }
 }

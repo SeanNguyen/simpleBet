@@ -11,8 +11,6 @@ namespace SimpleBet.Models
         NONE,
         //wait for everyone to accept or decline the bet and pick their option
         PENDING,
-        //everyone accepted or declined the bet
-        CONFIRM,
         //Answer phase
         ANSWERABLE,
         //Verify duration
@@ -46,12 +44,14 @@ namespace SimpleBet.Models
         public BET_TYPE BetType { get; set; }
         [Required, MaxLength(100)]
         public string Question { get; set; }
-        public string WinningOption { get; set; }
         public virtual ICollection<Option> Options { get; set; }
 
         //winning item
         public int? WinningItemId { get; set; }
         public virtual WinningItem WinningItem { get; set; }
+
+        public string WinningOption { get; set; }
+        public int? WinningOptionChooser { get; set; }
 
         //time
         [Required]
