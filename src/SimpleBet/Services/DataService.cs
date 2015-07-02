@@ -261,13 +261,23 @@ namespace SimpleBet.Services
             }
             else if(bet.State == BET_STATE.PENDING)
             {
-                bool areAllParticipantVoted = this.areAllParticipantVoted(bet.Participations);
-                bool isTimeout = TimeUltility.isTimeout(bet.CreationTime, bet.PendingDuration);
-                if (areAllParticipantVoted || isTimeout)
+                bool isPendingTimeout = TimeUltility.isTimeout(bet.CreationTime, bet.PendingDuration);
+                if (isPendingTimeout)
                 {
                     bet.State = BET_STATE.ANSWERABLE;
-                    bet.AnswerStartTime = DateTime.Now;
+                    bet.AnswerStartTime = bet.CreationTime.AddMinutes(bet.PendingDuration);
                     setAllInactiveUserDecline(bet.Participations);
+                    updateBetState(bet);
+                }
+                else
+                {
+                    bool areAllParticipantVoted = this.areAllParticipantVoted(bet.Participations);
+                    if (areAllParticipantVoted)
+                    {
+                        bet.State = BET_STATE.ANSWERABLE;
+                        bet.AnswerStartTime = DateTime.Now;
+                        setAllInactiveUserDecline(bet.Participations);
+                    }
                 }
             }
             else if(bet.State == BET_STATE.ANSWERABLE)
@@ -279,15 +289,23 @@ namespace SimpleBet.Services
                 if(isTimeout)
                 {
                     bet.State = BET_STATE.VERIFYING;
-                    bet.VerifyStartTime = DateTime.Now;
+                    bet.VerifyStartTime = answerStartTime.AddMinutes(Bet.ANSWER_DURATION);
 
                     BetUser creator = getBetUserByUserId(bet.Participations, bet.CreatorId);
-                    bet.WinningOption = creator.Option;
+                    if(!string.IsNullOrWhiteSpace(creator.Option))
+                    {
+                        bet.WinningOption = creator.Option;
+                    }
+                    else
+                    {
+                        bet.WinningOption = bet.Options.FirstOrDefault().Content;
+                    }
+                    updateBetState(bet);
                 }
             }
             else if(bet.State == BET_STATE.VERIFYING)
             {
-                DateTime verifyStartTime = bet.AnswerStartTime ?? DateTime.Now;
+                DateTime verifyStartTime = bet.VerifyStartTime ?? DateTime.Now;
                 bet.VerifyStartTime = verifyStartTime;
 
                 bool isTimeout = TimeUltility.isTimeout(verifyStartTime, Bet.VERIFY_DURATION);
@@ -372,6 +390,19 @@ namespace SimpleBet.Services
                 }
             }
             return activeBetUsers;
+        }
+
+        private void ChangeBetState(Bet bet, BET_STATE state)
+        {
+            switch(state)
+            {
+                case BET_STATE.PENDING:
+                    break;
+                case BET_STATE.ANSWERABLE:
+                    break;
+                case BET_STATE.VERIFYING:
+                    break;
+            }
         }
     }
 }

@@ -48,7 +48,68 @@ namespace SimpleBet.Test.Services
                     WinningItemId = 1
                 };
                 return bet;
-            } }
+            }
+        }
+
+        private Bet betStatePending
+        {
+            get
+            {
+                Bet bet = new Bet()
+                {
+                    BetType = BET_TYPE.ONE_MANY,
+                    CreationTime = DateTime.Now,
+                    PendingDuration = 1000,
+                    CreatorId = 1,
+                    Question = "This is a question",
+                    State = BET_STATE.PENDING,
+                    Options = options,
+                    Participations = betUsers,
+                    WinningItemId = 1
+                };
+                return bet;
+            }
+        }
+
+        private Bet betStateAnswerable
+        {
+            get
+            {
+                Bet bet = new Bet()
+                {
+                    BetType = BET_TYPE.ONE_MANY,
+                    CreationTime = DateTime.Now,
+                    PendingDuration = 1000,
+                    CreatorId = 1,
+                    Question = "This is a question",
+                    State = BET_STATE.ANSWERABLE,
+                    Options = options,
+                    Participations = betUsers,
+                    WinningItemId = 1
+                };
+                return bet;
+            }
+        }
+
+        private Bet betStateVerifying
+        {
+            get
+            {
+                Bet bet = new Bet()
+                {
+                    BetType = BET_TYPE.ONE_MANY,
+                    CreationTime = DateTime.Now,
+                    PendingDuration = 1000,
+                    CreatorId = 1,
+                    Question = "This is a question",
+                    State = BET_STATE.VERIFYING,
+                    Options = options,
+                    Participations = betUsers,
+                    WinningItemId = 1
+                };
+                return bet;
+            }
+        }
 
         [Fact]
         public void createBet()
@@ -72,7 +133,75 @@ namespace SimpleBet.Test.Services
         [Fact]
         public void pendingTimeout()
         {
-            Bet bet = this.dataService.GetBet(1);
+            Bet bet = this.betStatePending;
+            bet = this.dataService.AddBet(bet);
+            bet.CreationTime = bet.CreationTime.AddMinutes(- bet.PendingDuration - 1);
+            bet = this.dataService.GetBet(1);
+
+            Assert.Equal(BET_STATE.ANSWERABLE, bet.State);
+        }
+
+        [Fact]
+        public void pendingTimeoutThenAnswerTimeout()
+        {
+            Bet bet = this.betStatePending;
+            bet = this.dataService.AddBet(bet);
+            bet.CreationTime = DateTime.Now.AddMinutes(-bet.PendingDuration - Bet.ANSWER_DURATION - 1);
+            bet = this.dataService.GetBet(bet.Id);
+
+            Assert.Equal(BET_STATE.VERIFYING, bet.State);
+        }
+
+        [Fact]
+        public void pendingTimeoutThenVerifyTimeout()
+        {
+            Bet bet = this.betStatePending;
+            bet = this.dataService.AddBet(bet);
+            bet.CreationTime = DateTime.Now.AddMinutes(- bet.PendingDuration 
+                - Bet.ANSWER_DURATION - Bet.VERIFY_DURATION - 1);
+            bet = this.dataService.GetBet(bet.Id);
+
+            Assert.Equal(BET_STATE.FINALLIZED, bet.State);
+        }
+
+        [Fact]
+        public void answerTimeout()
+        {
+            Bet bet = this.betStateAnswerable;
+            bet = this.dataService.AddBet(bet);
+            bet.CreationTime = DateTime.Now.AddMinutes(-bet.PendingDuration
+                - Bet.ANSWER_DURATION - 1);
+            bet.AnswerStartTime = DateTime.Now.AddMinutes(-Bet.ANSWER_DURATION - 1);
+            bet = this.dataService.GetBet(bet.Id);
+
+            Assert.Equal(BET_STATE.VERIFYING, bet.State);
+        }
+
+        [Fact]
+        public void answerTimeoutThenVerifyTimeout()
+        {
+            Bet bet = this.betStateAnswerable;
+            bet = this.dataService.AddBet(bet);
+            bet.CreationTime = DateTime.Now.AddMinutes(-bet.PendingDuration
+                - Bet.ANSWER_DURATION - Bet.VERIFY_DURATION - 1);
+            bet.AnswerStartTime = DateTime.Now.AddMinutes(-Bet.ANSWER_DURATION - Bet.VERIFY_DURATION - 1);
+            bet = this.dataService.GetBet(bet.Id);
+
+            Assert.Equal(BET_STATE.FINALLIZED, bet.State);
+        }
+
+        [Fact]
+        public void verifyTimeout()
+        {
+            Bet bet = this.betStateVerifying;
+            bet = this.dataService.AddBet(bet);
+            bet.CreationTime = DateTime.Now.AddMinutes(-bet.PendingDuration
+                - Bet.ANSWER_DURATION - Bet.VERIFY_DURATION - 1);
+            bet.AnswerStartTime = DateTime.Now.AddMinutes(-Bet.ANSWER_DURATION - Bet.VERIFY_DURATION - 1);
+            bet.VerifyStartTime = DateTime.Now.AddMinutes(-Bet.VERIFY_DURATION - 1);
+            bet = this.dataService.GetBet(bet.Id);
+
+            Assert.Equal(BET_STATE.FINALLIZED, bet.State);
         }
 
         //private helper methods
