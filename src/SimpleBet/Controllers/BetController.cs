@@ -16,7 +16,7 @@ namespace SimpleBet.Controllers
     public class BetController : ApiController
     {
         //Attributes
-        private IDataService dataService = new DataService();
+        private IDataService dataService = new DataService(new SimpleBetContext());
 
         //Constructors
         public BetController() { }

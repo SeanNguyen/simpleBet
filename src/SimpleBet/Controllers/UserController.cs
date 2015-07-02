@@ -11,7 +11,7 @@ namespace SimpleBet.Controllers
     public class UserController : Controller
     {
         //Attributes
-        private IDataService dataService = new DataService();
+        private IDataService dataService = new DataService(new SimpleBetContext());
 
         //Constructors
         public UserController() { }
