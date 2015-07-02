@@ -130,6 +130,7 @@ namespace SimpleBet.Services
             //add participants
             if(existingBet.State == BET_STATE.NONE && bet.State == BET_STATE.PENDING && existingBet.Participations.Count == 0)
             {
+                existingBet.State = BET_STATE.PENDING;
                 for (int i = 0; i < bet.Participations.Count; i++)
                 {
                     BetUser betUser = bet.Participations.ElementAt(i);
@@ -183,6 +184,7 @@ namespace SimpleBet.Services
             //post-process bet
             //updateCancellingStatus(betUser.BetId);
             //updateFinallizableStatus(betUser.BetId);
+            Bet bet = this.dbContext.Bets.Find(betUser.BetId);
             updateBetState(betUser.Bet);
             
             return betUser;

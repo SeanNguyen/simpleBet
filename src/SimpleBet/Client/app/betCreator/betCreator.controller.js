@@ -23,7 +23,7 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
     //bet model
     $scope.betModel = new Bet({ 
         options: [], 
-        duration: 120,
+        pendingDuration: 120,
         participations: [], //this field will actually be on the server database, dont be confuse with the field above
         state: BET_STATE.NONE,
         //TODO: #367 add  function to load data before controller or app so that this user will be alr loaded here
@@ -75,38 +75,38 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
     }
 
     function increaseHour() {
-        $scope.betModel.duration += 60;
+        $scope.betModel.pendingDuration += 60;
     };
 
     function decreaseHour() {
-        if ($scope.betModel.duration > 60) {
-            $scope.betModel.duration -= 60;
+        if ($scope.betModel.pendingDuration > 60) {
+            $scope.betModel.pendingDuration -= 60;
         } else {
-            $scope.betModel.duration = 0;
+            $scope.betModel.pendingDuration = 0;
         }
     };
 
     function increaseDay() {
-        $scope.betModel.duration += 24 * 60;
+        $scope.betModel.pendingDuration += 24 * 60;
     }
 
     function decreaseDay() {
-        if ($scope.betModel.duration > 24 * 60) {
-            $scope.betModel.duration -= 24 * 60;
+        if ($scope.betModel.pendingDuration > 24 * 60) {
+            $scope.betModel.pendingDuration -= 24 * 60;
         } else {
-            $scope.betModel.duration = 0;
+            $scope.betModel.pendingDuration = 0;
         }
     }
 
     function increaseMinute() {
-        $scope.betModel.duration += 5;
+        $scope.betModel.pendingDuration += 5;
     }
 
     function decreaseMinute() {
-        if ($scope.betModel.duration > 5) {
-            $scope.betModel.duration -= 5;
+        if ($scope.betModel.pendingDuration > 5) {
+            $scope.betModel.pendingDuration -= 5;
         } else {
-            $scope.betModel.duration = 0;
+            $scope.betModel.pendingDuration = 0;
         }
     }
 
@@ -178,9 +178,9 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 	    $scope.betModel.creatorId = $rootScope.user.id;
 	    $scope.betModel.$save()
         .then(function () {
-	        var link = "192.168.0.113:9000/#/bet/" + $scope.betModel.id //TODO: move this link into the config file
+	        var link = "http://" + $location.$$host + ":" + $location.$$port + "/#/bet/" + $scope.betModel.id; //TODO: move this link into the config file
 
-	        var message = "JOIN THE BET NOW !!! \n" + $scope.betModel.question;
+	        var message = "JOIN THE BET NOW !!! \n" + $scope.betModel.question + "\n" + link;
 	        
 	        var tagIds = [];
 	        for (var i = $scope.input.participants.length - 1; i >= 0; i--) {

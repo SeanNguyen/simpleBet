@@ -274,7 +274,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
         var offset = new Date().getTimezoneOffset();//this is in minute
         var startTime = Date.parse($scope.bet.creationTime) + (offset * 1000 * 60);
         var passedTime = currentTime - startTime; //this is in millisec
-        var timeLeft = Math.floor(passedTime / 1000 / 60) - $scope.bet.duration; //this is in minute
+        var timeLeft = $scope.bet.pendingDuration - Math.floor(passedTime / 1000 / 60); //this is in minute
         return timeLeft;
     }
 
