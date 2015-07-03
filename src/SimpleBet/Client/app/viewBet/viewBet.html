@@ -1,32 +1,58 @@
 <div class="container viewBet">
 
     <div ui-view>
-        <div class="question">
+        <div class="question" layout="column" layout-align="space-around center">
             <h1 ng-bind="bet.question">?</h1>
+            <h5 ng-bind="creator.name">?</h5>
+        </div>
+
+        <div class="expireTime" layout="row" layout-align="center center">
+            <img src="assets/icon_sandClock.png">
+            <label>Expires in: </label>
+            <label class="highlight">{{Math.floor(expireDuration / 60 / 24)}} d</label>
+            <label class="highlight">{{Math.floor(expireDuration / 60)}} hrs</label>
+            <label class="highlight">{{expireDuration % 60}} mins</label>
+        </div>
+
+        <div class="options">
+            <h5>Pick an Answer:</h5>
+            <md-radio-group ng-model="data.group1">
+                <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="left center" ng-repeat="option in bet.options">
+                    <md-radio-button ng-value="option.content">{{option.content}}</md-radio-button>
+                </md-whiteframe>
+            </md-radio-group>
+        </div>
+
+        <div class="betWager">
+            <h4 class="title">Bet Wager</h4>
+            <div layout="row" class="wagerItem" layout-align="center center">
+                <div layout="column" flex="20" >
+                    <img ng-src="{{bet.winningItem.imageUrl}}" />
+                </div>
+                <div class="wagerInfo" flex="60">
+                    <label ng-bind="bet.winningItem.title">?</label>
+                    <p ng-bind="bet.winningItem.description">?</p>
+                </div>
+                <h1 flex="30" class="wagerCost" ng-bind="bet.winningItem.cost" ng-show="bet.winningItem.type === 0">?</h1>
+            </div>
+        </div>
+
+        <div class="betParticipants">
+            <h4 class="title">Invited Participants</h4>
+            <div layout="row" layout-wrap>
+                <div flex="33" ng-repeat="participation in bet.participations" layout="column" class="participantView" layout-align="center center">
+                    <img ng-src="{{participation.user.avatarUrl}}"/>
+                    <label ng-bind="participation.user.name">?</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="declineButton">
+            <md-button class="md-raised btn-normal">Decline Bet</md-button>
         </div>
     </div>
 
     <div ui-view>
-        <div class="header">
-            <div class="container-fluid">
-                <div class="avata">
-                    <img ng-src="{{creator.avatarUrl}}">
-                </div>
-
-                <div class="creator">
-                    <h4>{{creator.name}}</h4>
-                    <h5>wants to bet with you</h5>
-                    <div class="expire">
-                        <img src="assets/icon_sandClock.png">
-                        <h5>Expires in: </h5>
-                        <h5>{{Math.floor(expireDuration / 60 / 24)}} days</h5>
-                        <h5>{{Math.floor(expireDuration / 60)}} hours</h5>
-                        <h5>{{expireDuration % 60}} minutes</h5>
-                    </div>
-                </div>
-                <h3 class="question">{{bet.question}}</h3>
-            </div>
-        </div>
         <!-- Detail navbar -->
         <div class="navbarContainer" ng-hide="true">
             <img id="leftArrow" src="assets/arrow_left_white.png" ng-click="lastTab()" />

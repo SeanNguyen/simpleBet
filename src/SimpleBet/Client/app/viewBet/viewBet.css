@@ -1,3 +1,109 @@
-﻿#viewBet {
+﻿.viewBet {
+    padding-top: 50px;
+    padding-left: 0;
+    padding-right: 0;
+    box-shadow: 0 0 5px #9999ff;
+}
 
+.viewBet .question {
+    text-align: center;
+}
+
+.viewBet .question h1 {
+    margin: 10px 20px;
+    color: #9999ff;
+    border-bottom: 1px solid #000;
+}
+
+.viewBet .question h5 {
+    font-style: italic;
+}
+
+.viewBet .betWager img {
+    height: 100px;
+    width: auto;
+}
+
+.viewBet .betWager .title, .viewBet .betParticipants .title {
+    margin: 40px 0;
+    background-color: #9999ff;
+    text-align: center;
+    color: #FCFCFC;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.viewBet .betWager .wagerItem img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+}
+
+.viewBet .betWager .wagerItem>div {
+    margin: 10px;
+}
+
+.viewBet .betParticipants {
+    margin-bottom: 50px;
+}
+
+.viewBet .betParticipants .participantView {
+    text-align: center;
+}
+
+.viewBet .betParticipants img {
+    width: 80%;
+    max-width: 100px;
+    height: auto;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #ebebff;
+    border-radius: 50%;
+}
+
+.viewBet .declineButton {
+    height: 60px;
+    background-color: #9999ff;
+    text-align: center;
+}
+
+.viewBet .declineButton button {
+    height: 80%;
+    width: 60%;
+}
+
+.viewBet .expireTime {
+    background-color: #666673;
+    color: #FCFCFC;
+}
+
+.viewBet .expireTime label {
+    margin: 10px;
+    color: #FCFCFC;
+    font-weight: normal;
+}
+
+.viewBet .expireTime .highlight {
+    color: #ff806f;
+    font-weight: bold;
+}
+
+.viewBet .expireTime img {
+    height: 12px;
+    width: auto;
+}
+
+.options .option {
+    margin: 10px;
+    background-color: #EEE;
+}
+
+.options .option md-radio-button {
+    height: 100%;
+    width: 100%;
+}
+
+.options>h5 {
+    font-weight: bold;
+    color: #666673;
 }
