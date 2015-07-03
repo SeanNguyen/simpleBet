@@ -1,6 +1,6 @@
 ﻿'use-strict';
 
-var app = angular.module('app', ['ui.router', 'ngResource', 'angular-loading-bar', 'ngAnimate']);
+var app = angular.module('app', ['ui.router', 'ngResource', 'angular-loading-bar', 'ngAnimate', 'ngMaterial']);
 
 app.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
     $urlRouterProvider.otherwise("/");
