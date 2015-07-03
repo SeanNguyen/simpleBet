@@ -280,6 +280,9 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
 
     //private helper methods
     function getParticipationByUserId(userId) {
+        if (!$scope.bet) {
+            return;
+        }
         for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
             var participation = $scope.bet.participations[i];
             if (userId === participation.userId) {
