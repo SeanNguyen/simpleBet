@@ -101,12 +101,24 @@ module.exports = function (grunt) {
 			code: ["<%= pathConfig.webRoot %>/**/*.js", 
 				"<%= pathConfig.webRoot %>/**/*.css",
 			    "!<%= pathConfig.webRoot %>/bower_components/**"]
+		},
+
+		postcss: {
+		    options: {
+		        processors: [
+                  require('autoprefixer-core')({ browsers: 'last 2 versions' }), // add vendor prefixes
+                  require('cssnano')() // minify the result
+		        ]
+		    },
+		    dist: {
+		        src: ['<%= pathConfig.webRoot%>/app/**/*.css', '<%= pathConfig.webRoot%>/app.css']
+		    }
 		}
 	});
 
 		// define tasks
-	grunt.registerTask('all', ['wiredep', 'injector', 'clean:all', 'copy:all']);
-	grunt.registerTask('code', ['wiredep', 'injector', 'clean:code', 'copy:code']);
+	grunt.registerTask('all', ['wiredep', 'injector', 'clean:all', 'copy:all', 'postcss']);
+	grunt.registerTask('code', ['wiredep', 'injector', 'clean:code', 'copy:code', 'postcss']);
 	grunt.registerTask('vs', ['all', 'watch']);
 	grunt.registerTask('default', ['all', 'connect', 'watch']);
 };
