@@ -2,10 +2,13 @@
 
 var app = angular.module('app', ['ui.router', 'ngResource', 'angular-loading-bar', 'ngAnimate', 'ngMaterial']);
 
-app.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider, cfpLoadingBarProvider) {
     $urlRouterProvider.otherwise("/");
     //TODO: restrict this white list down to only the site we need
     $sceDelegateProvider.resourceUrlWhitelist(['**']);
+
+    //config loading bar
+    cfpLoadingBarProvider.includeSpinner = false;
 });
 
 app.controller('appController', function ($rootScope, $scope, $location) {
