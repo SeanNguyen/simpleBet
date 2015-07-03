@@ -24,7 +24,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.Math = Math;
 
     //input model
-    $scope.input = { option: null };
+    $scope.input = { option: null, options: []};
 
     //function
     $scope.nextTab = nextTab;
@@ -56,6 +56,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
         $scope.bet = Bet.get({ id: $stateParams.id }, function () {
             $scope.creator = User.get({ id: $scope.bet.creatorId });
             $scope.expireDuration = getExpireDuration();
+            $scope.input.options = $scope.bet.options;
             if ($scope.bet.state === BET_STATE.CANCELLING) {
                 updateCancellingAlert();
             }
