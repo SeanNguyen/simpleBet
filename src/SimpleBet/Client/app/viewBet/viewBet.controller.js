@@ -47,6 +47,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.finalize = finalize;
     $scope.share = share;
     $scope.logIn = logIn;
+    $scope.onOptionClick = onOptionClick;
 
     //start the controller
     active();
@@ -277,6 +278,10 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
         var passedTime = currentTime - startTime; //this is in millisec
         var timeLeft = $scope.bet.pendingDuration - Math.floor(passedTime / 1000 / 60); //this is in minute
         return timeLeft;
+    }
+
+    function onOptionClick(option) {
+        ngDialog.open({ template: 'app/viewBet/chooseOptionDialogBox.html' });
     }
 
     //private helper methods
