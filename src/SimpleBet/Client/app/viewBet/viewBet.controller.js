@@ -281,7 +281,10 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     }
 
     function onOptionClick(option) {
-        ngDialog.open({ template: 'app/viewBet/chooseOptionDialogBox.html' });
+        ngDialog.open({
+            template: 'app/viewBet/chooseOptionDialogBox.html',
+            appendTo: ".viewBet"
+        });
     }
 
     //private helper methods
