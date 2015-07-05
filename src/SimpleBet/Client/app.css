@@ -74,7 +74,7 @@ http://www.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centerin
 	box-shadow: 0px 0px 7px 0px;
 }
 
-#globalLoader {
+.globalLoader {
     position: fixed;
     height: 100%;
     width: 100%;
