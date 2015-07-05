@@ -2,11 +2,11 @@
 var app = angular.module('app');
 
 app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Bet', 'User',
-    'BetUser', '$timeout', '$window', '$state', 'facebook', '$q', 'PARTICIPATION_STATE', 'BET_STATE',
-    'VOTE_CANCEL_BET_STATE', viewBetController]);
+    'BetUser', '$timeout', '$window', '$state', 'facebook', '$q', 'PARTICIPATION_STATE', 'BET_STATE', 
+    'VOTE_CANCEL_BET_STATE', 'ngDialog', viewBetController]);
 
 function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser, $timeout, $window,
-    $state, facebook, $q, PARTICIPATION_STATE, BET_STATE, VOTE_CANCEL_BET_STATE) {
+    $state, facebook, $q, PARTICIPATION_STATE, BET_STATE, VOTE_CANCEL_BET_STATE, ngDialog) {
     $scope.tabs = [
         { name: 'Bet Conditions' },
         { name: 'Bet Wager' },
