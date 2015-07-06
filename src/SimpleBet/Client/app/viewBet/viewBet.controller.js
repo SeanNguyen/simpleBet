@@ -50,6 +50,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.isUserPending = isUserPending;
     $scope.onDrawOptionClick = onDrawOptionClick;
     $scope.onAnswerClick = onAnswerClick;
+    $scope.submitAnswer = submitAnswer;
 
     //start the controller
     active();
@@ -320,13 +321,25 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             template: 'app/viewBet/confirmDrawOptionDialog.html',
             appendTo: ".viewBet"
         }).closePromise
-        .then(function (data) {
-            
+        .then(function (isDraw) {
+            if (isDraw) {
+                $scope.input.answer = null;
+                submitAnswer();
+            }
         });
     }
 
     function onAnswerClick(option) {
         $scope.input.answer = option;
+    }
+
+    function submitAnswer() {
+        $scope.bet.state = BET_STATE.VERIFYING;
+        $scope.bet.winningOptionChooser = $rootScope.user.id;
+        if ($scope.input.answer) {
+            $scope.bet.winningOption = $scope.input.answer.content;
+        }
+        $scope.bet.$update();
     }
 
     //private helper methods

@@ -86,7 +86,7 @@
         <!-- Choose Answer Buttons -->
         <div class="answerButton" layout="row" layout-align="space-around center">
             <md-button class="md-raised" ng-click="onDrawOptionClick()">Make it a Draw</md-button>
-            <md-button class="md-raised" ng-disabled="!input.answer">Answer Bet</md-button>
+            <md-button class="md-raised" ng-disabled="!input.answer" ng-click="submitAnswer()">Answer Bet</md-button>
         </div>
     </div>
 </div>
