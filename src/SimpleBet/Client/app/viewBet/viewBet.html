@@ -5,7 +5,7 @@
             <h5 ng-bind="creator.name">?</h5>
         </div>
 
-        <div class="expireTime" layout="row" layout-align="center center">
+        <div class="expireTime" layout="row" layout-align="center center" ng-show="bet.state === BET_STATE.PENDING">
             <img src="assets/icon_sandClock.png">
             <label>Expires in: </label>
             <label class="highlight">{{Math.floor(expireDuration / 60 / 24)}} d</label>
@@ -34,7 +34,12 @@
             
             <div class="header" ng-show="bet.state === BET_STATE.ANSWERABLE">
                 <h4><strong>FINALIZE THE BET</strong></h4>
-                <h6>Select the outcome of the bet when ready</h6>
+                <h6>No one wins</h6>
+            </div>
+
+            <div class="header drawHeader" ng-show="bet.state === BET_STATE.VERIFYING && !bet.winningOption">
+                <h4><strong>DRAW</strong></h4>
+                <h6>The bets of the other participants are shown below</h6>
             </div>
 
             <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="center center" 
@@ -84,9 +89,15 @@
         </h5>
 
         <!-- Choose Answer Buttons -->
-        <div class="answerButton" layout="row" layout-align="space-around center">
+        <div class="answerButton" layout="row" layout-align="space-around center" ng-show="bet.state === BET_STATE.ANSWERABLE">
             <md-button class="md-raised" ng-click="onDrawOptionClick()">Make it a Draw</md-button>
             <md-button class="md-raised" ng-disabled="!input.answer" ng-click="submitAnswer()">Answer Bet</md-button>
+        </div>
+
+        <!-- Disagree/Agree Buttons -->
+        <div class="agreeButtons" layout="row" layout-align="space-around center" ng-show="bet.state === BET_STATE.VERIFYING">
+            <md-button class="md-raised" ng-click="onDisagreeButtonClick()">Disagree</md-button>
+            <md-button class="md-raised" ng-click="onAgreeButtonClick()">Agree</md-button>
         </div>
     </div>
 </div>

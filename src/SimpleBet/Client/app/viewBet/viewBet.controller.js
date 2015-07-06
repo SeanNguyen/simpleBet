@@ -52,6 +52,9 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.onAnswerClick = onAnswerClick;
     $scope.submitAnswer = submitAnswer;
 
+    $scope.onAgreeButtonClick = onAgreeButtonClick;
+    $scope.onDisagreeButtonClick = onDisagreeButtonClick;
+
     //start the controller
     active();
         
@@ -63,6 +66,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             $scope.input.options = $scope.bet.options;
             var betUser = getParticipationByUserId($rootScope.user.id);
             $scope.input.option = betUser.option;
+            $scope.input.answer = getOptionByContent($scope.bet.winningOption);
             if ($scope.bet.state === BET_STATE.CANCELLING) {
                 updateCancellingAlert();
             }
@@ -330,7 +334,9 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     }
 
     function onAnswerClick(option) {
-        $scope.input.answer = option;
+        if ($scope.bet.state == BET_STATE.ANSWERABLE) {
+            $scope.input.answer = option;
+        }
     }
 
     function submitAnswer() {
@@ -340,6 +346,20 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             $scope.bet.winningOption = $scope.input.answer.content;
         }
         $scope.bet.$update();
+    }
+
+    function onAgreeButtonClick() {
+        var participation = getParticipationByUserId($rootScope.user.id);
+        participation.state = PARTICIPATION_STATE.AGREE;
+        BetUser.update(participation);
+    }
+
+    function onDisagreeButtonClick() {
+        $scope.bet.state = BET_STATE.ANSWERABLE;
+        $scope.bet.winningOptionChooser = null;
+        $scope.bet.winningOption = null;
+        $scope.bet.$update();
+        $scope.input.answer = null;
     }
 
     //private helper methods
@@ -392,6 +412,13 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             //short circuit for responsive effect
             $scope.bet.state = BET_STATE.CONFIRMED;
             $scope.betCancelCreator = null;
+        }
+    }
+
+    function getOptionByContent(optionContent) {
+        for (var i = $scope.input.options.length - 1; i >= 0; i--) {
+            if (optionContent === $scope.input.options[i].content)
+                return $scope.input.options[i];
         }
     }
 }
