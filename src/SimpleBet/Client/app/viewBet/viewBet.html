@@ -7,10 +7,10 @@
 
         <div class="expireTime" layout="row" layout-align="center center">
             <img src="assets/icon_sandClock.png">
-            <label ng-show="bet.state === BET_STATE.PENDING">Expires in: </label>
-            <label class="highlight" ng-show="bet.state === BET_STATE.PENDING">{{Math.floor(expireDuration / 60 / 24)}} d</label>
-            <label class="highlight" ng-show="bet.state === BET_STATE.PENDING">{{Math.floor(expireDuration / 60) % 24}} hrs</label>
-            <label class="highlight" ng-show="bet.state === BET_STATE.PENDING">{{expireDuration % 60}} mins</label>
+            <label ng-show="bet.state < BET_STATE.VERIFYING">Expires in: </label>
+            <label class="highlight" ng-show="bet.state < BET_STATE.VERIFYING">{{Math.floor(expireDuration / 60 / 24)}} d</label>
+            <label class="highlight" ng-show="bet.state < BET_STATE.VERIFYING">{{Math.floor(expireDuration / 60) % 24}} hrs</label>
+            <label class="highlight" ng-show="bet.state < BET_STATE.VERIFYING">{{expireDuration % 60}} mins</label>
 
             <label class="highlight" ng-show="bet.state === BET_STATE.VERIFYING">Bet Closed</label>
         </div>

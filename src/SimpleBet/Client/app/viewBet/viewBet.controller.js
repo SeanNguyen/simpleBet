@@ -282,14 +282,17 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
 
     function getExpireDuration() {
         var currentTime = moment.utc(); //this is UTC time
-
-        var startTime = moment.utc($scope.bet.creationTime); //this should be in UTC time as well
+       
         if ($scope.bet.state === BET_STATE.ANSWERABLE) {
-            startTime = moment.utc($scope.bet.answerStartTime)
+            var startTime = moment.utc($scope.bet.answerStartTime)
+            var passedTime = currentTime - startTime; //this is in millisec
+            var timeLeft = 60 * 12 - Math.floor(passedTime / 1000 / 60); //this is in minute
+        } else if ($scope.bet.state === BET_STATE.PENDING) {
+            var startTime = moment.utc($scope.bet.creationTime); //this should be in UTC time as well
+            var passedTime = currentTime - startTime; //this is in millisec
+            var timeLeft = $scope.bet.pendingDuration - Math.floor(passedTime / 1000 / 60); //this is in minute
         }
         
-        var passedTime = currentTime - startTime; //this is in millisec
-        var timeLeft = $scope.bet.pendingDuration - Math.floor(passedTime / 1000 / 60); //this is in minute
         return timeLeft;
     }
 
