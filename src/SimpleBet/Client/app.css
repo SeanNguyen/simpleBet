@@ -90,3 +90,11 @@ http://www.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centerin
     font-weight: bold;
     text-transform: none;
 }
+
+.md-button {
+    background-color: #aba8bf;
+    color: #FCFCFC;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: none;
+}

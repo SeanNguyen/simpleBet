@@ -54,6 +54,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
 
     $scope.onAgreeButtonClick = onAgreeButtonClick;
     $scope.onDisagreeButtonClick = onDisagreeButtonClick;
+    $scope.isLocalUserWin = isLocalUserWin;
 
     //start the controller
     active();
@@ -262,7 +263,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     }
 
     function share() {
-        $state.go('bet.share');
+        $state.go('root.bet.share');
     }
 
     function logIn() {
@@ -370,6 +371,14 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
         $scope.bet.winningOption = null;
         $scope.bet.$update();
         $scope.input.answer = null;
+    }
+
+    function isLocalUserWin() {
+        var participation = getParticipationByUserId($rootScope.user.id);
+        if (!participation) {
+            return false;
+        }
+        return participation.option === $scope.bet.winningOption;
     }
 
     //private helper methods

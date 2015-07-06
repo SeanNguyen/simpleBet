@@ -1,11 +1,18 @@
 <div class="container viewBet">
     <div ui-view>
+
+        <md-whiteframe class="md-whiteframe-z1 header" ng-show="bet.state === BET_STATE.FINALLIZED" layout="row" layout-align="center center"
+                       ng-class="{win: isLocalUserWin(), lose: !isLocalUserWin()}">
+            <div ng-show="isLocalUserWin()">YOU WIN!</div>
+            <div ng-show="!isLocalUserWin()">YOU LOSE!</div>
+        </md-whiteframe>
+
         <div class="question" layout="column" layout-align="space-around center" ng-show="isUserPending(user.id)">
             <h1 ng-bind="bet.question">?</h1>
             <h5 ng-bind="creator.name">?</h5>
         </div>
 
-        <div class="expireTime" layout="row" layout-align="center center">
+        <div class="expireTime" layout="row" layout-align="center center" ng-show="bet.state < BET_STATE.FINALLIZED">
             <img src="assets/icon_sandClock.png">
             <label ng-show="bet.state < BET_STATE.VERIFYING">Expires in: </label>
             <label class="highlight" ng-show="bet.state < BET_STATE.VERIFYING">{{Math.floor(expireDuration / 60 / 24)}} d</label>
@@ -18,10 +25,10 @@
         <div class="options" ng-show="isUserPending(user.id)">
             <h5>Pick an Answer:</h5>
             <md-radio-group ng-model="input.option">
-                <md-whiteframe class="md-whiteframe-z2 option" layout="row" layout-align="left center" 
+                <md-whiteframe class="md-whiteframe-z2 option" layout="row" layout-align="left center"
                                ng-repeat="option in input.options">
-                    <md-radio-button ng-value="option.content" ng-click="onOptionClick(option)" 
-                        ng-disabled="!isUserPending(user.id)">
+                    <md-radio-button ng-value="option.content" ng-click="onOptionClick(option)"
+                                     ng-disabled="!isUserPending(user.id)">
                         {{option.content}}
                     </md-radio-button>
                 </md-whiteframe>
@@ -33,7 +40,7 @@
                 <h4><strong>GAME ON</strong></h4>
                 <h6>The bets of the other participants are shown below</h6>
             </div>
-            
+
             <div class="header" ng-show="bet.state === BET_STATE.ANSWERABLE">
                 <h4><strong>FINALIZE THE BET</strong></h4>
                 <h6>No one wins</h6>
@@ -49,7 +56,7 @@
                 <h6>Waiting for the correct answer to be chosen...</h6>
             </div>
 
-            <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="center center" 
+            <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="center center"
                            ng-repeat="option in input.options" ng-click="onAnswerClick(option)"
                            ng-class="{selected: option === input.answer}">
                 <div flex="60" class="content">{{option.content}}</div>
@@ -64,7 +71,7 @@
         <div class="betWager">
             <h4 class="title">Bet Wager</h4>
             <div layout="row" class="wagerItem" layout-align="center center">
-                <div layout="column" flex="20" >
+                <div layout="column" flex="20">
                     <img ng-src="{{bet.winningItem.imageUrl}}" />
                 </div>
                 <div class="wagerInfo" flex="60">
@@ -75,12 +82,16 @@
             </div>
         </div>
 
+        <div class="shareButton" layout="row" layout-align="center center" ng-show="bet.state === BET_STATE.FINALLIZED">
+            <md-button class="md-raised" ng-click="share()"><img src="./assets/logo_facebook.png" />Share</md-button>
+        </div>
+
         <div class="betParticipants">
             <h4 class="title">Invited Participants</h4>
             <div layout="row" layout-wrap>
-                <div flex="33" ng-repeat="participation in bet.participations" layout="column" 
+                <div flex="33" ng-repeat="participation in bet.participations" layout="column"
                      class="participantView" ng-class="{deleted: participation.state === 3}" layout-align="center center">
-                    <img ng-src="{{participation.user.avatarUrl}}"/>
+                    <img ng-src="{{participation.user.avatarUrl}}" />
                     <label ng-bind="participation.user.name">?</label>
                 </div>
             </div>
@@ -101,7 +112,7 @@
         </div>
 
         <!-- Disagree/Agree Buttons -->
-        <div class="agreeButtons" layout="row" layout-align="space-around center" 
+        <div class="agreeButtons" layout="row" layout-align="space-around center"
              ng-show="bet.state === BET_STATE.VERIFYING && user.id !== bet.winningOptionChooser">
             <md-button class="md-raised" ng-click="onDisagreeButtonClick()">Disagree</md-button>
             <md-button class="md-raised" ng-click="onAgreeButtonClick()">Agree</md-button>

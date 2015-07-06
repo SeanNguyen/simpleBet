@@ -1,3 +1,7 @@
+.shareBet {
+    padding-bottom: 100px;
+} 
+
 .shareBet #leftCol {
 	padding-right: 0;
     padding-left: 0;
@@ -23,18 +27,29 @@
 	width: 100%
 }
 
-.shareBet #selectButton {
+.shareBet .selectButton {
 	position: fixed;
 	bottom: 0; top: auto;
     left: 0; right: 0;
 	width: 100%;
 	height: 60px;
 	box-shadow: 0px 0px 10px 1px;
+    background-color: #9999ff;
 }
 
-.shareBet #selectButton .btn {
-	width: 100%;
-	height: 100%;
+.shareBet .selectButton button {
+    height: 40px;
+    width: 200px;
+    background-color: #ff806f;
+    color: #FCFCFC;
+    font-size: 18px;
+}
+
+.shareBet .selectButton img {
+    position: absolute;
+    top: 5px; bottom: 0; left: 30px; right: auto;
+    height: 30px;
+    width: auto;
 }
 
 .shareBet input {
@@ -57,7 +72,7 @@
 .shareBet textarea {
     font-size: 15px;
     resize: none;
-    width: 100%;
+    width: 90%;
 
     border-style: solid;
     border-radius: 10px;
@@ -65,30 +80,35 @@
     border-color: #9999ff;
     padding: 10px;
 
-    margin-top: 10px;
+    margin: 5%;
 }
 
 .shareBet textarea:focus {
     outline: none;
 }
 
-.shareBet #message {
-    margin: 10px;
-}
-
-.shareBet #imageSelection {
+.imageSourceOption {
     height: 50px;
 }
 
-.shareBet #imageSelection img {
+.imageSourceOption img {
     height: 30px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-right: 10px;
     width: auto;
 }
 
 .shareBet #message .imgPreview {
     width: 100%;
-    padding: 10px;
+}
+
+.sharedImage {
+    background-color: #CCC;
+}
+
+.sharedImage .placeholder {
+    text-align: center;
+    font-size: 100px;
+}
+
+.gifView {
+    min-height: 1000px;
 }

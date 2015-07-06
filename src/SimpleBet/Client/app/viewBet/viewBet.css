@@ -190,3 +190,33 @@
     width: 45%;
     height: 80%;
 }
+
+.viewBet .header {
+    height: 60px;
+    color: #FCFCFC;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.viewBet .win {
+    background-color: #57d1c2;
+}
+
+.viewBet .lose {
+    background-color: #ff806f;
+}
+
+.viewBet .shareButton button {
+    height: 40px;
+    width: 200px;
+    background-color: #ff806f;
+    color: #FCFCFC;
+    font-size: 18px;
+}
+
+.viewBet .shareButton img {
+    position: absolute;
+    top: 5px; bottom: 0; left: 30px; right: auto;
+    height: 30px;
+    width: auto;
+}

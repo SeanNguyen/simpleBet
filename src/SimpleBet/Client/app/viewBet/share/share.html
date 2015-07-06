@@ -1,21 +1,24 @@
-﻿<div class="container-fluid" id="shareBet">
+﻿<div class="container-fluid shareBet">
 
     <div id="message" ng-show="state === 1">
-        <div class="container-fluid" id="imageSelection">
-            <img class="img img-responsive" src="assets/icon_gif.png" ng-click="changeToSelectGif()"/>
+        <div class="sharedImage">
+            <div class="placeholder" ng-show="!image.src">?</div>
+            <img ng-src="{{image.src}}" class="imgPreview" />
         </div>
-        <img ng-src="{{image.src}}" class="imgPreview"/>
+        
+        <div class="imageSourceOption" layout="row" layout-align="center center">
+            <img src="assets/icon_gif.png" ng-click="changeToSelectGif()" />
+        </div>
+
+        <h5>Comment</h5>
         <textarea rows="5" placeholder="message" ng-model="input.message"/> 
-        <div id="selectButton">
-            <button class="btn btn-default" ng-click="share()">
-                <h4>SHARE</h4>
-            </button>
+        <div class="selectButton" layout="row" layout-align="center center" ng-show="bet.state === BET_STATE.FINALLIZED">
+            <md-button class="md-raised" ng-click="share()"><img src="./assets/logo_facebook.png" />Share</md-button>
         </div>
     </div>
 
-
     <!-- CHOOSE GIF VIEW -->
-    <div ng-show="state === 2">
+    <div ng-show="state === 2" class="gifView">
         <div>
             <input type="text" ng-model="input.query" ng-change="search(input.query)" placeholder="search GIFs">
         </div>
@@ -33,10 +36,8 @@
                 </div>
             </div>
         </div>
-        <div id="selectButton">
-            <button class="btn btn-default" ng-click="changeToComposingView()">
-                <h4>Choose</h4>
-            </button>
+        <div class="selectButton" layout="row" layout-align="center center">
+            <md-button class="md-raised" ng-click="changeToComposingView()">Choose</md-button>
         </div>
     </div>
 </div>

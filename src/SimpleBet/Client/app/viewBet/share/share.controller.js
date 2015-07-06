@@ -9,7 +9,7 @@ function shareController($rootScope, $scope, $http, $state, facebook) {
     $scope.selection = -1;
     $scope.input = { query: "", message: ""};
     $scope.state = 1;
-    $scope.image = { src: "assets/image_blank.png", link: ''};
+    $scope.image = { src: null, link: ''};
 
     //functions
     $scope.select = select;
@@ -73,7 +73,7 @@ function shareController($rootScope, $scope, $http, $state, facebook) {
 
         facebook.post($scope.input.message, $scope.image.link, tagId).then(function () {
             $rootScope.loaded = true;
-            $state.go("bet");
+            $state.go("root.bet");
         });
     }
 
