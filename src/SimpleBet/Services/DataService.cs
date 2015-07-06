@@ -341,7 +341,7 @@ namespace SimpleBet.Services
         {
             foreach (BetUser betUser in participations)
             {
-                if (betUser.State < BETUSER_STATE.AGREE)
+                if (betUser.State < BETUSER_STATE.AGREE && betUser.State != BETUSER_STATE.DECLINED)
                 {
                     return false;
                 }

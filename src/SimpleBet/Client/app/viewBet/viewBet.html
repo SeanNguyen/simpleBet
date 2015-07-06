@@ -5,12 +5,14 @@
             <h5 ng-bind="creator.name">?</h5>
         </div>
 
-        <div class="expireTime" layout="row" layout-align="center center" ng-show="bet.state === BET_STATE.PENDING">
+        <div class="expireTime" layout="row" layout-align="center center">
             <img src="assets/icon_sandClock.png">
-            <label>Expires in: </label>
-            <label class="highlight">{{Math.floor(expireDuration / 60 / 24)}} d</label>
-            <label class="highlight">{{Math.floor(expireDuration / 60) % 24}} hrs</label>
-            <label class="highlight">{{expireDuration % 60}} mins</label>
+            <label ng-show="bet.state === BET_STATE.PENDING">Expires in: </label>
+            <label class="highlight" ng-show="bet.state === BET_STATE.PENDING">{{Math.floor(expireDuration / 60 / 24)}} d</label>
+            <label class="highlight" ng-show="bet.state === BET_STATE.PENDING">{{Math.floor(expireDuration / 60) % 24}} hrs</label>
+            <label class="highlight" ng-show="bet.state === BET_STATE.PENDING">{{expireDuration % 60}} mins</label>
+
+            <label class="highlight" ng-show="bet.state === BET_STATE.VERIFYING">Bet Closed</label>
         </div>
 
         <div class="options" ng-show="isUserPending(user.id)">
@@ -40,6 +42,11 @@
             <div class="header drawHeader" ng-show="bet.state === BET_STATE.VERIFYING && !bet.winningOption">
                 <h4><strong>DRAW</strong></h4>
                 <h6>The bets of the other participants are shown below</h6>
+            </div>
+
+            <div class="header" ng-show="bet.state === BET_STATE.VERIFYING && bet.winningOption">
+                <h4><strong>RESULT</strong></h4>
+                <h6>Waiting for the correct answer to be chosen...</h6>
             </div>
 
             <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="center center" 
@@ -84,8 +91,7 @@
         </div>
 
         <h5 ng-show="!isUserPending(user.id) && bet.state === BET_STATE.PENDING" class="waitingFooterMessage">
-            Kindly wait for all invited participants to respond
-            or the timer to expire before the bet can start.
+            Kindly wait for all invited participants to respond or the timer to expire before the bet can start.
         </h5>
 
         <!-- Choose Answer Buttons -->
@@ -95,9 +101,14 @@
         </div>
 
         <!-- Disagree/Agree Buttons -->
-        <div class="agreeButtons" layout="row" layout-align="space-around center" ng-show="bet.state === BET_STATE.VERIFYING">
+        <div class="agreeButtons" layout="row" layout-align="space-around center" 
+             ng-show="bet.state === BET_STATE.VERIFYING && user.id !== bet.winningOptionChooser">
             <md-button class="md-raised" ng-click="onDisagreeButtonClick()">Disagree</md-button>
             <md-button class="md-raised" ng-click="onAgreeButtonClick()">Agree</md-button>
         </div>
+
+        <h5 ng-show="bet.state === BET_STATE.VERIFYING && user.id === bet.winningOptionChooser" class="waitingFooterMessage">
+            Kindly contact our admin for further assistance if you have any problems regarding this bet.
+        </h5>
     </div>
 </div>

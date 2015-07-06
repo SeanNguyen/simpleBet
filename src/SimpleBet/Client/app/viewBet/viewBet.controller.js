@@ -346,6 +346,8 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             $scope.bet.winningOption = $scope.input.answer.content;
         }
         $scope.bet.$update();
+
+        onAgreeButtonClick();
     }
 
     function onAgreeButtonClick() {
