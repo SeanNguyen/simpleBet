@@ -9,7 +9,8 @@ var app = angular.module('app',
     'ngDialog']);
 
 app.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider, cfpLoadingBarProvider, ngDialogProvider) {
-    $urlRouterProvider.otherwise("/");
+    $urlRouterProvider.otherwise("/home");
+
     //TODO: restrict this white list down to only the site we need
     $sceDelegateProvider.resourceUrlWhitelist(['**']);
 

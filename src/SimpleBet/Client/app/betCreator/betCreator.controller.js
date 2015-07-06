@@ -124,7 +124,7 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 		if (tabIndex < TAB_SIZE && tabIndex > -1) {
 			$scope.currentTab = tabIndex;
 			$rootScope.title = TAB_NAMES[$scope.currentTab];
-			$state.go('create.' + TAB_STATES[tabIndex]);
+			$state.go('root.create.' + TAB_STATES[tabIndex]);
 			$window.scrollTo(0,0); 
 		}
 	}

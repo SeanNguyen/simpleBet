@@ -1,6 +1,6 @@
 <div class="container viewBet">
     <div ui-view>
-        <div class="question" layout="column" layout-align="space-around center">
+        <div class="question" layout="column" layout-align="space-around center" ng-show="isUserPending(user.id)">
             <h1 ng-bind="bet.question">?</h1>
             <h5 ng-bind="creator.name">?</h5>
         </div>

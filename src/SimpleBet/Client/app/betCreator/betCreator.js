@@ -6,6 +6,7 @@ app.config(function($stateProvider) {
   $stateProvider
     .state('root.create', {
       url: "/create",
+      abstract: true,
       templateUrl: "app/betCreator/betCreator.html",
       controller: 'betCreatorController'
     })

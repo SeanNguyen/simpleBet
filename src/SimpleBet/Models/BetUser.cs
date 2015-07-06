@@ -33,6 +33,8 @@ namespace SimpleBet.Models
         
         public BETUSER_STATE State { get; set; }
         public string Option { get; set; }
+
+        public BET_STATE LastBetStateSeen { get; set; }
         
         //Public Methods
         public override Model parse(dynamic data)

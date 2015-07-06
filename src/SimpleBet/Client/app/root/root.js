@@ -4,8 +4,9 @@ var app = angular.module('app');
 app.config(function ($stateProvider) {
     // Now set up the states
     $stateProvider
-      .state('root', {
+        .state('root', {
             url: "",
+            abstract: true,
             templateUrl: "app/root/root.html",
             controller: 'appController',
             resolve: {
@@ -46,5 +47,5 @@ app.config(function ($stateProvider) {
                     return promise;
                 }
             }
-      })
+        })
 });
