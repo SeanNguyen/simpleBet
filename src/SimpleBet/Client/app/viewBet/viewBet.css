@@ -143,12 +143,13 @@
     width: 20px;
     border-width: 2px;
     border-style: solid;
-    border-color: ##ff806f;
+    border-color: #ff806f;
     border-radius: 50%;
     text-align: center;
     background-color: #ff806f;
     color: #FCFCFC;
     font-weight: bold;
+    font-size: 13px;
 }
 
 .viewBet .waitingFooterMessage {
