@@ -160,6 +160,12 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 	function setBetType(type) {
 	    if (type === BET_TYPE.ONE_MANY || type === BET_TYPE.MANY_MANY) {
 	        $scope.betModel.type = type;
+
+	        if (type === BET_TYPE.ONE_MANY) {
+	            $scope.betModel.options = [{ content: 'Me' }, { content: 'The World' }];
+	            $scope.input.option = $scope.betModel.options[0];
+	        }
+
 	        setTab(1);
 	    } else {
 	        console.log("ERROR: type input not valid");
@@ -255,7 +261,7 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
                                         userId: $scope.betModel.creatorId,
                                         betId: $scope.betModel.id,
                                         state: PARTICIPATION_STATE.VOTED,
-                                        option: $scope.option.content
+                                        option: $scope.input.option.content
                                     });
                                     $scope.betModel.state = BET_STATE.PENDING;
 
