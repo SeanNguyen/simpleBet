@@ -80,6 +80,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             $scope.bet.$get({ id: $scope.bet.id }, function () {
                 var betUser = getParticipationByUserId($rootScope.user.id);
                 $scope.input.option = betUser.option;
+                $scope.input.answer = getOptionByContent($scope.bet.winningOption);
                 intervalUpdateBet();
             });
         }, 5000);
