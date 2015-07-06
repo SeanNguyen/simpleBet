@@ -299,7 +299,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             var choosenOption = data.value;
             var participation = getParticipationByUserId($rootScope.user.id);
             participation.option = choosenOption.content;
-            participation.state = PARTICIPATION_STATE.CONFIRMED;
+            participation.state = PARTICIPATION_STATE.VOTED;
             BetUser.update(participation);
         });
     }
