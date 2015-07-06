@@ -37,7 +37,9 @@
                 <h6>Select the outcome of the bet when ready</h6>
             </div>
 
-            <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="center center" ng-repeat="option in input.options">
+            <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="center center" 
+                           ng-repeat="option in input.options" ng-click="onAnswerClick(option)"
+                           ng-class="{selected: option === input.answer}">
                 <div flex="60" class="content">{{option.content}}</div>
                 <div flex="40" class="userList" layout="row" layout-align="end center" layout-wrap>
                     <div ng-repeat="participation in getParticipantByOption(option)" class="user">
@@ -84,7 +86,7 @@
         <!-- Choose Answer Buttons -->
         <div class="answerButton" layout="row" layout-align="space-around center">
             <md-button class="md-raised" ng-click="onDrawOptionClick()">Make it a Draw</md-button>
-            <md-button class="md-raised">Answer Bet</md-button>
+            <md-button class="md-raised" ng-disabled="!input.answer">Answer Bet</md-button>
         </div>
     </div>
 </div>

@@ -129,6 +129,11 @@
     margin: 10px;
 }
 
+.viewBet .otherUserOptions .selected {
+    background-color: #ff806f;
+    color: #FCFCFC;
+}
+
 .viewBet .otherUserOptions .option .content {
     padding: 10px;
 }
@@ -143,10 +148,10 @@
     width: 20px;
     border-width: 2px;
     border-style: solid;
-    border-color: #ff806f;
+    border-color: #9999ff;
     border-radius: 50%;
     text-align: center;
-    background-color: #ff806f;
+    background-color: #9999ff;
     color: #FCFCFC;
     font-weight: bold;
     font-size: 13px;

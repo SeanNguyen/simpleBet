@@ -23,7 +23,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.Math = Math;
 
     //input model
-    $scope.input = { option: null, options: []};
+    $scope.input = { option: null, options: [], answer: null};
 
     //function
     $scope.nextTab = nextTab;
@@ -49,6 +49,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.onOptionClick = onOptionClick;
     $scope.isUserPending = isUserPending;
     $scope.onDrawOptionClick = onDrawOptionClick;
+    $scope.onAnswerClick = onAnswerClick;
 
     //start the controller
     active();
@@ -322,6 +323,10 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
         .then(function (data) {
             
         });
+    }
+
+    function onAnswerClick(option) {
+        $scope.input.answer = option;
     }
 
     //private helper methods
