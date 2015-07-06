@@ -9,7 +9,7 @@ namespace SimpleBet.Ultilities
     {
         public static bool isTimeout(DateTime startTime, int durationMinute)
         {
-            TimeSpan passedTime = DateTime.Now.Subtract(startTime);
+            TimeSpan passedTime = DateTime.UtcNow.Subtract(startTime);
             double passTimeMinute = passedTime.TotalMinutes;
             bool isPassed = durationMinute < passTimeMinute;
             return isPassed;

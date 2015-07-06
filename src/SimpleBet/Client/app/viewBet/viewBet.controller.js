@@ -281,11 +281,11 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     }
 
     function getExpireDuration() {
-        var currentTime = new Date().getTime(); //this is UTC time
+        var currentTime = moment.utc(); //this is UTC time
 
-        var startTime = Date.parse($scope.bet.creationTime); //this should be in UTC time as well
+        var startTime = moment.utc($scope.bet.creationTime); //this should be in UTC time as well
         if ($scope.bet.state === BET_STATE.ANSWERABLE) {
-            startTime = Date.parse($scope.bet.answerStartTime)
+            startTime = moment.utc($scope.bet.answerStartTime)
         }
         
         var passedTime = currentTime - startTime; //this is in millisec
