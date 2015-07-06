@@ -41,7 +41,8 @@
         <div class="betParticipants">
             <h4 class="title">Invited Participants</h4>
             <div layout="row" layout-wrap>
-                <div flex="33" ng-repeat="participation in bet.participations" layout="column" class="participantView" layout-align="center center">
+                <div flex="33" ng-repeat="participation in bet.participations" layout="column" 
+                     class="participantView" ng-class="{deleted: participation.state === 3}" layout-align="center center">
                     <img ng-src="{{participation.user.avatarUrl}}"/>
                     <label ng-bind="participation.user.name">?</label>
                 </div>
