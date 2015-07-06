@@ -27,10 +27,16 @@
         </div>
 
         <div class="otherUserOptions" ng-show="!isUserPending(user.id)">
-            <div class="header">
-                <h4>GAME ON</h4>
+            <div class="header" ng-show="bet.state === BET_STATE.PENDING">
+                <h4><strong>GAME ON</strong></h4>
                 <h6>The bets of the other participants are shown below</h6>
             </div>
+            
+            <div class="header" ng-show="bet.state === BET_STATE.ANSWERABLE">
+                <h4><strong>FINALIZE THE BET</strong></h4>
+                <h6>Select the outcome of the bet when ready</h6>
+            </div>
+
             <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="center center" ng-repeat="option in input.options">
                 <div flex="60" class="content">{{option.content}}</div>
                 <div flex="40" class="userList" layout="row" layout-align="end center" layout-wrap>
@@ -70,9 +76,15 @@
             <md-button class="md-raised btn-normal" ng-click="decline()">Decline Bet</md-button>
         </div>
 
-        <h5 ng-show="!isUserPending(user.id)" class="waitingFooterMessage">
+        <h5 ng-show="!isUserPending(user.id) && bet.state === BET_STATE.PENDING" class="waitingFooterMessage">
             Kindly wait for all invited participants to respond
             or the timer to expire before the bet can start.
         </h5>
+
+        <!-- Choose Answer Buttons -->
+        <div class="answerButton" layout="row" layout-align="space-around center">
+            <md-button class="md-raised">Make it a Draw</md-button>
+            <md-button class="md-raised">Answer Bet</md-button>
+        </div>
     </div>
 </div>
