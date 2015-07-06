@@ -146,7 +146,7 @@ namespace SimpleBet.Services
                 existingBet.WinningItemId = bet.WinningItemId;
                 existingBet.WinningOption = bet.WinningOption;
                 existingBet.WinningOptionChooser = bet.WinningOptionChooser;
-                existingBet.VerifyStartTime = DateTime.Now;
+                existingBet.VerifyStartTime = DateTime.UtcNow;
             }
             else if(existingBet.State == BET_STATE.VERIFYING && bet.State == BET_STATE.ANSWERABLE)
             {
@@ -154,7 +154,7 @@ namespace SimpleBet.Services
                 existingBet.WinningItemId = bet.WinningItemId;
                 existingBet.WinningOption = bet.WinningOption;
                 existingBet.WinningOptionChooser = bet.WinningOptionChooser;
-                existingBet.AnswerStartTime = DateTime.Now;
+                existingBet.AnswerStartTime = DateTime.UtcNow;
             }
 
             updateBetState(existingBet);
@@ -280,14 +280,14 @@ namespace SimpleBet.Services
                     if (areAllParticipantVoted)
                     {
                         bet.State = BET_STATE.ANSWERABLE;
-                        bet.AnswerStartTime = DateTime.Now;
+                        bet.AnswerStartTime = DateTime.UtcNow;
                         setAllInactiveUserDecline(bet.Participations);
                     }
                 }
             }
             else if(bet.State == BET_STATE.ANSWERABLE)
             {
-                DateTime answerStartTime = bet.AnswerStartTime ?? DateTime.Now;
+                DateTime answerStartTime = bet.AnswerStartTime ?? DateTime.UtcNow;
                 bet.AnswerStartTime = answerStartTime;
 
                 bool isTimeout = TimeUltility.isTimeout(answerStartTime, Bet.ANSWER_DURATION);
@@ -310,7 +310,7 @@ namespace SimpleBet.Services
             }
             else if(bet.State == BET_STATE.VERIFYING)
             {
-                DateTime verifyStartTime = bet.VerifyStartTime ?? DateTime.Now;
+                DateTime verifyStartTime = bet.VerifyStartTime ?? DateTime.UtcNow;
                 bet.VerifyStartTime = verifyStartTime;
 
                 bool isTimeout = TimeUltility.isTimeout(verifyStartTime, Bet.VERIFY_DURATION);
