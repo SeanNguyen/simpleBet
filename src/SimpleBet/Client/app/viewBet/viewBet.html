@@ -17,7 +17,7 @@
             <h5>Pick an Answer:</h5>
             <md-radio-group ng-model="input.option">
                 <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="left center" ng-repeat="option in input.options">
-                    <md-radio-button ng-value="option.content" ng-click="onOptionClick(option)" ng-disabled="isUserPending(user.id)">
+                    <md-radio-button ng-value="option.content" ng-click="onOptionClick(option)" ng-disabled="!isUserPending(user.id)">
                         {{option.content}}
                     </md-radio-button>
                 </md-whiteframe>
