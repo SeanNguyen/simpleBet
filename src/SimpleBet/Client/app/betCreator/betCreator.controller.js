@@ -33,7 +33,7 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
     //input
     $scope.input = {
         friendList: '',
-        option: '',
+        option: null,
         participants: []
     }
 
@@ -46,6 +46,7 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
     $scope.submitQuestionAndOptions = submitQuestionAndOptions;
     $scope.isOptionsValid = isOptionsValid;
     $scope.isQuestionValid = isQuestionValid;
+    $scope.selectOption = selectOption;
 
     $scope.isTypeSelected = isTypeSelected;
     $scope.setBetType = setBetType;
@@ -192,6 +193,10 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 	        return true;
 	    }
 	    return false;
+	}
+
+	function selectOption(option) {
+	    $scope.input.option = option;
 	}
 
     //TODO: this function make me look fat, break it down
