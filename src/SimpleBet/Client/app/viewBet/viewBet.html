@@ -9,11 +9,11 @@
             <img src="assets/icon_sandClock.png">
             <label>Expires in: </label>
             <label class="highlight">{{Math.floor(expireDuration / 60 / 24)}} d</label>
-            <label class="highlight">{{Math.floor(expireDuration / 60)}} hrs</label>
+            <label class="highlight">{{Math.floor(expireDuration / 60) % 24}} hrs</label>
             <label class="highlight">{{expireDuration % 60}} mins</label>
         </div>
 
-        <div class="options">
+        <div class="options" ng-show="isUserPending(user.id)">
             <h5>Pick an Answer:</h5>
             <md-radio-group ng-model="input.option">
                 <md-whiteframe class="md-whiteframe-z2 option" layout="row" layout-align="left center" 
@@ -24,6 +24,21 @@
                     </md-radio-button>
                 </md-whiteframe>
             </md-radio-group>
+        </div>
+
+        <div class="otherUserOptions" ng-show="!isUserPending(user.id)">
+            <div class="header">
+                <h4>GAME ON</h4>
+                <h6>The bets of the other participants are shown below</h6>
+            </div>
+            <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="center center" ng-repeat="option in input.options">
+                <div flex="60" class="content">{{option.content}}</div>
+                <div flex="40" class="userList" layout="row" layout-align="end center" layout-wrap>
+                    <div ng-repeat="participation in getParticipantByOption(option)" class="user">
+                        {{participation.user.name.substring(0,1)}}
+                    </div>
+                </div>
+            </md-whiteframe>
         </div>
 
         <div class="betWager">
@@ -54,5 +69,10 @@
         <div class="declineButton" ng-show="getControlButtonState() === 2">
             <md-button class="md-raised btn-normal" ng-click="decline()">Decline Bet</md-button>
         </div>
+
+        <h5 ng-show="!isUserPending(user.id)" class="waitingFooterMessage">
+            Kindly wait for all invited participants to respond
+            or the timer to expire before the bet can start.
+        </h5>
     </div>
 </div>

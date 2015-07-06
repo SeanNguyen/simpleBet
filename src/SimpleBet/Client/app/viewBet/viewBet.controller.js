@@ -305,7 +305,11 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     }
 
     function isUserPending(userId) {
+        if (!userId)
+            return false;
         var participation = getParticipationByUserId(userId);
+        if (!participation)
+            return false;
         return participation.state === PARTICIPATION_STATE.PENDING;
     }
 

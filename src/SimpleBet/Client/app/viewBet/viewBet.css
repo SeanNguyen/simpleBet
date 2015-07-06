@@ -116,3 +116,44 @@
 .viewBet .betParticipants .deleted {
     text-decoration: line-through;
 }
+
+.viewBet .otherUserOptions .header {
+    padding: 10px;
+    background-color: #9999ff;
+    text-align: center;
+    color: #FCFCFC;
+}
+
+.viewBet .otherUserOptions .option {
+    height: 60px;
+    margin: 10px;
+}
+
+.viewBet .otherUserOptions .option .content {
+    padding: 10px;
+}
+
+.viewBet .otherUserOptions .option .userList {
+    height: 100%;
+}
+
+.viewBet .otherUserOptions .option .userList .user {
+    margin-right: 4px;
+    height: 20px;
+    width: 20px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: ##ff806f;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #ff806f;
+    color: #FCFCFC;
+    font-weight: bold;
+}
+
+.viewBet .waitingFooterMessage {
+    background: #666673;
+    color: #FCFCFC;
+    margin: 0;
+    padding: 20px;
+}
