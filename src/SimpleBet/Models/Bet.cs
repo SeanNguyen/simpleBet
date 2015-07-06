@@ -16,7 +16,7 @@ namespace SimpleBet.Models
         //Verify duration
         VERIFYING,
         //after everyone key in the correct option, the bet now officially closed
-        FINALLIZED,
+        FINALLIZED
     }
 
     public enum BET_TYPE

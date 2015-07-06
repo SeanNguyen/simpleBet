@@ -2,11 +2,11 @@
 var app = angular.module('app');
 
 app.controller('viewBetController', ['$rootScope', '$scope', '$stateParams', 'Bet', 'User',
-    'BetUser', '$timeout', '$window', '$state', 'facebook', '$q', 'PARTICIPATION_STATE', 'BET_STATE', 
-    'VOTE_CANCEL_BET_STATE', 'ngDialog', viewBetController]);
+    'BetUser', '$timeout', '$window', '$state', 'facebook', '$q', 'PARTICIPATION_STATE', 'BET_STATE',
+    'ngDialog', viewBetController]);
 
 function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser, $timeout, $window,
-    $state, facebook, $q, PARTICIPATION_STATE, BET_STATE, VOTE_CANCEL_BET_STATE, ngDialog) {
+    $state, facebook, $q, PARTICIPATION_STATE, BET_STATE, ngDialog) {
     $scope.tabs = [
         { name: 'Bet Conditions' },
         { name: 'Bet Wager' },
@@ -20,7 +20,6 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.expireDuration = 0;
 
     $scope.BET_STATE = BET_STATE;
-    $scope.VOTE_CANCEL_BET_STATE = VOTE_CANCEL_BET_STATE;
     $scope.Math = Math;
 
     //input model
@@ -48,6 +47,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.share = share;
     $scope.logIn = logIn;
     $scope.onOptionClick = onOptionClick;
+    $scope.isUserPending = isUserPending;
 
     //start the controller
     active();
@@ -58,6 +58,8 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             $scope.creator = User.get({ id: $scope.bet.creatorId });
             $scope.expireDuration = getExpireDuration();
             $scope.input.options = $scope.bet.options;
+            var betUser = getParticipationByUserId($rootScope.user.id);
+            $scope.input.option = betUser.option;
             if ($scope.bet.state === BET_STATE.CANCELLING) {
                 updateCancellingAlert();
             }
@@ -69,9 +71,8 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
         $timeout(function () {
             $scope.expireDuration = getExpireDuration();
             $scope.bet.$get({ id: $scope.bet.id }, function () {
-                if ($scope.bet.state === BET_STATE.CANCELLING) {
-                    updateCancellingAlert();
-                }
+                var betUser = getParticipationByUserId($rootScope.user.id);
+                $scope.input.option = betUser.option;
                 intervalUpdateBet();
             });
         }, 5000);
@@ -281,10 +282,31 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     }
 
     function onOptionClick(option) {
+        if (!isUserPending($rootScope.user.id)) {
+            return;
+        }
         ngDialog.open({
             template: 'app/viewBet/chooseOptionDialogBox.html',
-            appendTo: ".viewBet"
+            appendTo: ".viewBet",
+            data: option
+        }).closePromise
+        .then(function (data) {
+            //if choose any option then update it to the server
+            if (!data.value) {
+                $scope.input.option = null;
+                return;
+            }
+            var choosenOption = data.value;
+            var participation = getParticipationByUserId($rootScope.user.id);
+            participation.option = choosenOption.content;
+            participation.state = PARTICIPATION_STATE.CONFIRMED;
+            BetUser.update(participation);
         });
+    }
+
+    function isUserPending(userId) {
+        var participation = getParticipationByUserId(userId);
+        return participation.state === PARTICIPATION_STATE.PENDING;
     }
 
     //private helper methods

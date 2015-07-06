@@ -17,14 +17,6 @@ namespace SimpleBet.Models
         AGREE
     };
 
-    public enum VoteCancelBetState
-    {
-        NONE,
-        CREATOR,
-        DISAGREE,
-        AGREE,
-    };
-
     public class BetUser : Model
     {
         //Attributes
@@ -41,11 +33,7 @@ namespace SimpleBet.Models
         
         public BETUSER_STATE State { get; set; }
         public string Option { get; set; }
-
-
-        //Cancelling action
-        public VoteCancelBetState VoteCancelBetState { get; set; }
-
+        
         //Public Methods
         public override Model parse(dynamic data)
         {

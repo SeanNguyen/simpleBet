@@ -1,3 +1,6 @@
 ﻿<div>
-    <h2>THis is a dialog</h2>
+    <h4>You have placed your bet on:</h4>
+    <h4>{{ngDialogData.content}}</h4>
+    <md-button ng-click="closeThisDialog(ngDialogData)">Confirm Bet</md-button>
+    <md-button ng-click="closeThisDialog()">Cancel</md-button>
 </div>

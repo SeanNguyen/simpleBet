@@ -1,6 +1,12 @@
 ﻿'use-strict';
 
-var app = angular.module('app', ['ui.router', 'ngResource', 'angular-loading-bar', 'ngAnimate', 'ngMaterial', 'ngDialog']);
+var app = angular.module('app',
+    ['ui.router',
+    'ngResource',
+    'angular-loading-bar',
+    'ngAnimate',
+    'ngMaterial',
+    'ngDialog']);
 
 app.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider, cfpLoadingBarProvider, ngDialogProvider) {
     $urlRouterProvider.otherwise("/");
@@ -15,13 +21,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider, c
         className: 'ngdialog-theme-default',
         showClose: false
     });
-});
 
-app.controller('appController', function ($rootScope, $scope, $location) {
-    $scope.isNavbarVisible = function () {
-        var currentPath = $location.url();
-        return currentPath !== "/";
-    }
+    //load fast click
+    $(function () {
+        FastClick.attach(document.body);
+    });
 });
 
 app.run(['$rootScope', '$window', 'facebook', 'User', '$q',

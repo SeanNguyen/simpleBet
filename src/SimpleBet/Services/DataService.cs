@@ -111,7 +111,10 @@ namespace SimpleBet.Services
             Bet bet = this.dbContext.Bets.Where(b => b.Id == id)
                                         .Include(b => b.Participations.Select(p => p.User))
                                         .FirstOrDefault();
-            updateBetState(bet);
+            if (bet != null)
+            {
+                updateBetState(bet);
+            }
             return bet;
         }
 

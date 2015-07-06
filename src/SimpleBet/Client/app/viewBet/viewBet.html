@@ -15,9 +15,11 @@
 
         <div class="options">
             <h5>Pick an Answer:</h5>
-            <md-radio-group ng-model="data.group1">
+            <md-radio-group ng-model="input.option">
                 <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="left center" ng-repeat="option in input.options">
-                    <md-radio-button ng-value="option.content" ng-click="onOptionClick(option)">{{option.content}}</md-radio-button>
+                    <md-radio-button ng-value="option.content" ng-click="onOptionClick(option)" ng-disabled="isUserPending(user.id)">
+                        {{option.content}}
+                    </md-radio-button>
                 </md-whiteframe>
             </md-radio-group>
         </div>
@@ -46,8 +48,8 @@
             </div>
         </div>
 
-        <div class="declineButton">
-            <md-button class="md-raised btn-normal">Decline Bet</md-button>
+        <div class="declineButton" ng-show="getControlButtonState() === 2">
+            <md-button class="md-raised btn-normal" ng-click="decline()">Decline Bet</md-button>
         </div>
     </div>
 </div>
