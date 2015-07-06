@@ -48,6 +48,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.logIn = logIn;
     $scope.onOptionClick = onOptionClick;
     $scope.isUserPending = isUserPending;
+    $scope.onDrawOptionClick = onDrawOptionClick;
 
     //start the controller
     active();
@@ -311,6 +312,16 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
         if (!participation)
             return false;
         return participation.state === PARTICIPATION_STATE.PENDING;
+    }
+
+    function onDrawOptionClick() {
+        ngDialog.open({
+            template: 'app/viewBet/confirmDrawOptionDialog.html',
+            appendTo: ".viewBet"
+        }).closePromise
+        .then(function (data) {
+            
+        });
     }
 
     //private helper methods
