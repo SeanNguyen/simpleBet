@@ -13,7 +13,7 @@ var TAB_STATES = ['question', 'option', 'wager', 'rule', 'challenger'];
 app.controller('betCreatorController', betCreatorController);
 
 function betCreatorController($rootScope, $scope, $state, $window, $location, Bet, User, BetUser,
-    facebook, BET_TYPE, WAGER_TYPE, BET_STATE, PARTICIPATION_STATE) {
+    facebook, BET_TYPE, WAGER_TYPE, BET_STATE, PARTICIPATION_STATE, focus) {
     //navigations
     $scope.currentTab = 0;
     $rootScope.title = TAB_NAMES[$scope.currentTab];
@@ -22,7 +22,7 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 
     //bet model
     $scope.betModel = new Bet({ 
-        options: [], 
+        options: [{content: ''}],
         pendingDuration: 120,
         participations: [], //this field will actually be on the server database, dont be confuse with the field above
         state: BET_STATE.NONE,
@@ -44,6 +44,8 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
     $scope.addOption = addOption;
     $scope.removeOption = removeOption;
     $scope.submitQuestionAndOptions = submitQuestionAndOptions;
+    $scope.isOptionsValid = isOptionsValid;
+    $scope.isQuestionValid = isQuestionValid;
 
     $scope.isTypeSelected = isTypeSelected;
     $scope.setBetType = setBetType;
@@ -130,14 +132,17 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 	}
 
 	function addOption() {
-	    if (!$scope.input.option || $scope.input.option.length <= 0
-            || $scope.betModel.options.length >= 10 || isOptionExist($scope.input.option)) {
+	    var lastOption = $scope.betModel.options[$scope.betModel.options.length - 1];
+	    if (lastOption && (!lastOption.content || lastOption.content.length <= 0
+            || $scope.betModel.options.length >= 10 || isOptionDumplicate(lastOption))) {
 	        console.log("Warning: option input invalid");
 			return;
 	    }
-	    var option = { content: $scope.input.option };
-		$scope.betModel.options.push(option);
-		$scope.input.option = '';
+	    var newOption = {content: ''};
+	    $scope.betModel.options.push(newOption);
+
+	    var focusId = 'option' + ($scope.betModel.options.length - 1);
+	    focus(focusId);
 	}
 
 	function removeOption(index) {
@@ -166,6 +171,27 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 	    } else {
 	        console.log("ERROR: type input not valid");
 	    }
+	}
+
+	function isOptionsValid() {
+	    if ($scope.betModel.options.length <= 0) {
+	        return false;
+	    }
+	    for (var i = $scope.betModel.options.length - 1; i >= 0; i--) {
+	        var option = $scope.betModel.options[i];
+	        if (!option.content || option.content.length <= 0 || $scope.betModel.options.length < 2
+                || $scope.betModel.options.length >= 10 || isOptionDumplicate(option)) {
+	            return false;
+	        }
+	    }
+	    return true;
+	}
+
+	function isQuestionValid() {
+	    if ($scope.betModel.question && $scope.betModel.question.length > 0 && $scope.betModel.question.length <= 100) {
+	        return true;
+	    }
+	    return false;
 	}
 
     //TODO: this function make me look fat, break it down
@@ -257,9 +283,9 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 	    setTab(0);
 	}
 
-	function isOptionExist(option) {
+	function isOptionDumplicate(option) {
 	    for (var i = $scope.betModel.options.length - 1; i >= 0; i--) {
-	        if (option === $scope.betModel.options[i].content) {
+	        if (option.content === $scope.betModel.options[i].content && option !== $scope.betModel.options[i]) {
 	            return true;
 	        }
 	    }

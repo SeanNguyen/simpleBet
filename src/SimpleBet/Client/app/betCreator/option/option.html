@@ -3,23 +3,25 @@
         <h4>I'd bet that...</h4>
         <textarea rows="3" ng-model="betModel.question" maxlength="50" placeholder=". . ." class="needsclick"></textarea>
     </div>
-    <div class="container-fluid" id="description">
-        <h3>Write your options</h3>
-    </div>
-    <div class="container-fluid option" ng-repeat="option in betModel.options track by $index">
-        <img class="radio_button center" src="assets/radio_button.png"/>
-        <img class="x_button center" src="assets/x_button.png" ng-click="removeOption($index)"/>
-        <h4 class="center">{{option.content}}</h4>
-    </div>
-    <div class="container-fluid option">
-        <input class="center needsclick" type="text" ng-model="input.option" maxlength="30" placeholder=". . ."/>
-    </div>
-    <button id="addOption" ng-click="addOption()">
-        <img class="add_button center" src="assets/add_button.png" />
-        <h4>ADD OPTION</h4>
-    </button>
 
-    <button id="nextButton" class="btn btn-default" ng-click="submitQuestionAndOptions()">
-        Next
-    </button>
+    <div ng-show="betModel.type === 1">
+        <div class="container-fluid" id="description">
+            <h4>Write your options & select your answer</h4>
+        </div>
+        <div class="container-fluid option" ng-repeat="option in betModel.options track by $index" layout="row" layout-align="space-around center"> 
+            <img class="radio_button" src="assets/radio_button.png" />
+            <input type="text" ng-model="option.content" autofocus id="option{{$index}}"/>
+            <img class="x_button" src="assets/x_button.png" ng-click="removeOption($index)" />
+        </div>
+        <button id="addOption" ng-click="addOption()">
+            <img class="add_button center" src="assets/add_button.png" />
+            <h4>NEW OPTION</h4>
+        </button>
+
+        <div class="buttonContainer">
+            <button id="nextButton" class="btn btn-default" ng-click="submitQuestionAndOptions()" ng-disabled="!isOptionsValid() || !isQuestionValid()">
+                Next
+            </button>
+        </div>
+    </div>
 </div>

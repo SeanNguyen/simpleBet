@@ -42,11 +42,11 @@
     background-color: #666673;
 }
 
-#optionView #description h3 {
+#optionView #description h4 {
     color: #ff806f;
-    font-size: 20px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    font-size: 16px;
+    margin: 15px 0px;
+    text-align: center;
 }
 
 #optionView #description h5 {
@@ -77,13 +77,13 @@
 #optionView .option .radio_button {
     height: 16px;
     width: auto;
-    left: 5%; right: auto;
+    margin: 10px;
 }
 
 #optionView .option .x_button {
     height: 12px;
     width: auto;
-    right: 5%; left: auto;
+    margin: 10px;
 }
 
 #optionView .option input {
@@ -131,10 +131,6 @@
 }
 
 #optionView #nextButton {
-    position: absolute;
-    top: auto; bottom: 0;
-    left: 0; right: 0;
-    height: 60px;
     background-color: #ff806f;
     color: #FCFCFC;
     font-size: 20px;
@@ -142,4 +138,13 @@
     border-radius: 0px;
     border: none;
     width: 100%;
+    height: 100%;
+}
+
+#optionView .buttonContainer {
+    background-color: #666673;
+    position: absolute;
+    top: auto; bottom: 0;
+    left: 0; right: 0;
+    height: 60px;
 }
