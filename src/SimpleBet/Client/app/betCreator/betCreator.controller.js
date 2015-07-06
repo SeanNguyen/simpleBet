@@ -254,7 +254,8 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
                                     $scope.betModel.participations.push({
                                         userId: $scope.betModel.creatorId,
                                         betId: $scope.betModel.id,
-                                        state: PARTICIPATION_STATE.CONFIRMED
+                                        state: PARTICIPATION_STATE.VOTED,
+                                        option: $scope.option.content
                                     });
                                     $scope.betModel.state = BET_STATE.PENDING;
 
