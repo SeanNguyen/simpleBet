@@ -10,6 +10,7 @@
 
 #home .logo {
     width: 80%;
+    max-width: 600px;
 }
 
 #home .logo img {
