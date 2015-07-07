@@ -29,42 +29,10 @@ app.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider, c
     });
 });
 
-app.run(['$rootScope', '$window', 'facebook', 'User', '$q',
-    function ($rootScope, $window, facebook, User, $q) {
-        //init root
-        $rootScope.user = {};
-        $rootScope.facebookLoginStatus = {};
-        $rootScope.loginStatus = {};
-        $rootScope.loaded = false;
-
-        //init facebook
-        facebook.init()
-        .then(function () {
-            return facebook.getLoginStatus();
-        })
-        .then(function (response) {
-            $rootScope.facebookLoginStatus = response;
-            if (response.status === 'connected') {
-                $q.all([
-                    facebook.updateRootUserByFacebookId(response.authResponse.userID),
-                    facebook.queryFacebookFriends()
-                ])
-                .then(function () {
-                    $rootScope.loaded = true;
-                });
-
-            } else if (response.status === 'not_authorized' || response.status === 'unknown') {
-                //haven't connect, let show the login button
-                $rootScope.user = {};
-                $rootScope.loaded = true;
-            }
-        })
-        .catch(function (e) {
-            console.log(e); // "oh, no!"
-            $rootScope.loaded = true;
-        });
-
-        $(function () {
-            FastClick.attach(document.body);
-        });
-    }]);
+app.run(function ($rootScope, $templateCache) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        if (typeof (fromState) !== 'undefined') {
+            $templateCache.remove(fromState.templateUrl);
+        }
+    });
+});
