@@ -1,13 +1,13 @@
 ﻿var app = angular.module('app');
 
-app.factory('facebook', ['$q', '$rootScope', 'User', function ($q, $rootScope, User) {
+app.factory('facebook', ['$q', '$rootScope', 'User', 'Config', function ($q, $rootScope, User, Config) {
 
     function init() {
         var deferred = $q.defer();
         //Facebook Config
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '1462927764001322',
+                appId: Config.facebook.appId,
                 cookie: true,
                 xfbml: true,
                 version: 'v2.3'
