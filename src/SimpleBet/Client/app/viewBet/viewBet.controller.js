@@ -65,8 +65,10 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             $scope.creator = User.get({ id: $scope.bet.creatorId });
             $scope.expireDuration = getExpireDuration();
             $scope.input.options = $scope.bet.options;
-            var betUser = getParticipationByUserId($rootScope.user.id);
-            $scope.input.option = betUser.option;
+            if(isLoggedIn()) {
+                var betUser = getParticipationByUserId($rootScope.user.id);
+                $scope.input.option = betUser.option;
+            }
             $scope.input.answer = getOptionByContent($scope.bet.winningOption);
             if ($scope.bet.state === BET_STATE.CANCELLING) {
                 updateCancellingAlert();
@@ -79,8 +81,10 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
         $timeout(function () {
             $scope.expireDuration = getExpireDuration();
             $scope.bet.$get({ id: $scope.bet.id }, function () {
-                var betUser = getParticipationByUserId($rootScope.user.id);
-                $scope.input.option = betUser.option;
+                if (isLoggedIn()) {
+                    var betUser = getParticipationByUserId($rootScope.user.id);
+                    $scope.input.option = betUser.option;
+                }
                 $scope.input.answer = getOptionByContent($scope.bet.winningOption);
                 intervalUpdateBet();
             });
@@ -304,7 +308,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
                 appendTo: ".viewBet"
             }).closePromise
             .then(function (wantToLogIn) {
-                if (wantToLogIn.value) {
+                if (wantToLogIn.value === true) {
                     logIn();
                 }
             });

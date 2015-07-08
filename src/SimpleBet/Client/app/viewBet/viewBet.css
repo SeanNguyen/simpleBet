@@ -232,3 +232,12 @@
     color:  #FCFCFC;
     font-weight: bold;
 }
+
+.viewBet .cancelButton {
+    width: 100%;
+}
+
+.viewBet .facebookButton {
+    background-color: #9999ff;
+    width: 100%;
+}
