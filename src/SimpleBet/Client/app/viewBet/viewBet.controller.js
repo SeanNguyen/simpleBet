@@ -298,9 +298,23 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     }
 
     function onOptionClick(option) {
+        if (!isLoggedIn()) {
+            ngDialog.open({
+                template: 'app/viewBet/facebookLogInDialog.html',
+                appendTo: ".viewBet"
+            }).closePromise
+            .then(function (wantToLogIn) {
+                if (wantToLogIn.value) {
+                    logIn();
+                }
+            });
+            return;
+        }
+
         if (!isUserPending($rootScope.user.id)) {
             return;
         }
+
         ngDialog.open({
             template: 'app/viewBet/chooseOptionDialogBox.html',
             appendTo: ".viewBet",
@@ -322,7 +336,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
 
     function isUserPending(userId) {
         if (!userId)
-            return false;
+            return true;
         var participation = getParticipationByUserId(userId);
         if (!participation)
             return false;

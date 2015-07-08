@@ -220,3 +220,15 @@
     height: 30px;
     width: auto;
 }
+
+.viewBet .meVsTheWorldInfo h5 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.viewBet .meVsTheWorldInfo button {
+    width: 50%;
+    background: #57d1c2;
+    color:  #FCFCFC;
+    font-weight: bold;
+}

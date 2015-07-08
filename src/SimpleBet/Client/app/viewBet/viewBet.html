@@ -22,7 +22,7 @@
             <label class="highlight" ng-show="bet.state === BET_STATE.VERIFYING">Bet Closed</label>
         </div>
 
-        <div class="options" ng-show="isUserPending(user.id)">
+        <div class="options" ng-show="isUserPending(user.id) && bet.betType === 1">
             <h5>Pick an Answer:</h5>
             <md-radio-group ng-model="input.option">
                 <md-whiteframe class="md-whiteframe-z2 option" layout="row" layout-align="left center"
@@ -33,6 +33,12 @@
                     </md-radio-button>
                 </md-whiteframe>
             </md-radio-group>
+        </div>
+
+        <div class="meVsTheWorldInfo" ng-show="isUserPending(user.id) && bet.betType === 0" layout="column" layout-align="center center">
+            <h5>You should only participate in this if you think you can win against the creator!</h5>
+            <h5>Press 'Accept' if you are betting against the bet or press 'Decline' if you decide not to take part.</h5>
+            <md-button class="md-raised" ng-click="onOptionClick(bet.options[1])">Accept Bet</md-button>
         </div>
 
         <div class="otherUserOptions" ng-show="!isUserPending(user.id)">
