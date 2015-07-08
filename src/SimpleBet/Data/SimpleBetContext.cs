@@ -5,14 +5,14 @@ namespace SimpleBet.Data
 {
     public class SimpleBetContext : DbContext
     {
+
         //use different connection string for different build setting
-#if DEBUG
-        private static string connectionString = @"Data Source=(localdb)\mssqllocaldb;
-                                        Initial Catalog=SimpleBet;
-                                        Trusted_Connection=False;
-                                        Connection Timeout=30;
-                                        MultipleActiveResultSets=true;";
-#elif RELEASE
+        //private static string connectionString = @"Data Source=(localdb)\mssqllocaldb;
+        //                                        Initial Catalog=SimpleBet;
+        //                                        Trusted_Connection=False;
+        //                                        Connection Timeout=30;
+        //                                        MultipleActiveResultSets=true;";
+
         private static string connectionString = @"Server=tcp:pvuq1gyimf.database.windows.net,1433;
                                         Database=simplebet; 
                                         User ID=simplebet@pvuq1gyimf;
@@ -21,7 +21,6 @@ namespace SimpleBet.Data
                                         Encrypt=True;
                                         Connection Timeout=30;
                                         MultipleActiveResultSets=true;";
-#endif
 
         public SimpleBetContext() : base(connectionString)
         {
