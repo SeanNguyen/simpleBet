@@ -119,12 +119,12 @@
 
         <!-- Disagree/Agree Buttons -->
         <div class="agreeButtons" layout="row" layout-align="space-around center"
-             ng-show="bet.state === BET_STATE.VERIFYING && user.id !== bet.winningOptionChooser && !isLocalUserAgreed()">
+             ng-show="bet.state === BET_STATE.VERIFYING && !isLocalUserAgreed()">
             <md-button class="md-raised" ng-click="onDisagreeButtonClick()">Disagree</md-button>
             <md-button class="md-raised" ng-click="onAgreeButtonClick()">Agree</md-button>
         </div>
 
-        <h5 ng-show="bet.state === BET_STATE.VERIFYING && user.id === bet.winningOptionChooser && isLocalUserAgreed()" class="waitingFooterMessage">
+        <h5 ng-show="bet.state === BET_STATE.VERIFYING && isLocalUserAgreed()" class="waitingFooterMessage">
             Kindly contact our admin for further assistance if you have any problems regarding this bet.
         </h5>
     </div>
