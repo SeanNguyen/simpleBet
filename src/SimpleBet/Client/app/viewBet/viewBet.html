@@ -2,9 +2,10 @@
     <div ui-view>
 
         <md-whiteframe class="md-whiteframe-z1 header" ng-show="bet.state === BET_STATE.FINALLIZED" layout="row" layout-align="center center"
-                       ng-class="{win: isLocalUserWin(), lose: !isLocalUserWin()}">
-            <div ng-show="isLocalUserWin()">YOU WIN!</div>
-            <div ng-show="!isLocalUserWin()">YOU LOSE!</div>
+                       ng-class="{win: isLocalUserWin() && !isBetDraw(), lose: !isLocalUserWin() && !isBetDraw(), draw: isBetDraw()}">
+            <div ng-show="isLocalUserWin() && !isBetDraw()">YOU WIN!</div>
+            <div ng-show="!isLocalUserWin() && !isBetDraw()">YOU LOSE!</div>
+            <div ng-show="isBetDraw()">DRAW!</div>
         </md-whiteframe>
 
         <div class="question" layout="column" layout-align="space-around center" ng-show="isUserPending(user.id)">
@@ -39,6 +40,32 @@
             <h5>You should only participate in this if you think you can win against the creator!</h5>
             <h5>Press 'Accept' if you are betting against the bet or press 'Decline' if you decide not to take part.</h5>
             <md-button class="md-raised" ng-click="onOptionClick(bet.options[1])">Accept Bet</md-button>
+        </div>
+
+        <div class="revoteSection" ng-show="bet.state === BET_STATE.ANSWERABLE && wasBetDisagreed()">
+            <div class="header" layout="row" layout-align="center center">
+                <h4><strong>VOTE THE RIGHT ANSWER</strong></h4>
+            </div>
+
+            <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="center center"
+                           ng-repeat="option in input.options" ng-click="onVoteOptionClicked(option)"
+                           ng-class="{selected: option === input.voteOption}">
+                <div flex="60" class="content">{{option.content}}</div>
+                <div flex="40" class="userList" layout="row" layout-align="end center" layout-wrap>
+                    <div class="user" ng-repeat="participation in getParticipationsByVoteOption(option.content)">
+                        {{participation.user.name.substring(0,1)}}
+                    </div>
+                </div>
+            </md-whiteframe>
+            <!-- Last option is Draw -->
+            <md-whiteframe class="md-whiteframe-z2 option" layout layout-align="center center">
+                <div flex="60" class="content">Draw</div>
+                <div flex="40" class="userList" layout="row" layout-align="end center" layout-wrap>
+                    <div class="user" ng-repeat="participation in getParticipationsByVoteDraw()">
+                        {{participation.user.name.substring(0,1)}}
+                    </div>
+                </div>
+            </md-whiteframe>
         </div>
 
         <div class="otherUserOptions" ng-show="!isUserPending(user.id)">
@@ -112,9 +139,17 @@
         </h5>
 
         <!-- Choose Answer Buttons -->
-        <div class="answerButton" layout="row" layout-align="space-around center" ng-show="bet.state === BET_STATE.ANSWERABLE && isLoggedIn()">
+        <div class="answerButton" layout="row" layout-align="space-around center" 
+             ng-show="bet.state === BET_STATE.ANSWERABLE && isLoggedIn() && !wasBetDisagreed()">
             <md-button class="md-raised" ng-click="onDrawOptionClick()">Make it a Draw</md-button>
             <md-button class="md-raised" ng-disabled="!input.answer" ng-click="submitAnswer()">Answer Bet</md-button>
+        </div>
+
+        <!-- Vote Answer Button -->
+        <div class="answerButton" layout="row" layout-align="space-around center"
+             ng-show="bet.state === BET_STATE.ANSWERABLE && isLoggedIn() && wasBetDisagreed() && !haveLocalUserVotedFinalAnswer()">
+            <md-button class="md-raised" ng-click="onVoteButtonClicked()">Vote Draw</md-button>
+            <md-button class="md-raised" ng-disabled="!input.voteOption" ng-click="onVoteButtonClicked(input.voteOption)">Vote Answer</md-button>
         </div>
 
         <!-- Disagree/Agree Buttons -->

@@ -206,6 +206,10 @@
     background-color: #ff806f;
 }
 
+.viewBet .draw {
+    background-color: #666673;
+}
+
 .viewBet .shareButton button {
     height: 40px;
     width: 200px;
@@ -240,4 +244,40 @@
 .viewBet .facebookButton {
     background-color: #9999ff;
     width: 100%;
+}
+
+.viewBet .revoteSection .option {
+    height: 60px;
+    margin: 10px;
+}
+
+.viewBet .revoteSection .option .content {
+    padding: 10px;
+}
+
+.viewBet .revoteSection .selected {
+    background-color: #ff806f;
+}
+
+.viewBet .revoteSection .header {
+    background-color: #9999ff;
+}
+
+.viewBet .revoteSection .option .userList {
+    height: 100%;
+}
+
+.viewBet .revoteSection .option .userList .user {
+    margin-right: 4px;
+    height: 20px;
+    width: 20px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #9999ff;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #9999ff;
+    color: #FCFCFC;
+    font-weight: bold;
+    font-size: 13px;
 }

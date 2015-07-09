@@ -23,7 +23,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.Math = Math;
 
     //input model
-    $scope.input = { option: null, options: [], answer: null};
+    $scope.input = { option: null, options: [], answer: null, voteOption: null};
 
     //function
     $scope.nextTab = nextTab;
@@ -55,7 +55,15 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.onAgreeButtonClick = onAgreeButtonClick;
     $scope.onDisagreeButtonClick = onDisagreeButtonClick;
     $scope.isLocalUserWin = isLocalUserWin;
+    $scope.isBetDraw = isBetDraw;
     $scope.isLocalUserAgreed = isLocalUserAgreed;
+    $scope.wasBetDisagreed = wasBetDisagreed;
+
+    $scope.onVoteOptionClicked = onVoteOptionClicked;
+    $scope.onVoteButtonClicked = onVoteButtonClicked;
+    $scope.haveLocalUserVotedFinalAnswer = haveLocalUserVotedFinalAnswer;
+    $scope.getParticipationsByVoteOption = getParticipationsByVoteOption;
+    $scope.getParticipationsByVoteDraw = getParticipationsByVoteDraw;
 
     //start the controller
     active();
@@ -362,7 +370,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     }
 
     function onAnswerClick(option) {
-        if ($scope.bet.state == BET_STATE.ANSWERABLE) {
+        if ($scope.bet.state == BET_STATE.ANSWERABLE && !wasBetDisagreed()) {
             $scope.input.answer = option;
         }
     }
@@ -388,8 +396,13 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
         $scope.bet.state = BET_STATE.ANSWERABLE;
         $scope.bet.winningOptionChooser = null;
         $scope.bet.winningOption = null;
-        $scope.bet.$update();
         $scope.input.answer = null;
+        $scope.bet.$update();
+
+        //update betUser
+        var betUser = getParticipationByUserId($rootScope.user.id);
+        betUser.disagree = true;
+        BetUser.update(betUser);
     }
 
     function isLocalUserWin() {
@@ -406,6 +419,71 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             return false;
         }
         return participation.state === PARTICIPATION_STATE.AGREE;
+    }
+
+    function wasBetDisagreed() {
+        for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+            if ($scope.bet.participations[i].disagree) {
+                return true;
+            }
+        }
+    }
+
+    function onVoteOptionClicked(option) {
+        if (!haveLocalUserVotedFinalAnswer()) {
+            $scope.input.voteOption = option;
+        }
+    }
+
+    function onVoteButtonClicked(option) {
+        var betUser = getParticipationByUserId($rootScope.user.id);
+        if (!option) {
+            betUser.votedAnswer = null;
+            betUser.voteDraw = true;
+        } else {
+            betUser.votedAnswer = option.content;
+            betUser.voteDraw = false;
+        }
+        $scope.input.votedAnswer = null;
+        BetUser.update(betUser);
+    }
+
+    function haveLocalUserVotedFinalAnswer() {
+        var localBetUser = getParticipationByUserId($rootScope.user.id);
+        return localBetUser.voteDraw || localBetUser.votedAnswer;
+    }
+
+    function getParticipationsByVoteOption(option) {
+        if (!$scope.bet.participations) {
+            return [];
+        }
+        var results = [];
+        for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+            if ($scope.bet.participations[i].votedAnswer === option) {
+                results.push($scope.bet.participations[i]);
+            }
+        }
+        return results;
+    }
+
+    function getParticipationsByVoteDraw() {
+        if (!$scope.bet.participations) {
+            return [];
+        }
+        var results = [];
+        for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+            if ($scope.bet.participations[i].voteDraw) {
+                results.push($scope.bet.participations[i]);
+            }
+        }
+        return results;
+    }
+
+    function isBetDraw() {
+        if ($scope.bet.winningOption) {
+            return false;
+        }
+        return true;
     }
 
     //private helper methods

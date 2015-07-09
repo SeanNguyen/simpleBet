@@ -153,8 +153,8 @@ namespace SimpleBet.Services
             {
                 existingBet.State = BET_STATE.ANSWERABLE;
                 existingBet.WinningItemId = bet.WinningItemId;
-                existingBet.WinningOption = bet.WinningOption;
-                existingBet.WinningOptionChooser = bet.WinningOptionChooser;
+                existingBet.WinningOption = string.Empty;
+                existingBet.WinningOptionChooser = -1;
                 existingBet.AnswerStartTime = DateTime.UtcNow;
             }
 
@@ -330,7 +330,9 @@ namespace SimpleBet.Services
             {
                 foreach(BetUser betUser in bet.Participations)
                 {
-                    if(string.IsNullOrWhiteSpace(betUser.VotedAnswer))
+                    if(betUser.State != BETUSER_STATE.DECLINED && 
+                        string.IsNullOrWhiteSpace(betUser.VotedAnswer) &&
+                        !betUser.VoteDraw)
                         return;
                 }
                 //till here all participants have vote their answers
@@ -463,6 +465,10 @@ namespace SimpleBet.Services
                 }
                 else if(!string.IsNullOrWhiteSpace(betUser.VotedAnswer))
                 {
+                    if(!optionCountMaps.ContainsKey(betUser.VotedAnswer))
+                    {
+                        optionCountMaps.Add(betUser.VotedAnswer, 0);
+                    }
                     optionCountMaps[betUser.VotedAnswer]++;
                 }
             }
