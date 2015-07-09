@@ -21,7 +21,7 @@ namespace SimpleBet.Test.Ultilities
         [Fact]
         public void IsTimeout_Passed()
         {
-            DateTime startTime = DateTime.Now;
+            DateTime startTime = DateTime.UtcNow;
             int duration = -1;
             bool isTimeout = TimeUltility.isTimeout(startTime, duration);
             Assert.Equal(true, isTimeout);

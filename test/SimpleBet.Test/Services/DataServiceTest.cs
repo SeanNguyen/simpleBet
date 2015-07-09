@@ -27,7 +27,7 @@ namespace SimpleBet.Test.Services
             get
             {
                 List<BetUser> participations = new List<BetUser>();
-                participations.Add(new BetUser() { State = BETUSER_STATE.CONFIRMED, UserId = 1 });
+                participations.Add(new BetUser() { State = BETUSER_STATE.VOTED, UserId = 1, Option = "This is option a" });
                 participations.Add(new BetUser() { State = BETUSER_STATE.PENDING, UserId = 2 });
                 return participations;
             }
@@ -147,6 +147,7 @@ namespace SimpleBet.Test.Services
             Bet bet = this.betStatePending;
             bet.CreationTime = DateTime.UtcNow.AddMinutes(-bet.PendingDuration - Bet.ANSWER_DURATION - 1);
             bet.Participations.ElementAt(1).State = BETUSER_STATE.VOTED;
+            bet.Participations.ElementAt(1).Option = "This is option a";
             bet = this.dataService.AddBet(bet);
             bet = this.dataService.GetBet(bet.Id);
 
