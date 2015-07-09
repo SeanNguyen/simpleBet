@@ -328,6 +328,15 @@ namespace SimpleBet.Services
             BetUser disagreeParticipation = getDisagreeParticipation(bet.Participations);
             if (disagreeParticipation != null)
             {
+                foreach(BetUser betUser in bet.Participations)
+                {
+                    if(string.IsNullOrWhiteSpace(betUser.VotedAnswer))
+                        return;
+                }
+                //till here all participants have vote their answers
+                bet.WinningOption = getWinningOptionWhenVoting(bet);
+                bet.WinningOptionChooser = -1;
+                bet.State = BET_STATE.FINALLIZED;
             }
         }
 
@@ -434,10 +443,54 @@ namespace SimpleBet.Services
         {
             foreach(BetUser betUser in betUsers)
             {
-                if (betUser.disagree)
+                if (betUser.Disagree)
                     return betUser;
             }
             return null;
+        }
+
+        private string getWinningOptionWhenVoting(Bet bet)
+        {
+            //sort the option then conpare the top 2
+            Dictionary<string, int> optionCountMaps = new Dictionary<string, int>();
+            int drawCount = 0;
+
+            foreach(BetUser betUser in bet.Participations)
+            {
+                if (betUser.VoteDraw)
+                {
+                    drawCount++;
+                }
+                else if(!string.IsNullOrWhiteSpace(betUser.VotedAnswer))
+                {
+                    optionCountMaps[betUser.VotedAnswer]++;
+                }
+            }
+
+            var sortedOptions = from pair in optionCountMaps
+                                orderby pair.Value descending
+                                select pair;
+
+            string topOption = string.Empty;
+            string secondTopOption = string.Empty;
+            if (sortedOptions.Count() >= 1)
+            {
+                topOption = sortedOptions.ElementAt(0).Key;
+            }
+            if(sortedOptions.Count() >= 2)
+            {
+                secondTopOption = sortedOptions.ElementAt(1).Key;
+                if (optionCountMaps[topOption] == optionCountMaps[secondTopOption])
+                    return string.Empty;
+            }
+
+            if(!string.IsNullOrWhiteSpace(topOption) && drawCount < optionCountMaps[topOption])
+            {
+                return topOption;
+            }
+
+            //empty option means draw / no option win
+            return string.Empty;
         }
     }
 }
