@@ -140,7 +140,8 @@ namespace SimpleBet.Services
                     dbContext.Entry(betUser).State = EntityState.Added;
                 }
             }
-            else if(existingBet.State == BET_STATE.ANSWERABLE && bet.State == BET_STATE.VERIFYING)
+            else if(existingBet.State == BET_STATE.ANSWERABLE && bet.State == BET_STATE.VERIFYING
+                && getDisagreeParticipation(existingBet.Participations) == null)
             {
                 existingBet.State = BET_STATE.VERIFYING;
                 existingBet.WinningItemId = bet.WinningItemId;
@@ -260,69 +261,88 @@ namespace SimpleBet.Services
 
         private Bet updateBetState(Bet bet)
         {
-            if(bet.State == BET_STATE.NONE)
+            switch(bet.State)
             {
-                return bet;
-            }
-            else if(bet.State == BET_STATE.PENDING)
-            {
-                bool isPendingTimeout = TimeUltility.isTimeout(bet.CreationTime, bet.PendingDuration);
-                if (isPendingTimeout)
-                {
-                    bet.State = BET_STATE.ANSWERABLE;
-                    bet.AnswerStartTime = bet.CreationTime.AddMinutes(bet.PendingDuration);
-                    setAllInactiveUserDecline(bet.Participations);
-                    updateBetState(bet);
-                }
-                else
-                {
-                    bool areAllParticipantVoted = this.areAllParticipantVoted(bet.Participations);
-                    if (areAllParticipantVoted)
-                    {
-                        bet.State = BET_STATE.ANSWERABLE;
-                        bet.AnswerStartTime = DateTime.UtcNow;
-                        setAllInactiveUserDecline(bet.Participations);
-                    }
-                }
-            }
-            else if(bet.State == BET_STATE.ANSWERABLE)
-            {
-                DateTime answerStartTime = bet.AnswerStartTime ?? DateTime.UtcNow;
-                bet.AnswerStartTime = answerStartTime;
-
-                bool isTimeout = TimeUltility.isTimeout(answerStartTime, Bet.ANSWER_DURATION);
-                if(isTimeout)
-                {
-                    bet.State = BET_STATE.VERIFYING;
-                    bet.VerifyStartTime = answerStartTime.AddMinutes(Bet.ANSWER_DURATION);
-
-                    BetUser creator = getBetUserByUserId(bet.Participations, bet.CreatorId);
-                    if(!string.IsNullOrWhiteSpace(creator.Option))
-                    {
-                        bet.WinningOption = creator.Option;
-                    }
-                    else
-                    {
-                        bet.WinningOption = bet.Options.FirstOrDefault().Content;
-                    }
-                    updateBetState(bet);
-                }
-            }
-            else if(bet.State == BET_STATE.VERIFYING)
-            {
-                DateTime verifyStartTime = bet.VerifyStartTime ?? DateTime.UtcNow;
-                bet.VerifyStartTime = verifyStartTime;
-
-                bool isTimeout = TimeUltility.isTimeout(verifyStartTime, Bet.VERIFY_DURATION);
-                bool areAllParticipantAgree = this.areAllParticipantAgree(bet.Participations);
-
-                if(isTimeout || areAllParticipantAgree)
-                {
-                    bet.State = BET_STATE.FINALLIZED;
-                }
+                case BET_STATE.NONE:
+                    break;
+                case BET_STATE.PENDING:
+                    updatePendingBetState(bet);
+                    break;
+                case BET_STATE.ANSWERABLE:
+                    updateAnserableBetState(bet);
+                    break;
+                case BET_STATE.VERIFYING:
+                    updateVerifyingBetState(bet);
+                    break;
             }
             this.dbContext.SaveChanges();
             return bet;
+        }
+
+        private void updatePendingBetState(Bet bet)
+        {
+            bool isPendingTimeout = TimeUltility.isTimeout(bet.CreationTime, bet.PendingDuration);
+            if (isPendingTimeout)
+            {
+                bet.State = BET_STATE.ANSWERABLE;
+                bet.AnswerStartTime = bet.CreationTime.AddMinutes(bet.PendingDuration);
+                setAllInactiveUserDecline(bet.Participations);
+                updateBetState(bet);
+            }
+            else
+            {
+                bool areAllParticipantVoted = this.areAllParticipantVoted(bet.Participations);
+                if (areAllParticipantVoted)
+                {
+                    bet.State = BET_STATE.ANSWERABLE;
+                    bet.AnswerStartTime = DateTime.UtcNow;
+                    setAllInactiveUserDecline(bet.Participations);
+                }
+            }
+        }
+
+        private void updateAnserableBetState(Bet bet)
+        {
+            DateTime answerStartTime = bet.AnswerStartTime ?? DateTime.UtcNow;
+            bet.AnswerStartTime = answerStartTime;
+
+            bool isTimeout = TimeUltility.isTimeout(answerStartTime, Bet.ANSWER_DURATION);
+            if (isTimeout)
+            {
+                bet.State = BET_STATE.VERIFYING;
+                bet.VerifyStartTime = answerStartTime.AddMinutes(Bet.ANSWER_DURATION);
+
+                BetUser creator = getBetUserByUserId(bet.Participations, bet.CreatorId);
+                if (!string.IsNullOrWhiteSpace(creator.Option))
+                {
+                    bet.WinningOption = creator.Option;
+                }
+                else
+                {
+                    bet.WinningOption = bet.Options.FirstOrDefault().Content;
+                }
+                updateBetState(bet);
+            }
+
+            //if time isn't up then check if this is a disagreed bet
+            BetUser disagreeParticipation = getDisagreeParticipation(bet.Participations);
+            if (disagreeParticipation != null)
+            {
+            }
+        }
+
+        private void updateVerifyingBetState(Bet bet)
+        {
+            DateTime verifyStartTime = bet.VerifyStartTime ?? DateTime.UtcNow;
+            bet.VerifyStartTime = verifyStartTime;
+
+            bool isTimeout = TimeUltility.isTimeout(verifyStartTime, Bet.VERIFY_DURATION);
+            bool areAllParticipantAgree = this.areAllParticipantAgree(bet.Participations);
+
+            if (isTimeout || areAllParticipantAgree)
+            {
+                bet.State = BET_STATE.FINALLIZED;
+            }
         }
 
         private bool areAllParticipantVoted(ICollection<BetUser> participations)
@@ -408,6 +428,16 @@ namespace SimpleBet.Services
                 case BET_STATE.VERIFYING:
                     break;
             }
+        }
+
+        private BetUser getDisagreeParticipation(ICollection<BetUser> betUsers)
+        {
+            foreach(BetUser betUser in betUsers)
+            {
+                if (betUser.disagree)
+                    return betUser;
+            }
+            return null;
         }
     }
 }
