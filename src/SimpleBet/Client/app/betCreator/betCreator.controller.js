@@ -34,7 +34,8 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
     $scope.input = {
         friendList: '',
         option: null,
-        participants: []
+        participants: [],
+        selectedFriends: []
     }
 
     //functions

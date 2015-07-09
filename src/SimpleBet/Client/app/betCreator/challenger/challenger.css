@@ -1,6 +1,5 @@
 #challenger {
 	background-color: #FCFCFC;
-	margin-top: 100px;
 }
 
 #challenger .customNavbar {
@@ -141,6 +140,7 @@
 }
 
 #challenger .listContainer {
+    width: 100%;
     padding-bottom: 50px;
 }
 
@@ -148,4 +148,8 @@
     height: 50px;
     width: 100%;
     color: #9999ff;
+}
+
+#challenger .searchBox {
+    width: 100%;
 }
