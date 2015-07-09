@@ -34,6 +34,9 @@ namespace SimpleBet.Models
         public BETUSER_STATE State { get; set; }
         public string Option { get; set; }
 
+        public bool disagree { get; set; }
+        public string VotedAnswer { get; set; }
+
         public BET_STATE LastBetStateSeen { get; set; }
         
         //Public Methods
