@@ -241,7 +241,7 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 	                        //create new user
 	                        var friend = new User({
 	                            facebookId: taggedFriends[i].id,
-	                            avatarUrl: $scope.input.participants[i].avatarUrl,
+	                            avatarUrl: findUserFromTaggedUserList($scope.input.participants, taggedFriends[i].name).avatarUrl,
 	                            name: taggedFriends[i].name,
 	                        });
 	                        friend.$save(function (data) {
@@ -302,5 +302,13 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 	        }
 	    }
 	    return false;
+	}
+
+    //private helper methods
+	function findUserFromTaggedUserList(users, name) {
+	    for (var i = users.length - 1; i >= 0; i--) {
+	        if(users[i].name === name)
+                return users[i]
+	    }
 	}
 }
