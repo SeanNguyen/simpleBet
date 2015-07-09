@@ -51,6 +51,11 @@ app.factory('BetUser', ['$resource', '$q', function ($resource, $q) {
     });
 }]);
 
+//WINNING ITEM
+app.value('WINNING_ITEM_TYPE', WINNING_ITEM_TYPE = {
+    MONETARY: 0,
+    NONMONETARY: 1
+});
 app.factory('WinningItem', ['$resource', '$q', function ($resource, $q) {
     return $resource('/api/winningItem/:id', { id: '@id' }, {
         update: {

@@ -31,14 +31,14 @@
 					</div>
 				</div>
 			</div>
-			<div ng-repeat="item in customItems track by $index" ng-click="selectDare(item)" ng-class="{selectedItem: item === selectedDare}">
+			<div ng-repeat="item in customItems track by $index" ng-class="{selectedItem: item === selectedDare}">
 				<div class="listItem">
-					<img ng-src="{{item.avata}}" class="center avata" ng-click="removeCustomDare($index)">
-					<div class="content">
+					<img src="./assets/x_button.png" class="center avata" ng-click="removeCustomDare($index)">
+					<div class="content" ng-click="selectDare(item)" >
 						<h3 class="title">{{item.title}}</h3>
 						<h4 class="description">{{item.description}}</h4>
 					</div>
-					<img src="assets/submit_button.png" class=" center actionImg">
+					<img src="assets/submit_button.png" class=" center actionImg" ng-click="selectDare(item)">
 				</div>
 			</div>
 		</div>

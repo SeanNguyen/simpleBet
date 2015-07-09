@@ -2,9 +2,9 @@
 
 var app = angular.module('app');
 
-app.controller('nonmonetaryController', ['$rootScope', '$scope', '$window', '$state', 'WinningItem', nonmonetaryControllerfunction]);
+app.controller('nonmonetaryController', ['$rootScope', '$scope', '$window', '$state', 'WinningItem', 'WINNING_ITEM_TYPE', nonmonetaryControllerfunction]);
 
-function nonmonetaryControllerfunction($rootScope, $scope, $window, $state, WinningItem) {
+function nonmonetaryControllerfunction($rootScope, $scope, $window, $state, WinningItem, WINNING_ITEM_TYPE) {
     var STATE = { select: 'select', create: 'create' };
 
     $scope.input = { newDare: { title: '', description: '', avata: 'assets/x_button.png' } };
@@ -38,14 +38,31 @@ function nonmonetaryControllerfunction($rootScope, $scope, $window, $state, Winn
 
 	$scope.addDare = function (dare) {
 		if(dare && dare.title.length > 0 && dare.title.length < 30 && dare.description.length > 0) {
-			$scope.customItems.push($scope.input.newDare);
-			$scope.input.newDare = {title: '', description: '', avata: 'assets/x_button.png'};
-			$scope.setState(STATE.select);
+		    //save the dare to server
+		    $rootScope.loaded = false;
+		    $scope.input.newDare.type = WINNING_ITEM_TYPE.NONMONETARY;
+		    $scope.input.newDare.creatorId = $rootScope.user.id;
+		    $scope.input.newDare = new WinningItem($scope.input.newDare);
+		    $scope.input.newDare.$save()
+            .then(function () {
+                $rootScope.loaded = true;
+                $scope.customItems.push($scope.input.newDare);
+                $scope.input.newDare = { title: '', description: '' };
+                $scope.setState(STATE.select);
+            })
+            .catch(function () {
+                $rootScope.loaded = true;
+                console.log('cannot save bet');
+                $scope.input.newDare = { title: '', description: '' };
+                $scope.setState(STATE.select);
+            });
 		}
 	}
 
 	$scope.removeCustomDare = function (index) {
-		if(index > -1 && index < $scope.customItems.length) {
+	    if (index > -1 && index < $scope.customItems.length) {
+	        var dare = $scope.customItems[index];
+	        dare.$delete();
 			$scope.customItems.splice(index, 1);
 		}
 	}
