@@ -159,7 +159,7 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
     
 	function setBetType(type) {
 	    if (type === BET_TYPE.ONE_MANY || type === BET_TYPE.MANY_MANY) {
-	        $scope.betModel.type = type;
+	        $scope.betModel.betType = type;
 
 	        if (type === BET_TYPE.ONE_MANY) {
 	            $scope.betModel.options = [{ content: 'Me' }, { content: 'The World' }];
