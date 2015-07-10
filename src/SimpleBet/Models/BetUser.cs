@@ -39,6 +39,7 @@ namespace SimpleBet.Models
         public bool VoteDraw { get; set; }
 
         public BET_STATE LastBetStateSeen { get; set; }
+        public bool HasSeenDisagree { get; set; }
         
         //Public Methods
         public override Model parse(dynamic data)

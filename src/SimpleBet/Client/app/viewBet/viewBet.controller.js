@@ -79,9 +79,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
                 $scope.input.option = betUser.option;
             }
             $scope.input.answer = getOptionByContent($scope.bet.winningOption);
-            if ($scope.bet.state === BET_STATE.CANCELLING) {
-                updateCancellingAlert();
-            }
+            openNotificationDialog($scope.bet, getParticipationByUserId($rootScope.user.id));
         });
         intervalUpdateBet();
     }
@@ -95,6 +93,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
                     $scope.input.option = betUser.option;
                 }
                 $scope.input.answer = getOptionByContent($scope.bet.winningOption);
+                openNotificationDialog($scope.bet, getParticipationByUserId($rootScope.user.id));
                 intervalUpdateBet();
             });
         }, 5000);
@@ -543,6 +542,57 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
         for (var i = $scope.input.options.length - 1; i >= 0; i--) {
             if (optionContent === $scope.input.options[i].content)
                 return $scope.input.options[i];
+        }
+    }
+
+    var isDialogOpen = false;
+    function openNotificationDialog(bet, localParticipation) {
+        if (!bet || !localParticipation) {
+            return;
+        }
+
+        if (isDialogOpen) {
+            return;
+        }
+
+        var message = '';
+        var currentState = bet.state;
+        //1st case is when bet state newer than the last seen state of user
+        if (localParticipation.lastBetStateSeen < currentState) {
+            isDialogOpen = true;
+            if (currentState === BET_STATE.PENDING) {
+                message = 'You have been invited to this bet, join by choose an option.'
+            } else if (currentState === BET_STATE.ANSWERABLE) {
+                message = 'The bet is ready to be finalized. You may select the outcome of the bet whenever you are ready.'
+            } else if (currentState === BET_STATE.VERIFYING) {
+                message = 'And the result is out!. Others may be disagree with the result within 12 hours.';
+            }
+            ngDialog.open({
+                template: 'app/components/dialogs/messageDialog.html',
+                appendTo: ".viewBet",
+                data: { message: message }
+            }).closePromise
+            .then(function () {
+                localParticipation.lastBetStateSeen = currentState;
+                BetUser.update(localParticipation);
+                isDialogOpen = false;
+            });
+        } 
+            //2nd case is that the bet come back to answerable from verifying
+        else if (currentState === BET_STATE.ANSWERABLE && wasBetDisagreed(bet) && !localParticipation.hasSeenDisagree) {
+            isDialogOpen = true;
+            message = 'The bet answer has been disagree, please choose the answer that you think is correct';
+            ngDialog.open({
+                template: 'app/components/dialogs/messageDialog.html',
+                appendTo: ".viewBet",
+                data: { message: message }
+            }).closePromise
+            .then(function () {
+                localParticipation.lastBetStateSeen = currentState;
+                localParticipation.hasSeenDisagree = true;
+                BetUser.update(localParticipation);
+                isDialogOpen = false;
+            });
         }
     }
 }

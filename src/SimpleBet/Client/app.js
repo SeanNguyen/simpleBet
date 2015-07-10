@@ -30,14 +30,14 @@ app.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider, c
 });
 
 app.run(function ($rootScope, $templateCache) {
-    //$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-    //    if (typeof (fromState) !== 'undefined') {
-    //        $templateCache.remove(fromState.templateUrl);
-    //    }
-    //    if (typeof (toState) !== 'undefined') {
-    //        $templateCache.remove(toState.templateUrl);
-    //    }
-    //});
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        if (typeof (fromState) !== 'undefined') {
+            $templateCache.remove(fromState.templateUrl);
+        }
+        if (typeof (toState) !== 'undefined') {
+            $templateCache.remove(toState.templateUrl);
+        }
+    });
     $rootScope.$on('$viewContentLoaded', function () {
         $templateCache.removeAll();
     });
