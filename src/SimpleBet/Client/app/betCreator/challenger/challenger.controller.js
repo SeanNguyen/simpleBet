@@ -18,39 +18,42 @@ function challengerController ($rootScope, $scope) {
 	$scope.onSearchChange = onSearchChange;
 	$scope.canSubmit = canSubmit;
 	$scope.increaseVisibleLimit = increaseVisibleLimit;
-	$scope.onSubmitSearch = onSearchChange;
 
 	active();
 
     //private helper methods
-	function onSubmitSearch(chip) {
-	    return chip;
-	}
-
-	function onSearchChange(chip) {
-	    return chip;
-	}
-
 	function setTab(index) {
 	    $scope.currentTab = index;
 	}
 
 	function onFriendSelect(friend) {
-	    if (!isFriendSelected(friend)) {
+	    if (!friend.selected) {
+	        resetSearchField();
+	        $scope.input.friendList += friend.name + ",";
 	        $scope.input.participants.push(friend);
 	    } else {
-	        for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
-	            if ($scope.input.participants[i] === friend)
-	                $scope.input.participants.splice(i, 1);
-	        }
+	        $scope.input.friendList = $scope.input.friendList.replace(friend.name + ",", '');
+	        var friendIndex = getChoosenFriendIndexById(friend.tagId);
+	        $scope.input.participants.splice(friendIndex, 1);
+	        resetSearchField();
 	    }
+	    friend.selected = !friend.selected;
+	    onSearchChange($scope.input.friendList);
 	}
 
-	function isFriendSelected(friend) {
+	function getChoosenFriendIndexById(tagId) {
 	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
-	        if ($scope.input.participants[i] === friend)
-	            return true;
-	    }
+	        if ($scope.input.participants[i].tagId === tagId) {
+	            return i;
+	        }
+	    };
+	}
+
+	function resetSearchField() {
+	    $scope.input.friendList = '';
+	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
+	        $scope.input.friendList += $scope.input.participants[i].name + ","
+	    };
 	}
 
 	function onSearchChange(query) {
