@@ -87,12 +87,18 @@ http://www.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centerin
   box-shadow: 0 0 10px #ff806f, 0 0 5px #ff806f;
 }
 
-.md-button.btn-normal {
+.md-button.md-raised:not([disabled]) {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+
     background-color: #aba8bf;
     color: #FCFCFC;
     font-size: 20px;
     font-weight: bold;
     text-transform: none;
+}
+
+.md-button.md-raised:not([disabled]).md-focused {
+    background-color: #9999ff;
 }
 
 .md-button {
@@ -101,4 +107,12 @@ http://www.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centerin
     font-size: 20px;
     font-weight: bold;
     text-transform: none;
+}
+
+.md-button:not([disabled]):hover {
+    background-color: #aba8bf;
+}
+
+.md-button:not([disabled]).md-focused {
+    background-color: #9999ff;
 }

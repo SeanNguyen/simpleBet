@@ -13,7 +13,7 @@ var TAB_STATES = ['question', 'option', 'wager', 'rule', 'challenger'];
 app.controller('betCreatorController', betCreatorController);
 
 function betCreatorController($rootScope, $scope, $state, $window, $location, Bet, User, BetUser,
-    facebook, BET_TYPE, WAGER_TYPE, BET_STATE, PARTICIPATION_STATE, focus) {
+    facebook, BET_TYPE, WAGER_TYPE, BET_STATE, PARTICIPATION_STATE, focus, ngDialog) {
     //navigations
     $scope.currentTab = 0;
     $rootScope.title = TAB_NAMES[$scope.currentTab];
@@ -69,6 +69,25 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
     //DETAIL
 
     function submitQuestionAndOptions() {
+        if (!isOptionsValid()) {
+            ngDialog.open({
+                template: 'app/betCreator/option/optionNotValidDialog.html',
+                appendTo: "#optionView",
+                data: {message: 'Your options is not valid'}
+            });
+            return;
+        }
+
+        if (!isQuestionValid()) {
+            ngDialog.open({
+                template: 'app/betCreator/option/optionNotValidDialog.html',
+                appendTo: "#optionView",
+                data: { message: 'Your question is not valid' }
+            });
+            return;
+        }
+
+
         if (!$scope.betModel.question || $scope.betModel.question.length === 0) {
             return;
         }
@@ -138,6 +157,16 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 	    if (lastOption && (!lastOption.content || lastOption.content.length <= 0
             || $scope.betModel.options.length >= 10 || isOptionDumplicate(lastOption))) {
 	        console.log("Warning: option input invalid");
+
+	        if (!isOptionsValid()) {
+	            ngDialog.open({
+	                template: 'app/betCreator/option/optionNotValidDialog.html',
+	                appendTo: "#optionView",
+	                data: { message: 'Your options is not valid' }
+	            });
+	            return;
+	        }
+
 			return;
 	    }
 	    var newOption = {content: ''};
@@ -182,13 +211,12 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 	}
 
 	function isOptionsValid() {
-	    if ($scope.betModel.options.length <= 0) {
+	    if (!$scope.betModel.options ||$scope.betModel.options.length < 2 || $scope.betModel.options.length > 10) {
 	        return false;
 	    }
 	    for (var i = $scope.betModel.options.length - 1; i >= 0; i--) {
 	        var option = $scope.betModel.options[i];
-	        if (!option.content || option.content.length <= 0 || $scope.betModel.options.length < 2
-                || $scope.betModel.options.length >= 10 || isOptionDumplicate(option)) {
+	        if (!option.content || option.content.length <= 0 || isOptionDumplicate(option)) {
 	            return false;
 	        }
 	    }
