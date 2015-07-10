@@ -1,11 +1,11 @@
 'use-strict';
 var app = angular.module('app');
 
-app.controller('challengerController', ['$rootScope', '$scope', challengerController]); 
+app.controller('challengerController', ['$rootScope', '$scope', 'ngDialog', challengerController]);
 
 var visibleRange_min = 20;
 
-function challengerController ($rootScope, $scope) {
+function challengerController($rootScope, $scope, ngDialog) {
 
     $scope.currentTab = 0;
     $scope.friends = [];
@@ -28,6 +28,13 @@ function challengerController ($rootScope, $scope) {
 
 	function onFriendSelect(friend) {
 	    if (!friend.selected) {
+	        if ($scope.input.participants.length >= 9) {
+	            ngDialog.open({
+	                template: 'app/components/dialogs/messageDialog.html',
+	                data: { message: 'You cannot choose more than 9 friends' }
+	            });
+	            return;
+	        }
 	        resetSearchField();
 	        $scope.input.friendList += friend.name + ",";
 	        $scope.input.participants.push(friend);
