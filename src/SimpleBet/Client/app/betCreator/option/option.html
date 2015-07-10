@@ -14,11 +14,14 @@
             <input type="text" ng-model="option.content" autofocus id="option{{$index}}"/>
             <img class="x_button" src="assets/x_button.png" ng-click="removeOption($index)" />
         </div>
-        <button id="addOption" ng-click="addOption()">
+        <button id="addOption" ng-click="addOption()" ng-show="betModel.options.length < 10">
             <img class="add_button center" src="assets/add_button.png" />
             <h4>NEW OPTION</h4>
         </button>
     </div>
+
+    <div id="beforePageEnd"></div>
+    <div id="pageEnd"></div>
 
     <div class="buttonContainer">
         <button id="nextButton" class="btn btn-default" ng-click="submitQuestionAndOptions()">

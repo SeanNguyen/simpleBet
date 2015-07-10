@@ -153,3 +153,7 @@
     background-color: #ff806f;
     color: #FCFCFC;
 }
+
+#optionView #beforePageEnd {
+    height: 60px;
+}

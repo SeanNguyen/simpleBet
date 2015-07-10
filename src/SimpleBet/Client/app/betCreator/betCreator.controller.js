@@ -13,7 +13,7 @@ var TAB_STATES = ['question', 'option', 'wager', 'rule', 'challenger'];
 app.controller('betCreatorController', betCreatorController);
 
 function betCreatorController($rootScope, $scope, $state, $window, $location, Bet, User, BetUser,
-    facebook, BET_TYPE, WAGER_TYPE, BET_STATE, PARTICIPATION_STATE, focus, ngDialog) {
+    facebook, BET_TYPE, WAGER_TYPE, BET_STATE, PARTICIPATION_STATE, focus, ngDialog, $anchorScroll) {
     //navigations
     $scope.currentTab = 0;
     $rootScope.title = TAB_NAMES[$scope.currentTab];
@@ -173,6 +173,10 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
 
 	    var focusId = 'option' + ($scope.betModel.options.length - 1);
 	    focus(focusId);
+
+	    //scroll to bottom
+	    $location.hash('pageEnd');
+	    $anchorScroll();
 	}
 
 	function removeOption(index) {
