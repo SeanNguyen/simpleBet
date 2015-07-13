@@ -480,8 +480,13 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     }
 
     function isBetDraw() {
-        if ($scope.bet.winningOption) {
-            return false;
+        if (!$scope.bet.winningOption || !$scope.bet.participations) {
+            return true;
+        }
+
+        for (var i = $scope.bet.participations.length - 1; i >= 0; i--) {
+            if ($scope.bet.participations[i].option === $scope.bet.winningOption)
+                return false;
         }
         return true;
     }
