@@ -580,6 +580,8 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
                 message = 'The bet is ready to be finalized. You may select the outcome of the bet whenever you are ready.'
             } else if (currentState === BET_STATE.VERIFYING) {
                 message = 'And the result is out!. Others may be disagree with the result within 12 hours.';
+            } else if (currentState === BET_STATE.FINALLIZED) {
+                message = 'And the result is out!';
             }
             ngDialog.open({
                 template: 'app/components/dialogs/messageDialog.html',
