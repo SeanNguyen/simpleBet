@@ -86,6 +86,14 @@ function betCreatorController($rootScope, $scope, $state, $window, $location, Be
             return;
         }
 
+        if (!$scope.input.option || $scope.input.option.content.length == 0) {
+            ngDialog.open({
+                template: 'app/betCreator/option/optionNotValidDialog.html',
+                appendTo: "#optionView",
+                data: { message: 'You must choose an option' }
+            });
+            return;
+        }
 
         if (!$scope.betModel.question || $scope.betModel.question.length === 0) {
             return;
