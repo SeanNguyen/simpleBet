@@ -1,7 +1,7 @@
 <div class="container-fluid" id="optionView">
     <div class="container-fluid question">
         <h4>I'd bet that...</h4>
-        <textarea rows="3" ng-model="betModel.question" maxlength="50" placeholder=". . ." class="needsclick"></textarea>
+        <textarea rows="3" ng-model="betModel.question" maxlength="100" placeholder=". . ." class="needsclick"></textarea>
     </div>
 
     <div ng-show="betModel.betType === 1">
@@ -11,7 +11,7 @@
         <div class="container-fluid option" ng-repeat="option in betModel.options track by $index" 
              layout="row" layout-align="space-around center" ng-class="{selected: input.option === option}"> 
             <img class="radio_button" src="assets/radio_button.png" ng-click="selectOption(option)"/>
-            <input type="text" ng-model="option.content" autofocus id="option{{$index}}"/>
+            <input type="text" ng-model="option.content" autofocus id="option{{$index}}" maxlength="30"/>
             <img class="x_button" src="assets/x_button.png" ng-click="removeOption($index)" />
         </div>
         <button id="addOption" ng-click="addOption()" ng-show="betModel.options.length < 10">
