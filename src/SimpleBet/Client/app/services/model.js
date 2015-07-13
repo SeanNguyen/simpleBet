@@ -53,6 +53,13 @@ app.factory('BetUser', ['$resource', '$q', function ($resource, $q) {
 
 //WINNING ITEM
 app.value('WINNING_ITEM_TYPE', WINNING_ITEM_TYPE = {
+    VOUCHER: 0,
+    BEAUTY: 1,
+    FNB: 2,
+    WINE: 3,
+    BEER: 4
+});
+app.value('WINNING_ITEM_CATEGORY', WINNING_ITEM_CATEGORY = {
     MONETARY: 0,
     NONMONETARY: 1
 });

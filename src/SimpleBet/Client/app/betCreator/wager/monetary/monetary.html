@@ -1,0 +1,62 @@
+﻿<div class="createBet-monetary" layout="column" layout-align="start">
+    <div class="secondaryNavbar" layout="row" layout-align="start center">
+        <button class="btn btn-default tab" ng-class="{selected: currentTab === 'popular'}" ng-click="setTab('popular')">Popular</button>
+        <button class="btn btn-default tab" ng-class="{selected: currentTab === 'categories'}" ng-click="setTab('categories')">Categories</button>
+        <button class="btn btn-default tab" ng-class="{selected: currentTab === 'recent'}" ng-click="setTab('recent')">Recent</button>
+        <span flex></span>
+        <button class="btn btn-default">
+            <i class="fa fa-search fa-inverse fa-lg"></i>
+        </button>
+    </div>
+
+    <!-- TAB Popular -->
+    <div ng-show="currentTab === 'popular'" class="tabContent" flex>
+        <div class="item" ng-repeat="item in popularItems" ng-click="selectDare(item)"
+             ng-class="{selectedItem: item === selectedDare}" layout="row" layout-align="space-around center">
+            <img ng-src="{{item.imageUrl}}" class="itemPhoto">
+            <div class="content" flex>
+                <label class="title">{{item.title}}</label>
+                <h6 class="description">{{item.description}}</h6>
+            </div>
+            <div class="price">
+                {{item.price}}
+            </div>
+            <img src="assets/submit_button.png" class="chooseIcon">
+        </div>
+    </div>
+
+    <!-- TAB Categories -->
+    <div class="tabContent" flex ng-show="currentTab === 'categories'">
+        <div ng-show="isSelectingCategory">
+            <div ng-repeat="cat in categories" layout="row" layout-align="space-around center" class="item"
+                 ng-click="onCategoryClicked(cat)">
+                <label ng-bind="cat.name" flex></label>
+                <img src="assets/submit_button.png" class="chooseIcon">
+            </div>
+        </div>
+
+        <div ng-show="currentTab === !isSelectingCategory">
+            <div class="item" ng-repeat="item in currentCategoryItems" ng-click="selectDare(item)"
+                 ng-class="{selectedItem: item === selectedDare}" layout="row" layout-align="space-around center">
+                <img ng-src="{{item.imageUrl}}" class="itemPhoto">
+                <div class="content" flex>
+                    <h3 class="title">{{item.title}}</h3>
+                    <h4 class="description">{{item.description}}</h4>
+                </div>
+                <div class="price">
+                    {{item.price}}
+                </div>
+                <img src="assets/submit_button.png" class="chooseIcon">
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    <!-- TAB Recent -->
+    <div ng-show="currentTab === 'recent'">
+
+    </div>
+
+</div>

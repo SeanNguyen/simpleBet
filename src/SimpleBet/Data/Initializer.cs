@@ -21,7 +21,7 @@ namespace SimpleBet.Data
                 Type = WINNING_ITEM_TYPE.NONMONETARY,
                 Title = "Punch",
                 Description = "I will punch you",
-                imageUrl = "assets/icon_dare.png",
+                ImageUrl = "assets/icon_dare.png",
                 CreatorId = 1
             });
             context.WinningItems.Add(new WinningItem()
@@ -29,7 +29,7 @@ namespace SimpleBet.Data
                 Type = WINNING_ITEM_TYPE.MONETARY,
                 Title = "Wine",
                 Description = "I will buy you this",
-                imageUrl = "assets/icon_giftBox.png",
+                ImageUrl = "assets/icon_giftBox.png",
                 CreatorId = 2
             });
             context.WinningItems.Add(new WinningItem()
@@ -37,7 +37,7 @@ namespace SimpleBet.Data
                 Type = WINNING_ITEM_TYPE.NONMONETARY,
                 Title = "Catch‘em All",
                 Description = "Put on your business suit and seal the nearest 3 kids you see into a ball. (They must wear a tie.)",
-                imageUrl = "assets/icon_dare.png",
+                ImageUrl = "assets/icon_dare.png",
                 CreatorId = 1
             });
             context.WinningItems.Add(new WinningItem()
@@ -45,7 +45,7 @@ namespace SimpleBet.Data
                 Type = WINNING_ITEM_TYPE.NONMONETARY,
                 Title = "A Noble King",
                 Description = "Donate all of your valubles in your wallet to a nearby beggar.",
-                imageUrl = "assets/icon_dare.png",
+                ImageUrl = "assets/icon_dare.png",
                 CreatorId = 1
             });
             context.WinningItems.Add(new WinningItem()
@@ -53,7 +53,7 @@ namespace SimpleBet.Data
                 Type = WINNING_ITEM_TYPE.NONMONETARY,
                 Title = "Static Shock",
                 Description = "Get eletricfied in a thunderstorm. Zap Zap pikachu I choose you.",
-                imageUrl = "assets/icon_dare.png",
+                ImageUrl = "assets/icon_dare.png",
                 CreatorId = 1
             });
             context.SaveChanges();
