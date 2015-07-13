@@ -140,21 +140,21 @@
 
         <!-- Choose Answer Buttons -->
         <div class="answerButton" layout="row" layout-align="space-around center" 
-             ng-show="bet.state === BET_STATE.ANSWERABLE && isLoggedIn() && !wasBetDisagreed()">
+             ng-show="bet.state === BET_STATE.ANSWERABLE && isLoggedIn() && !wasBetDisagreed() && isLocalUserActive()">
             <md-button class="md-raised" ng-click="onDrawOptionClick()">Make it a Draw</md-button>
             <md-button class="md-raised" ng-disabled="!input.answer" ng-click="submitAnswer()">Select Answer</md-button>
         </div>
 
         <!-- Vote Answer Button -->
         <div class="answerButton" layout="row" layout-align="space-around center"
-             ng-show="bet.state === BET_STATE.ANSWERABLE && isLoggedIn() && wasBetDisagreed() && !haveLocalUserVotedFinalAnswer()">
+             ng-show="bet.state === BET_STATE.ANSWERABLE && isLoggedIn() && wasBetDisagreed() && !haveLocalUserVotedFinalAnswer() && isLocalUserActive()">
             <md-button class="md-raised" ng-click="onVoteButtonClicked()">Vote Draw</md-button>
             <md-button class="md-raised" ng-disabled="!input.voteOption" ng-click="onVoteButtonClicked(input.voteOption)">Vote Answer</md-button>
         </div>
 
         <!-- Disagree/Agree Buttons -->
         <div class="agreeButtons" layout="row" layout-align="space-around center"
-             ng-show="bet.state === BET_STATE.VERIFYING && !isLocalUserAgreed()">
+             ng-show="bet.state === BET_STATE.VERIFYING && isLocalUserActive() && !isLocalUserAgreed()">
             <md-button class="md-raised" ng-click="onDisagreeButtonClick()">Disagree</md-button>
             <md-button class="md-raised" ng-click="onAgreeButtonClick()">Agree</md-button>
         </div>

@@ -57,6 +57,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.isLocalUserWin = isLocalUserWin;
     $scope.isBetDraw = isBetDraw;
     $scope.isLocalUserAgreed = isLocalUserAgreed;
+    $scope.isLocalUserActive = isLocalUserActive;
     $scope.wasBetDisagreed = wasBetDisagreed;
 
     $scope.onVoteOptionClicked = onVoteOptionClicked;
@@ -480,6 +481,14 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
 
     function isBetDraw() {
         if ($scope.bet.winningOption) {
+            return false;
+        }
+        return true;
+    }
+
+    function isLocalUserActive() {
+        var participation = getParticipationByUserId($rootScope.user.id);
+        if (!participation || participation.state === PARTICIPATION_STATE.DECLINED) {
             return false;
         }
         return true;
