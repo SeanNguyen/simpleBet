@@ -1,19 +1,14 @@
 /** Divider **/
 #profile #line{
 	width: 100%;
-
-	padding-top: 40px;
-
-    border: 2px solid;
     margin: 0;
 	
 	position:fixed;
+    top: 50px; bottom: auto;
+    left: 0; right: 0;
 
 	background-color: white;
-	border-top-color: #FFF;
-	border-left-color: #FFF;
-	border-right-color: #FFF;
-	border-bottom-color: #9999ff;
+	border-bottom: solid 2px #9999ff;
 	z-index: 1;
 }
 
@@ -38,10 +33,9 @@
 
 /** Name Content **/
 #profile #nameContent{	
-	margin-left: 10px;
-	margin-right: 10px;
 	margin-top: 60px;
-	background-color: white;
+    width: 80%;
+    max-width: 500px;
 }
 
 #profile #userText{
@@ -49,7 +43,6 @@
 	color: #666673;
 	margin: 0px;
 	padding-bottom: 5px;
-	padding-right: 320px;
 }
 
 #profile #nameContent #tbName{
@@ -70,11 +63,9 @@
 
 /** Email Content **/ 
 #profile #emailContent{
-	margin-left: 10px;
-	margin-right: 10px;
-	margin-bottom: 250px;
-	max-width: 100%;
-	
+	margin-bottom: 100px;
+    max-width: 500px;
+	width: 80%;
 	
 }
 #profile #emailText{
@@ -83,7 +74,6 @@
 	margin: 0px;
 	margin-top: 20px;
 	padding-bottom: 5px;
-	padding-right: 320px;
 }
 
 #profile #emailContent #tbEmail{
@@ -106,14 +96,13 @@
 #profile #userImage{
 	margin-top: 120px;
 	background-color: white;
-
 }
 
 #profile #circleImage{
 	margin-top: 20px;
 	width: 130px;
 	height: 120px;
-	
+    border: solid #9999ff 1px;
 }
 
 /** Next Button **/

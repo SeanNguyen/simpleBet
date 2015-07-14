@@ -1,5 +1,5 @@
 <div class="container-fluid" id="profile">
-	<div class="container-fluid" ng-show="true">
+	<div ng-show="true" layout="column" layout-align="space-around center">
 			
 		<div class="container-fluid" id="line">
 			<h5 id="confirmTitle"><br>Confirm your Details</h5>
@@ -7,34 +7,22 @@
 
 		<div  class= "container-fluid" id="userImage">
 			<center>
-			<img class="img-circle" src="assets/meerkat.jpg" alt="user" id="circleImage">
+			<img class="img-circle" ng-src="{{user.avatarUrl}}" alt="user" id="circleImage">
 			</center>
 		</div>
 		
-		<div class= "container-fluid col-xs-12" id="nameContent">
-			<div class = "col-xs-1 col-sm-4"></div>	
-			<div class = "col-xs-10 col-sm-4">	
-				<h5 id="userText">Name</h5> 	
-				<input type=text id="tbName" placeholder="Aberdon M. Fanner" ng-model="person.name">
-			</div>
-			<div class = "col-xs-1 col-sm-4"></div>	
+		<div id="nameContent">
+			<h5 id="userText">Name</h5> 	
+			<input type=text id="tbName" placeholder="Name" ng-model="person.name">
 		</div>
 	
-		<div class= "container-fluid col-xs-12"   id="emailContent">
-		<div class = "col-xs-1 col-sm-4"></div>	
-			<div class = "col-xs-10 col-sm-4">	
-			<h5 id="emailText"> Email</h5>
-			<input type=text id="tbEmail" placeholder="amf@gmail.com" ng-model="person.email">
-			</div>
-			<div class = "col-xs-1 col-sm-4"></div>	
-		<br>
+		<div id="emailContent">
+		    <h5 id="emailText"> Email</h5>
+		    <input type=text id="tbEmail" placeholder="ken@example.com" ng-model="person.email">
 		</div>
 
-		<footer>
-		<div >
-			<a class="btn btn-default btn-block btn-sm" role="button" id="nextButton">Next </a>
-		</div>
-		</footer>
+		<a class="btn btn-default btn-block btn-sm" role="button" id="nextButton">Next </a>
+		
 	</div>
 
 
