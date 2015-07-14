@@ -1,5 +1,5 @@
 <div class="container-fluid" id="profile">
-	<div ng-show="true" layout="column" layout-align="space-around center">
+	<div ng-show="currentTab === 0" layout="column" layout-align="space-around center">
 			
 		<div class="container-fluid" id="line" layout="row" layout-align="center center">
 			Confirm your Details
@@ -21,13 +21,13 @@
 		    <input type=text id="tbEmail" placeholder="ken@example.com" ng-model="person.email">
 		</div>
 
-		<a class="btn btn-default btn-block btn-sm" role="button" id="nextButton">Next </a>
+		<a class="btn btn-default btn-block btn-sm" role="button" id="nextButton" ng-click="nextTab()">Next </a>
 		
 	</div>
 
 
 	<!--*********************** credentialPage *******************-->
-	<div class= "container-fluid" ng-show="false" id="credentialPage">
+	<div class= "container-fluid" ng-show="currentTab === 1" id="credentialPage">
 		
 		<div class="container-fluid" id="line">
 			<h5 id="credentialsTitle"><br>Credentials</h5>
@@ -39,7 +39,7 @@
 			<div class = "col-xs-1 col-sm-4"></div>	
 			<div class = "col-xs-10 col-sm-4">	
 				<h5 id="cardNumText">Card Number</h5> 
-				<div class "inner-addon right-addon" id="cardInputSection">								
+				<div class="inner-addon right-addon" id="cardInputSection">								
 					<input class="form-control" type=text id="tbCardNumInput" ng-model="person.cardNum">
 					<i class="glyphicon glyphicon-camera" id="glyphCamera"></i>
 				</div>
@@ -112,7 +112,7 @@
 
 
 		<div class="container-fluid" id="nextBut">
-			<a class="btn btn-default btn-block btn-sm" role="button" id="nextGreyButton">Next </a>
+			<a class="btn btn-default btn-block btn-sm" role="button" id="nextGreyButton" ng-click="nextTab()">Next </a>
 		</div>
 		
 
@@ -120,7 +120,7 @@
 	</div> <!--End of Credential-->
 
 	<!--********************* addressPage *******************-->
-	<div class= "container-fluid" ng-show="false" id="addressPage">
+	<div class= "container-fluid" ng-show="currentTab === 2" id="addressPage">
 		
 		<div class="container-fluid" id="line">
 			<h5 id="addressTitle"><br>Address</h5>
