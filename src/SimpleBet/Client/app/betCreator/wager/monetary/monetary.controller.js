@@ -26,6 +26,7 @@
 
         //fucntions
         $scope.setTab = setTab;
+        $scope.selectDare = selectDare;
 
         //events
         $scope.onCategoryClicked = onCategoryClicked;
@@ -33,11 +34,18 @@
         //
         function setTab(tab) {
             $scope.currentTab = tab;
+            $scope.isSelectingCategory = true;
         }
 
         function onCategoryClicked(category) {
             $scope.currentCategoryItems = WinningItem.query({ type: WINNING_ITEM_TYPE.MONETARY, category: category.typeId });
             $scope.isSelectingCategory = false;
+        }
+
+        function selectDare(dare) {
+            $scope.selectedDare = dare;
+            $scope.betModel.winningItemId = dare.id;
+            $scope.$parent.$parent.setTab(3);
         }
     };
 })();

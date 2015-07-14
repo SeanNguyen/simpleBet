@@ -19,7 +19,7 @@
                 <h6 class="description">{{item.description}}</h6>
             </div>
             <div class="price">
-                {{item.price}}
+                {{item.price}}$
             </div>
             <img src="assets/submit_button.png" class="chooseIcon">
         </div>
@@ -30,33 +30,30 @@
         <div ng-show="isSelectingCategory">
             <div ng-repeat="cat in categories" layout="row" layout-align="space-around center" class="item"
                  ng-click="onCategoryClicked(cat)">
+                <div ng-class="{lineHeaderCyan: $index % 3 === 0, lineHeaderRed: $index % 3 === 1, lineHeaderBlue: $index % 3 === 2}"></div>
                 <label ng-bind="cat.name" flex></label>
                 <img src="assets/submit_button.png" class="chooseIcon">
             </div>
         </div>
 
-        <div ng-show="currentTab === !isSelectingCategory">
+        <div ng-show="!isSelectingCategory">
             <div class="item" ng-repeat="item in currentCategoryItems" ng-click="selectDare(item)"
                  ng-class="{selectedItem: item === selectedDare}" layout="row" layout-align="space-around center">
                 <img ng-src="{{item.imageUrl}}" class="itemPhoto">
                 <div class="content" flex>
-                    <h3 class="title">{{item.title}}</h3>
-                    <h4 class="description">{{item.description}}</h4>
+                    <label class="title">{{item.title}}</label>
+                    <h6 class="description">{{item.description}}</h6>
                 </div>
                 <div class="price">
-                    {{item.price}}
+                    {{item.price}}$
                 </div>
                 <img src="assets/submit_button.png" class="chooseIcon">
             </div>
         </div>
     </div>
-    
-
-    
 
     <!-- TAB Recent -->
     <div ng-show="currentTab === 'recent'">
 
     </div>
-
 </div>

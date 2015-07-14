@@ -27,10 +27,12 @@ namespace SimpleBet.Data
             context.WinningItems.Add(new WinningItem()
             {
                 Type = WINNING_ITEM_TYPE.MONETARY,
+                Category = WINNING_ITEM_CATEGORY.WINE,
                 Title = "Wine",
                 Description = "I will buy you this",
                 ImageUrl = "assets/icon_giftBox.png",
-                CreatorId = 1
+                CreatorId = 1,
+                Price = 50.2
             });
             context.WinningItems.Add(new WinningItem()
             {

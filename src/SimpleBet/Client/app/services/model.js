@@ -54,16 +54,16 @@ app.factory('BetUser', ['$resource', '$q', function ($resource, $q) {
 //WINNING ITEM
 app.value('WINNING_ITEM_TYPE', WINNING_ITEM_TYPE = {
     NONE: 0,
+    MONETARY: 1,
+    NONMONETARY: 2
+});
+app.value('WINNING_ITEM_CATEGORY', WINNING_ITEM_CATEGORY = {
+    NONE: 0,
     VOUCHER: 1,
     BEAUTY: 2,
     FNB: 3,
     WINE: 4,
     BEER: 5
-});
-app.value('WINNING_ITEM_CATEGORY', WINNING_ITEM_CATEGORY = {
-    NONE: 0,
-    MONETARY: 1,
-    NONMONETARY: 2
 });
 app.factory('WinningItem', ['$resource', '$q', function ($resource, $q) {
     return $resource('/api/winningItem/:id', { id: '@id' }, {
