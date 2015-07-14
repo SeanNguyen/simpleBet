@@ -107,11 +107,11 @@
                 <div layout="column" flex="20">
                     <img ng-src="{{bet.winningItem.imageUrl}}" />
                 </div>
-                <div class="wagerInfo" flex="60">
+                <div class="wagerInfo" flex>
                     <label ng-bind="bet.winningItem.title">?</label>
                     <p ng-bind="bet.winningItem.description">?</p>
                 </div>
-                <h1 flex="30" class="wagerCost" ng-bind="bet.winningItem.cost" ng-show="bet.winningItem.type === 0">?</h1>
+                <h4 class="wagerCost" ng-show="bet.winningItem.type === 1">${{bet.winningItem.price}}</h4>
             </div>
         </div>
 

@@ -44,6 +44,12 @@
     margin: 10px;
 }
 
+.viewBet .betWager .wagerItem .wagerCost {
+    margin: 10px;
+    color: #ff806f;
+    font-weight: bold;
+}
+
 .viewBet .betParticipants {
     margin-bottom: 50px;
 }
