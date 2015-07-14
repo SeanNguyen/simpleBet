@@ -23,7 +23,7 @@ namespace SimpleBet.Models
 
         //bets
         public ICollection<BetUser> Participations { get; set; } //removed virtural property here to disable lazy loading
-        public virtual ICollection<WinningItem> WinningItems { get; set; }
+        public ICollection<WinningItem> WinningItems { get; set; }
         
         /*************************************************************/
         //public methods

@@ -22,9 +22,21 @@ namespace SimpleBet.Services
             return dbContext.WinningItems.ToList();
         }
 
-        public IList<WinningItem> GetWinningItemsByCreator(int creatorId)
+        public IList<WinningItem> GetNonmonetaryItemsByCreator(int creatorId)
         {
-            List<WinningItem> winningItems = this.dbContext.WinningItems.Where(w => w.CreatorId == creatorId).ToList();
+            List<WinningItem> winningItems = this.dbContext.WinningItems.Where(w => w.CreatorId == creatorId && w.Type == WINNING_ITEM_TYPE.NONMONETARY).ToList();
+            return winningItems;
+        }
+
+        public IList<WinningItem> GetWinningItemsByType(WINNING_ITEM_TYPE type)
+        {
+            List<WinningItem> winningItems = this.dbContext.WinningItems.Where(w => w.Type == type).ToList();
+            return winningItems;
+        }
+
+        public IList<WinningItem> GetMonetaryItemsByCategory(WINNING_ITEM_CATEGORY category)
+        {
+            List<WinningItem> winningItems = this.dbContext.WinningItems.Where(w => w.Type == WINNING_ITEM_TYPE.MONETARY && w.Category == category).ToList();
             return winningItems;
         }
 

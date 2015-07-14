@@ -10,7 +10,9 @@ namespace SimpleBet.Services
     {
         //winning Item
         IList<WinningItem> GetWinningItems();
-        IList<WinningItem> GetWinningItemsByCreator(int creatorId);
+        IList<WinningItem> GetNonmonetaryItemsByCreator(int creatorId);
+        IList<WinningItem> GetWinningItemsByType(WINNING_ITEM_TYPE type);
+        IList<WinningItem> GetMonetaryItemsByCategory(WINNING_ITEM_CATEGORY category);
         WinningItem GetWinningItem(int id);
         WinningItem AddWinningItem(WinningItem item);
         WinningItem UpdateWinningItem(WinningItem item);

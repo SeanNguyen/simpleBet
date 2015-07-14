@@ -30,7 +30,7 @@ namespace SimpleBet.Data
                 Title = "Wine",
                 Description = "I will buy you this",
                 ImageUrl = "assets/icon_giftBox.png",
-                CreatorId = 2
+                CreatorId = 1
             });
             context.WinningItems.Add(new WinningItem()
             {

@@ -24,12 +24,24 @@ namespace SimpleBet.Controllers
 
         // GET: api/values
         [HttpGet]
-        public IActionResult Query([FromUri] int creatorId)
+        public IActionResult Query([FromUri] int creatorId, [FromUri] WINNING_ITEM_TYPE type, [FromUri] WINNING_ITEM_CATEGORY category)
         {
             IList<WinningItem> winningItems;
-            if (creatorId > 0)
+            
+            if(type == WINNING_ITEM_TYPE.MONETARY)
             {
-                winningItems = dataService.GetWinningItemsByCreator(creatorId);
+                if (category != WINNING_ITEM_CATEGORY.NONE)
+                {
+                    winningItems = this.dataService.GetMonetaryItemsByCategory(category);
+                }
+                else
+                {
+                    winningItems = this.dataService.GetWinningItemsByType(WINNING_ITEM_TYPE.MONETARY);
+                }
+            }
+            else if(type == WINNING_ITEM_TYPE.NONMONETARY && creatorId > 0)
+            {
+                winningItems = dataService.GetNonmonetaryItemsByCreator(creatorId);
             }
             else
             {

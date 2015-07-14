@@ -9,12 +9,14 @@ namespace SimpleBet.Models
 {
     public enum WINNING_ITEM_TYPE
     {
+        NONE,
         MONETARY,
         NONMONETARY
     }
 
     public enum WINNING_ITEM_CATEGORY
     {
+        NONE,
         VOUCHER,
         BEAUTY,
         FNB,
@@ -39,7 +41,7 @@ namespace SimpleBet.Models
         public double Price { get; set; }
         
         public int CreatorId { get; set; }
-        public virtual User Creator { get; set; }
+        public User Creator { get; set; }
 
         public ICollection<Bet> Bets { get; set; }
         
