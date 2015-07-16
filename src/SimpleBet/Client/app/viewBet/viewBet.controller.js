@@ -574,14 +574,18 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
         //1st case is when bet state newer than the last seen state of user
         if (localParticipation.lastBetStateSeen < currentState) {
             isDialogOpen = true;
-            if (currentState === BET_STATE.PENDING) {
+            if (currentState === BET_STATE.PENDING && localParticipation.state === PARTICIPATION_STATE.PENDING) {
                 message = 'You have been invited to this bet, join by choose an option.'
-            } else if (currentState === BET_STATE.ANSWERABLE) {
+            } else if (currentState === BET_STATE.ANSWERABLE && localParticipation.state === PARTICIPATION_STATE.CONFIRMED) {
                 message = 'The bet is ready to be finalized. You may select the outcome of the bet whenever you are ready.'
             } else if (currentState === BET_STATE.VERIFYING) {
                 message = 'And the result is out!. Others may be disagree with the result within 12 hours.';
             } else if (currentState === BET_STATE.FINALLIZED) {
                 message = 'And the result is out!';
+            }
+
+            if (!message) {
+                return;
             }
             ngDialog.open({
                 template: 'app/components/dialogs/messageDialog.html',
@@ -595,7 +599,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             });
         } 
             //2nd case is that the bet come back to answerable from verifying
-        else if (currentState === BET_STATE.ANSWERABLE && wasBetDisagreed(bet) && !localParticipation.hasSeenDisagree) {
+        else if (currentState === BET_STATE.ANSWERABLE && wasBetDisagreed(bet) && !localParticipation.hasSeenDisagree && !localParticipation.disagree) {
             isDialogOpen = true;
             message = 'The bet answer has been disagree, please choose the answer that you think is correct';
             ngDialog.open({
