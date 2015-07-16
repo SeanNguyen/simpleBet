@@ -37,6 +37,12 @@ function challengerController($rootScope, $scope, ngDialog, $anchorScroll, $loca
 	        }
 	        resetSearchField();
 	        $scope.input.participants.push(friend);
+
+	        var focusId = 'friendQueryInput';
+	        focus(focusId);
+	        //scroll to bottom
+	        $location.hash('choosenFriendEnd');
+	        $anchorScroll();
 	    } else {
 	        var friendIndex = getChoosenFriendIndexById(friend.tagId);
 	        $scope.input.participants.splice(friendIndex, 1);
@@ -44,13 +50,6 @@ function challengerController($rootScope, $scope, ngDialog, $anchorScroll, $loca
 	    }
 	    friend.selected = !friend.selected;
 	    onSearchChange($scope.input.friendList);
-
-
-	    var focusId = 'friendQueryInput';
-	    focus(focusId);
-	    //scroll to bottom
-	    $location.hash('choosenFriendEnd');
-	    $anchorScroll();
 	}
 
 	function getChoosenFriendIndexById(tagId) {
