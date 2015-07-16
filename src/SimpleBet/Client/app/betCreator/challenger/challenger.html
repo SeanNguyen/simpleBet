@@ -1,18 +1,39 @@
-<div class="container-fluid" id="challenger" ng-controller="challengerController">
-	<div class="shadow secondaryNavbar">
+<div class="container-fluid" id="challenger" ng-controller="challengerController" layout="column" layout-align="start center">
+	<!--<div class="shadow secondaryNavbar">
         <div layout="row" layout-align="center center">
             <h5 id="to">To:</h5>
             <input type="text" ng-model="input.friendList" ng-change="onSearchChange(input.friendList)" flex="1">
             <img src="assets/icon_search.png">
         </div>
-	</div>
-	<div class="customNavbar shadow">
+	</div>-->
+	<!--<div class="customNavbar shadow">
 		<div class="row">
 			<div class="col-xs-3" ng-class="{selected: currentTab === 0}" ng-click="setTab(0)"><h4>All</h4></div>
 			<div class="col-xs-3" ng-class="{selected: currentTab === 1}" ng-click="setTab(1)"><h4>Group</h4></div>
 		</div>
-	</div>
-    <div class="listContainer">
+	</div>-->
+
+    <div class="searchBox" layout="row" layout-wrap>
+        <div ng-repeat="friend in input.participants" class="friendName" layout="row" layout-align="start  center">
+            <label>{{friend.name}}</label> <button class="removeButton" ng-click="onFriendSelect(friend)"><i class="fa fa-times"></i></button>
+        </div>
+        <input flex type="text" placeholder="+friend" ng-model="input.friendList" ng-change="onSearchChange(input.friendList)" ngModelOptions="{debounce: 100}"/>
+    </div>
+
+    <div class="friendListContainer" flex>
+        <div class="listItem" ng-repeat="item in visibleFriends | limitTo:visibleRange track by $index" ng-click="onFriendSelect(item)">
+            <img ng-src="{{item.avatarUrl}}" class="avatar">
+            <h3 class="title">{{item.name}}</h3>
+            <img src="assets/icon_tab_done.png" class=" center actionImg" ng-show="item.selected">
+        </div>
+        <button class="btn btn-default" ng-click="increaseVisibleLimit()" id="seeMoreButton" ng-show="visibleFriends.length > visibleRange">See More</button>
+    </div>
+
+    <div class="buttonContainer">
+        <button class="btn btn-default" id="inviteButton" ng-click="$parent.submitBet()" ng-disabled="!canSubmit()">Send Invitation</button>
+    </div>
+
+    <!--<div class="listContainer">
         <div ng-show="currentTab === 0">
             <div class="listItem" ng-repeat="item in visibleFriends | limitTo:visibleRange track by $index" ng-click="onFriendSelect(item)">
                 <img ng-src="{{item.avatarUrl}}" class="avatar">
@@ -21,8 +42,5 @@
             </div>
             <button class="btn btn-default" ng-click="increaseVisibleLimit()" id="seeMoreButton" ng-show="visibleFriends.length > visibleRange">See More</button>
         </div>
-    </div>
-    <div class="buttonContainer">
-        <button class="btn btn-default" id="inviteButton" ng-click="$parent.submitBet()" ng-disabled="!canSubmit()">Send Invitation</button>
-    </div>
+    </div>-->
 </div>

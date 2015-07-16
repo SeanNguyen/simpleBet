@@ -1,6 +1,7 @@
 #challenger {
 	background-color: #FCFCFC;
-	margin-top: 100px;
+    height: 100%;
+    padding-bottom: 50px;
 }
 
 #challenger .customNavbar {
@@ -121,11 +122,68 @@
 }
 
 #challenger .listContainer {
+    width: 100%;
+    max-height: calc(100% - 50px);
+    min-height: calc(100% - 50px);
     padding-bottom: 50px;
+    overflow: scroll;
 }
 
 #challenger #seeMoreButton {
     height: 50px;
     width: 100%;
     color: #9999ff;
+}
+
+#challenger .searchBox {
+    width: 100%;
+    min-height: 50px;
+    background-color: #9999ff;
+    color: #FCFCFC;
+    padding: 10px;
+}
+
+#challenger .searchBox input {
+    border: none;
+    outline: none;
+    height: 30px;
+    margin: 3px;
+    padding: 5px;
+    background-color: #9999ff;
+    color: #FCFCFC;
+    min-width: 100px;
+}
+
+#challenger .searchBox .removeButton {
+    background: none;
+    outline: none;
+    border: none;
+    color: #ff806f;
+}
+
+#challenger .searchBox input::placeholder {
+    color: #ebebff;
+}
+
+#challenger .searchBox .friendName {
+    height: 30px;
+    margin: 3px;
+    padding: 5px;
+    background-color: #ebebff;
+    border-radius: 10px;
+    color: #9999ff;
+    overflow: hidden;
+}
+
+#challenger .searchBox .friendName label {
+    margin: 0;
+    max-width: 100px;
+    text-wrap: none;
+    overflow: hidden;
+}
+
+#challenger .friendListContainer {
+    max-height: 100%;
+    width: 100%;
+    overflow-y: scroll;
 }

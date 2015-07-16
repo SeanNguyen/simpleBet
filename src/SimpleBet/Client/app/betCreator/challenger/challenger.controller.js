@@ -36,10 +36,8 @@ function challengerController($rootScope, $scope, ngDialog) {
 	            return;
 	        }
 	        resetSearchField();
-	        $scope.input.friendList += friend.name + ",";
 	        $scope.input.participants.push(friend);
 	    } else {
-	        $scope.input.friendList = $scope.input.friendList.replace(friend.name + ",", '');
 	        var friendIndex = getChoosenFriendIndexById(friend.tagId);
 	        $scope.input.participants.splice(friendIndex, 1);
 	        resetSearchField();
@@ -58,18 +56,9 @@ function challengerController($rootScope, $scope, ngDialog) {
 
 	function resetSearchField() {
 	    $scope.input.friendList = '';
-	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
-	        $scope.input.friendList += $scope.input.participants[i].name + ","
-	    };
 	}
 
 	function onSearchChange(query) {
-	    //remove all choosen friend's names
-	    for (var i = $scope.input.participants.length - 1; i >= 0; i--) {
-	        var name = $scope.input.participants[i].name;
-	        query = query.replace(name + ',', '')
-	    }
-
         //then search the real query
 	    $scope.visibleFriends = [];
 	    query = query.toLowerCase();
