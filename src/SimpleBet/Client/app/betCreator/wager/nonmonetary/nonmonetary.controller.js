@@ -14,8 +14,8 @@ function nonmonetaryControllerfunction($rootScope, $scope, $window, $state, Winn
     $scope.selectedDare;
     $scope.thirdNavbar = { title: 'Your New Dare', image: 'assets/revertSubmit_button.png' }
 
-    $scope.ourItems = WinningItem.query({ creatorId: 1 });
-    $scope.customItems = WinningItem.query({ creatorId: $rootScope.user.id });
+    $scope.ourItems = WinningItem.query({ creatorId: 1, type: WINNING_ITEM_TYPE.NONMONETARY });
+    $scope.customItems = WinningItem.query({ creatorId: $rootScope.user.id, type: WINNING_ITEM_TYPE.NONMONETARY });
 
     $scope.isTabselected = function (index) {
         if (index === $scope.currentTab) {
