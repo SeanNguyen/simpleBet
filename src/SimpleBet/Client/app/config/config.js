@@ -9,7 +9,7 @@
         var facebook = {};
         if ($location.host() === 'localhost' && $location.port() === 14248) {
             facebook.appId = '1480828435544588';
-        } if ($location.host() === '192.168.0.113' && $location.port() === 9000) {
+        } else if ($location.host() === '192.168.0.113' && $location.port() === 9000) {
             facebook.appId = '1486054991688599';
         } else if ($location.host() === 'fluttr.azurewebsites.net') {
             facebook.appId = '1466436923650406';
