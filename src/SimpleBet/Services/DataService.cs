@@ -152,6 +152,11 @@ namespace SimpleBet.Services
                     dbContext.Entry(betUser).State = EntityState.Added;
                 }
             }
+            else if(existingBet.State == BET_STATE.PENDING && bet.State == BET_STATE.ANSWERABLE)
+            {
+                existingBet.State = BET_STATE.ANSWERABLE;
+                existingBet.AnswerStartTime = DateTime.UtcNow;
+            }
             else if(existingBet.State == BET_STATE.ANSWERABLE && bet.State == BET_STATE.VERIFYING
                 && getDisagreeParticipation(existingBet.Participations) == null)
             {

@@ -134,6 +134,10 @@
             <md-button class="md-raised btn-normal" ng-click="decline()">Decline Bet</md-button>
         </div>
 
+        <div class="startBetButton" ng-show="!isUserPending(user.id) && bet.state === BET_STATE.PENDING">
+            <md-button class="md-raised btn-normal" ng-click="startBet()">Start the Bet</md-button>
+        </div>
+
         <h5 ng-show="!isUserPending(user.id) && bet.state === BET_STATE.PENDING" class="waitingFooterMessage">
             Kindly wait for all invited participants to respond or the timer to expire before the bet can start.
         </h5>

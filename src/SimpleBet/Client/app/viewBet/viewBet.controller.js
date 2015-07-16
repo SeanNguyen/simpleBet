@@ -35,6 +35,7 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
     $scope.confirmSelectOption = confirmSelectOption;
     $scope.getParticipantByOption = getParticipantByOption;
     $scope.cancelBet = cancelBet;
+    $scope.startBet = startBet;
     $scope.getControlButtonState = getControlButtonState;
 
     $scope.onAgreeCancelBet = onAgreeCancelBet;
@@ -209,6 +210,11 @@ function viewBetController($rootScope, $scope, $stateParams, Bet, User, BetUser,
             }
             $scope.bet.$update();
         }
+    }
+
+    function startBet() {
+        $scope.bet.state = BET_STATE.ANSWERABLE;
+        $scope.bet.$update();
     }
 
     function onFinallizeSelect() {
