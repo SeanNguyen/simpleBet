@@ -141,6 +141,9 @@
     background-color: #9999ff;
     color: #FCFCFC;
     padding: 10px;
+
+    max-height: 100px;
+    overflow-y: scroll;
 }
 
 #challenger .searchBox input {

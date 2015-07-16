@@ -17,7 +17,8 @@
         <div ng-repeat="friend in input.participants" class="friendName" layout="row" layout-align="start  center">
             <label>{{friend.name}}</label> <button class="removeButton" ng-click="onFriendSelect(friend)"><i class="fa fa-times"></i></button>
         </div>
-        <input flex type="text" placeholder="+friend" ng-model="input.friendList" ng-change="onSearchChange(input.friendList)" ngModelOptions="{debounce: 100}"/>
+        <input flex type="text" placeholder="+friend" ng-model="input.friendList" ng-change="onSearchChange(input.friendList)" ngModelOptions="{debounce: 100}" id="friendQueryInput"/>
+        <div id="choosenFriendEnd"></div>
     </div>
 
     <div class="friendListContainer" flex>
